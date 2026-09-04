@@ -33,8 +33,8 @@ const App = () => {
       try {
         const response = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
         const data = await response.json();
-        if (data && data.price) {
-          setBcvRate(data.price);
+        if (data && data.promedio) {
+          setBcvRate(data.promedio);
         }
       } catch (error) {
         console.log("Usando tasa BCV estándar de respaldo.");
@@ -43,7 +43,7 @@ const App = () => {
       }
     };
     fetchBCVRate();
-  }, []);
+  }, []); 
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
