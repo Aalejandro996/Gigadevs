@@ -31,7 +31,7 @@ const App = () => {
   useEffect(() => {
     const fetchBCVRate = async () => {
       try {
-        const response = await fetch('https://pydolarvenezuela-api.vercel.app/api/v1/dollar?monitor=bcv');
+        const response = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
         const data = await response.json();
         if (data && data.price) {
           setBcvRate(data.price);
@@ -130,7 +130,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
 
   const getWhatsAppLink = () => {
     if (!invoiceData) return '#';
-    const phone = '584120000000'; 
+    const phone = '584242588321'; 
     const text = encodeURIComponent(
       `Hola GIGA DEVS! 👋 Acabo de generar mi planilla de pago Nro *${invoiceData.invoiceNum}*.\n\n` +
       `*Cliente:* ${invoiceData.clientName}\n` +
@@ -147,7 +147,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
       
       {/* --- BOTÓN FLOTANTE WHATSAPP --- */}
       <a 
-        href="https://wa.me/584120000000?text=Hola,%20estoy%20interesado%20en%20los%20servicios%20y%20sistemas%20de%20GIGA%20DEVS" 
+        href="https://wa.me/584242588321?text=Hola,%20estoy%20interesado%20en%20los%20servicios%20y%20sistemas%20de%20GIGA%20DEVS" 
         target="_blank" 
         rel="noopener noreferrer" 
         className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl z-50 hover:bg-green-600 hover:scale-110 transition-all duration-300 flex items-center justify-center animate-bounce group"
@@ -279,7 +279,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <div className="bg-blue-950 p-3 rounded-xl border border-blue-800/60 flex items-center justify-between">
                     <div className="flex items-center space-x-3 text-blue-200">
                       <Cpu className="text-yellow-400" size={18} />
-                      <span>Tasa BCV Diaria: Bs. {bcvRate}</span>
+                      <span>Tasa BCV: Bs. {bcvRate}</span>
                     </div>
                     <span className="text-yellow-400 font-bold bg-yellow-950/50 px-2 py-0.5 rounded">SYNCED</span>
                   </div>
