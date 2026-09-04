@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, Code, CreditCard, Bitcoin, Send, ChevronRight, Activity, Users, Zap, MessageCircle, Cpu, FileText, DollarSign, Download, ExternalLink } from 'lucide-react';
+import { Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, Code, CreditCard, Bitcoin, Send, ChevronRight, Activity, Users, Zap, MessageCircle, Cpu, FileText, DollarSign, Download, ExternalLink, Lock } from 'lucide-react';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -175,8 +175,9 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
           </nav>
 
           <div className="hidden lg:flex items-center space-x-4">
-            <div className="text-xs text-yellow-400 bg-blue-900/80 px-3 py-1.5 rounded-xl border border-blue-800 font-mono">
-              Tasa BCV: Bs. {loadingRate ? '...' : bcvRate} 📊
+            <div className="text-xs text-yellow-400 bg-blue-900/80 px-3 py-1.5 rounded-xl border border-blue-800 font-mono flex items-center space-x-1">
+              <Lock size={12} className="text-green-400" />
+              <span>Tasa BCV: Bs. {loadingRate ? '...' : bcvRate} 📊</span>
             </div>
             <button onClick={() => scrollToSection('contacto')} className="bg-yellow-500 text-blue-950 px-5 py-2.5 rounded-xl hover:bg-yellow-400 transition-all transform hover:scale-105 shadow-md font-bold text-sm">
               Solicitar Cotización
@@ -214,13 +215,13 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
             <div className="lg:col-span-7 text-center lg:text-left">
               <div className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-900/80 rounded-full border border-blue-700/50 text-yellow-400 font-semibold mb-6 backdrop-blur-sm text-sm">
                 <Zap size={16} className="text-yellow-400 animate-bounce" />
-                <span>Ecosistema Tecnológico para Pymes y Emprendedores</span>
+                <span>Infraestructura Segura con Base de Datos Cifrada</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
                 Sistematiza, Protege y Escala con <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200">GIGA DEVS</span>
               </h1>
               <p className="text-lg md:text-xl text-blue-100 mb-10 max-w-2xl leading-relaxed mx-auto lg:mx-0 font-normal">
-                Diseñamos software de alto rendimiento: ERPs fiscales, ciberseguridad avanzada para redes, páginas web, sistemas de facturación y apps móviles con planes mensuales, anuales o licencias vitalicias.
+                Diseñamos software de alto rendimiento: ERPs fiscales protegidos contra inyecciones SQL y XSS, auditoría de redes, páginas web y apps móviles con licencias seguras.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <button onClick={() => scrollToSection('planes')} className="px-8 py-4 bg-yellow-500 text-blue-950 font-extrabold rounded-2xl shadow-xl hover:bg-yellow-400 hover:shadow-yellow-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center">
@@ -237,8 +238,8 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <div className="text-xs md:text-sm text-blue-300">Empresas Activas</div>
                 </div>
                 <div>
-                  <div className="text-2xl md:text-3xl font-black text-white">99.9%</div>
-                  <div className="text-xs md:text-sm text-blue-300">Uptime Garantizado</div>
+                  <div className="text-2xl md:text-3xl font-black text-white">100%</div>
+                  <div className="text-xs md:text-sm text-blue-300">Seguridad SSL/TLS</div>
                 </div>
                 <div>
                   <div className="text-2xl md:text-3xl font-black text-yellow-400">24/7</div>
@@ -255,24 +256,24 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   </div>
-                  <span className="text-xs text-blue-300 font-mono">GIGA_OS_v3.5.0 // BCV Live Synced</span>
+                  <span className="text-xs text-blue-300 font-mono">RENDER_PROD // SECURE_DB</span>
                 </div>
                 
                 <div className="space-y-4 font-mono text-xs">
                   <div className="bg-blue-950 p-3 rounded-xl border border-blue-800/60 flex items-center justify-between">
                     <div className="flex items-center space-x-3 text-blue-200">
-                      <Database className="text-yellow-400" size={18} />
-                      <span>ERP_Contable: Sincronización Fiscal</span>
+                      <Lock className="text-green-400" size={18} />
+                      <span>PostgreSQL: SSL Mode Enforced</span>
                     </div>
-                    <span className="text-green-400 font-bold bg-green-950/50 px-2 py-0.5 rounded">ONLINE</span>
+                    <span className="text-green-400 font-bold bg-green-950/50 px-2 py-0.5 rounded">PROTECTED</span>
                   </div>
 
                   <div className="bg-blue-950 p-3 rounded-xl border border-blue-800/60 flex items-center justify-between">
                     <div className="flex items-center space-x-3 text-blue-200">
                       <ShieldCheck className="text-blue-400" size={18} />
-                      <span>NetGuard: 0 Intrusos Detectados</span>
+                      <span>Rate Limiting: 100 req/15min</span>
                     </div>
-                    <span className="text-blue-400 font-bold bg-blue-900/50 px-2 py-0.5 rounded">SEGURO</span>
+                    <span className="text-blue-400 font-bold bg-blue-900/50 px-2 py-0.5 rounded">ACTIVE</span>
                   </div>
 
                   <div className="bg-blue-950 p-3 rounded-xl border border-blue-800/60 flex items-center justify-between">
@@ -280,7 +281,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                       <Cpu className="text-yellow-400" size={18} />
                       <span>Tasa BCV Diaria: Bs. {bcvRate}</span>
                     </div>
-                    <span className="text-yellow-400 font-bold bg-yellow-950/50 px-2 py-0.5 rounded">OFICIAL</span>
+                    <span className="text-yellow-400 font-bold bg-yellow-950/50 px-2 py-0.5 rounded">SYNCED</span>
                   </div>
                 </div>
               </div>
@@ -295,7 +296,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-blue-600 font-bold text-sm tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Sistemas Propietarios</span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-blue-950 mt-4 mb-6">Nuestras Soluciones Principales</h2>
-            <p className="text-gray-600 text-lg">Tecnología de punta diseñada con arquitectura modular para garantizar control absoluto y escalabilidad empresarial.</p>
+            <p className="text-gray-600 text-lg">Tecnología de punta diseñada con arquitectura modular segura para garantizar control absoluto y escalabilidad empresarial.</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -306,12 +307,12 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <Database size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-blue-950 mb-3">Sistema ERP_Contable</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">Centraliza y automatiza la administración de tu empresa. Optimizado para normativas fiscales locales y flujos rápidos.</p>
+                <p className="text-gray-600 mb-6 leading-relaxed">Centraliza y automatiza la administración de tu empresa con cifrado de datos sensibles en base de datos.</p>
                 
                 <ul className="space-y-3 mb-8 text-sm text-gray-700">
-                  <li className="flex items-center"><CheckCircle size={18} className="text-yellow-500 mr-2.5 flex-shrink-0" /> Facturación Electrónica Automática</li>
-                  <li className="flex items-center"><CheckCircle size={18} className="text-yellow-500 mr-2.5 flex-shrink-0" /> Control Multialmacén y Stock en vivo</li>
-                  <li className="flex items-center"><CheckCircle size={18} className="text-yellow-500 mr-2.5 flex-shrink-0" /> Nómina y Recursos Humanos Integrados</li>
+                  <li className="flex items-center"><CheckCircle size={18} className="text-yellow-500 mr-2.5 flex-shrink-0" /> Facturación Electrónica Fiscal</li>
+                  <li className="flex items-center"><CheckCircle size={18} className="text-yellow-500 mr-2.5 flex-shrink-0" /> Control Multialmacén y Stock</li>
+                  <li className="flex items-center"><CheckCircle size={18} className="text-yellow-500 mr-2.5 flex-shrink-0" /> Seguridad de datos con Bcrypt y JWT</li>
                 </ul>
               </div>
               <button onClick={() => scrollToSection('detalles')} className="w-full py-3 bg-blue-50 text-blue-900 font-bold rounded-xl hover:bg-blue-100 transition text-sm">
@@ -326,12 +327,12 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <ShieldCheck size={32} />
                 </div>
                 <h3 className="text-2xl font-bold mb-3">NetGuard (Auditor de Red)</h3>
-                <p className="text-blue-200 mb-6 leading-relaxed">Blindaje y monitoreo perimetral. Detecta intrusiones anómalas en tiempo real y gestiona el ancho de banda empresarial.</p>
+                <p className="text-blue-200 mb-6 leading-relaxed">Blindaje y monitoreo perimetral. Detección de intrusos y control estricto de accesos a la red.</p>
                 
                 <ul className="space-y-3 mb-8 text-sm text-blue-100">
                   <li className="flex items-center"><CheckCircle size={18} className="text-yellow-400 mr-2.5 flex-shrink-0" /> Detección de Intrusos (IDS / IPS)</li>
                   <li className="flex items-center"><CheckCircle size={18} className="text-yellow-400 mr-2.5 flex-shrink-0" /> Control de Ancho de Banda y Tráfico</li>
-                  <li className="flex items-center"><CheckCircle size={18} className="text-yellow-400 mr-2.5 flex-shrink-0" /> Escaneo de Vulnerabilidades</li>
+                  <li className="flex items-center"><CheckCircle size={18} className="text-yellow-400 mr-2.5 flex-shrink-0" /> Autenticación Multi-Factor (MFA)</li>
                 </ul>
               </div>
               <button onClick={() => scrollToSection('detalles')} className="w-full py-3 bg-blue-900 text-yellow-400 font-bold rounded-xl hover:bg-blue-800 transition text-sm border border-blue-800">
@@ -346,12 +347,12 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <Server size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-blue-950 mb-3">Agente Endpoint PC & Servidores</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">Visibilidad total del hardware y software de tu parque informático para prevenir caídas imprevistas de producción.</p>
+                <p className="text-gray-600 mb-6 leading-relaxed">Visibilidad total del hardware y software con transmisión cifrada de telemetría hacia el servidor central.</p>
                 
                 <ul className="space-y-3 mb-8 text-sm text-gray-700">
                   <li className="flex items-center"><CheckCircle size={18} className="text-indigo-600 mr-2.5 flex-shrink-0" /> Monitoreo de Hardware (CPU, RAM, Disco)</li>
-                  <li className="flex items-center"><CheckCircle size={18} className="text-indigo-600 mr-2.5 flex-shrink-0" /> Inventario automatizado de software</li>
-                  <li className="flex items-center"><CheckCircle size={18} className="text-indigo-600 mr-2.5 flex-shrink-0" /> Parches y ejecución remota segura</li>
+                  <li className="flex items-center"><CheckCircle size={18} className="text-indigo-600 mr-2.5 flex-shrink-0" /> Inventario automatizado seguro</li>
+                  <li className="flex items-center"><CheckCircle size={18} className="text-indigo-600 mr-2.5 flex-shrink-0" /> Ejecución remota validada por tokens</li>
                 </ul>
               </div>
               <button onClick={() => scrollToSection('detalles')} className="w-full py-3 bg-blue-50 text-blue-900 font-bold rounded-xl hover:bg-blue-100 transition text-sm">
@@ -366,9 +367,9 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
       <section id="detalles" className="py-24 bg-gray-900 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-yellow-400 font-mono text-sm tracking-widest uppercase">Arquitectura & Rendimiento</span>
+            <span className="text-yellow-400 font-mono text-sm tracking-widest uppercase">Arquitectura & Seguridad</span>
             <h2 className="text-3xl md:text-5xl font-extrabold mt-2 mb-4">Especificaciones Detalladas</h2>
-            <p className="text-gray-400">Selecciona un sistema para conocer sus módulos internos y requerimientos técnicos.</p>
+            <p className="text-gray-400">Selecciona un sistema para conocer sus módulos internos y medidas de seguridad implementadas.</p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -399,17 +400,17 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <div className="p-4 bg-yellow-500/10 text-yellow-400 rounded-2xl"><Database size={36} /></div>
                   <div>
                     <h3 className="text-2xl font-bold">Módulos Internos - GIGA ERP_Contable</h3>
-                    <p className="text-gray-400 text-sm">Plataforma web con motor relacional optimizado para alta concurrencia.</p>
+                    <p className="text-gray-400 text-sm">Base de datos PostgreSQL optimizada con políticas RLS (Row Level Security).</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                   <div className="bg-gray-900 p-5 rounded-2xl border border-gray-800">
-                    <h4 className="font-bold text-yellow-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Contabilidad y Finanzas</h4>
-                    <p className="text-gray-400">Libro diario, libro mayor, balance general, estados de resultados automáticos y conciliación bancaria.</p>
+                    <h4 className="font-bold text-yellow-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Seguridad de Datos</h4>
+                    <p className="text-gray-400">Protección contra inyección SQL mediante consultas parametrizadas y hashing de contraseñas con bcrypt.</p>
                   </div>
                   <div className="bg-gray-900 p-5 rounded-2xl border border-gray-800">
                     <h4 className="font-bold text-yellow-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Ventas y Facturación</h4>
-                    <p className="text-gray-400">Emisión de facturas fiscales, notas de crédito/débito, control de clientes, cotizaciones y puntos de venta.</p>
+                    <p className="text-gray-400">Emisión de facturas con trazabilidad cifrada y respaldos automáticos diarios en la nube.</p>
                   </div>
                 </div>
               </div>
@@ -421,17 +422,17 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <div className="p-4 bg-blue-500/10 text-blue-400 rounded-2xl"><ShieldCheck size={36} /></div>
                   <div>
                     <h3 className="text-2xl font-bold">NetGuard - Auditor de Red</h3>
-                    <p className="text-gray-400 text-sm">Sistema perimetral para detección de amenazas y control corporativo.</p>
+                    <p className="text-gray-400 text-sm">Monitoreo perimetral con cabeceras HTTP seguras y CORS estricto.</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                   <div className="bg-gray-900 p-5 rounded-2xl border border-gray-800">
                     <h4 className="font-bold text-blue-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Packet Inspection (DPI)</h4>
-                    <p className="text-gray-400">Inspección profunda de paquetes de red para identificar comportamientos maliciosos o tráfico no autorizado.</p>
+                    <p className="text-gray-400">Inspección de tráfico cifrado TLS 1.3 para prevenir ataques de intermediarios (MitM).</p>
                   </div>
                   <div className="bg-gray-900 p-5 rounded-2xl border border-gray-800">
-                    <h4 className="font-bold text-blue-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Firewall de Nueva Generación</h4>
-                    <p className="text-gray-400">Bloqueo automático de IP sospechosas, filtrado DNS por categorías y túneles VPN seguros para sucursales.</p>
+                    <h4 className="font-bold text-blue-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Control de Accesos</h4>
+                    <p className="text-gray-400">Bloqueo automático de IP tras múltiples intentos fallidos de autenticación (Rate limiting).</p>
                   </div>
                 </div>
               </div>
@@ -443,17 +444,17 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <div className="p-4 bg-indigo-500/10 text-indigo-400 rounded-2xl"><Server size={36} /></div>
                   <div>
                     <h3 className="text-2xl font-bold">Agente Endpoint PC & Servidores</h3>
-                    <p className="text-gray-400 text-sm">Daemon ligero con consumo mínimo de recursos (menor al 2% CPU).</p>
+                    <p className="text-gray-400 text-sm">Comunicación segura mediante WebSockets con certificados SSL firmados.</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                   <div className="bg-gray-900 p-5 rounded-2xl border border-gray-800">
-                    <h4 className="font-bold text-indigo-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Telemetría de Hardware</h4>
-                    <p className="text-gray-400">Monitoreo térmico, desgaste de discos NVMe/SSD (S.M.A.R.T.), uso de memoria RAM y núcleos de CPU en tiempo real.</p>
+                    <h4 className="font-bold text-indigo-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Telemetría Protegida</h4>
+                    <p className="text-gray-400">Envío cifrado de métricas de hardware sin exponer datos corporativos confidenciales.</p>
                   </div>
                   <div className="bg-gray-900 p-5 rounded-2xl border border-gray-800">
-                    <h4 className="font-bold text-indigo-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Control de Software</h4>
-                    <p className="text-gray-400">Registro exacto de programas instalados, detección de software no autorizado y bloqueo de ejecutables por hash.</p>
+                    <h4 className="font-bold text-indigo-400 mb-2 flex items-center"><CheckCircle size={16} className="mr-2" /> Integridad de Software</h4>
+                    <p className="text-gray-400">Verificación de hashes SHA-256 para evitar la ejecución de binarios alterados.</p>
                   </div>
                 </div>
               </div>
@@ -468,7 +469,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
            <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-blue-600 font-bold text-sm tracking-wider uppercase bg-blue-100/50 px-3 py-1 rounded-full">Agencia Digital GIGA</span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-blue-950 mt-4 mb-6">Presencia Web & Apps a Medida</h2>
-            <p className="text-gray-600 text-lg">Construimos la cara digital de tu negocio con tecnología moderna y alto rendimiento de conversión.</p>
+            <p className="text-gray-600 text-lg">Construimos la cara digital de tu negocio con altos estándares de seguridad OWASP Top 10.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -478,10 +479,10 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <Globe size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-blue-950 mb-3">Páginas Web & E-commerce</h3>
-                <p className="text-gray-600 mb-6 text-sm leading-relaxed">Sitios ultrarrápidos, 100% responsivos y optimizados para aparecer en los primeros resultados de Google (SEO técnico).</p>
+                <p className="text-gray-600 mb-6 text-sm leading-relaxed">Sitios ultrarrápidos con protección anti-XSS, sanitización de inputs y certificados SSL incluidos.</p>
                 <ul className="space-y-2.5 text-sm text-gray-700 mb-8">
-                  <li className="flex items-center"><CheckCircle size={16} className="text-blue-600 mr-2" /> Paneles autogestionables</li>
-                  <li className="flex items-center"><CheckCircle size={16} className="text-blue-600 mr-2" /> Pasarelas de pago integradas</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-blue-600 mr-2" /> Paneles autogestionables seguros</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-blue-600 mr-2" /> Pasarelas cifradas</li>
                 </ul>
               </div>
               <button onClick={() => handleOpenModal('Página Web / E-commerce (Pago Único)', 299, 'único')} className="w-full py-3 bg-blue-900 text-white font-bold rounded-xl hover:bg-blue-800 transition text-sm">
@@ -495,10 +496,10 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <Smartphone size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-blue-950 mb-3">Apps Móviles (iOS & Android)</h3>
-                <p className="text-gray-600 mb-6 text-sm leading-relaxed">Lleva tu marca al bolsillo de tus clientes con aplicaciones de alto rendimiento listas para App Store y Google Play.</p>
+                <p className="text-gray-600 mb-6 text-sm leading-relaxed">Aplicaciones móviles con almacenamiento seguro de tokens y comunicación HTTPS estricta.</p>
                 <ul className="space-y-2.5 text-sm text-gray-700 mb-8">
-                  <li className="flex items-center"><CheckCircle size={16} className="text-yellow-600 mr-2" /> Notificaciones Push</li>
-                  <li className="flex items-center"><CheckCircle size={16} className="text-yellow-600 mr-2" /> Geolocalización y GPS</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-yellow-600 mr-2" /> Autenticación Biométrica</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-yellow-600 mr-2" /> Cifrado en dispositivo</li>
                 </ul>
               </div>
               <button onClick={() => handleOpenModal('App Móvil iOS & Android (Pago Único)', 799, 'único')} className="w-full py-3 bg-yellow-500 text-blue-950 font-bold rounded-xl hover:bg-yellow-400 transition text-sm shadow">
@@ -512,10 +513,10 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <Code size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-blue-950 mb-3">Sistemas de Contabilidad / Facturación</h3>
-                <p className="text-gray-600 mb-6 text-sm leading-relaxed">Software a medida con facturación fiscal adaptada a tus necesidades operativas exactas.</p>
+                <p className="text-gray-600 mb-6 text-sm leading-relaxed">Software contable protegido con control de roles y permisos granulares por usuario.</p>
                 <ul className="space-y-2.5 text-sm text-gray-700 mb-8">
-                  <li className="flex items-center"><CheckCircle size={16} className="text-indigo-600 mr-2" /> Reportes fiscales automatizados</li>
-                  <li className="flex items-center"><CheckCircle size={16} className="text-indigo-600 mr-2" /> Múltiples cajas y usuarios</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-indigo-600 mr-2" /> Auditoría de accesos y logs</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-indigo-600 mr-2" /> Roles y permisos (RBAC)</li>
                 </ul>
               </div>
               <button onClick={() => handleOpenModal('Sistema a Medida Contabilidad/Facturación', 599, 'único')} className="w-full py-3 bg-blue-900 text-white font-bold rounded-xl hover:bg-blue-800 transition text-sm">
@@ -532,7 +533,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-yellow-600 font-bold text-sm tracking-wider uppercase bg-yellow-50 px-3 py-1 rounded-full">Portafolio</span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-blue-950 mt-4 mb-4">Otros Proyectos Exitosos</h2>
-            <p className="text-gray-600">Algunas de las soluciones especializadas que hemos entregado recientemente a nuestros clientes.</p>
+            <p className="text-gray-600">Algunas de las soluciones especializadas implementadas con alta seguridad en producción.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -540,28 +541,28 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
               <div className="p-3 bg-blue-800 rounded-2xl w-fit mb-4 text-yellow-400"><Activity size={24} /></div>
               <div>
                 <h4 className="font-bold text-lg mb-2">Sistema de Citas Médicas</h4>
-                <p className="text-blue-200 text-xs leading-relaxed">Plataforma SaaS para clínicas con historial de pacientes y recordatorios por WhatsApp.</p>
+                <p className="text-blue-200 text-xs leading-relaxed">SaaS clínico con cumplimiento de normativas de privacidad de datos de pacientes.</p>
               </div>
             </div>
             <div className="bg-gradient-to-br from-blue-900 to-blue-950 p-6 rounded-3xl text-white shadow-lg flex flex-col justify-between">
               <div className="p-3 bg-blue-800 rounded-2xl w-fit mb-4 text-yellow-400"><Globe size={24} /></div>
               <div>
                 <h4 className="font-bold text-lg mb-2">E-commerce de Autopartes</h4>
-                <p className="text-blue-200 text-xs leading-relaxed">Tienda online con buscador avanzado por número de parte (OEM) y pagos multimoneda.</p>
+                <p className="text-blue-200 text-xs leading-relaxed">Tienda online con pasarelas auditadas PCI-DSS y multimoneda segura.</p>
               </div>
             </div>
             <div className="bg-gradient-to-br from-blue-900 to-blue-950 p-6 rounded-3xl text-white shadow-lg flex flex-col justify-between">
               <div className="p-3 bg-blue-800 rounded-2xl w-fit mb-4 text-yellow-400"><Smartphone size={24} /></div>
               <div>
                 <h4 className="font-bold text-lg mb-2">App de Delivery Local</h4>
-                <p className="text-blue-200 text-xs leading-relaxed">Aplicación móvil para restaurantes con seguimiento GPS y pasarela Binance Pay.</p>
+                <p className="text-blue-200 text-xs leading-relaxed">App con geolocalización segura y pasarela Binance Pay integrada sin vulnerabilidades.</p>
               </div>
             </div>
             <div className="bg-gradient-to-br from-blue-900 to-blue-950 p-6 rounded-3xl text-white shadow-lg flex flex-col justify-between">
               <div className="p-3 bg-blue-800 rounded-2xl w-fit mb-4 text-yellow-400"><Server size={24} /></div>
               <div>
                 <h4 className="font-bold text-lg mb-2">Dashboard IoT Industrial</h4>
-                <p className="text-blue-200 text-xs leading-relaxed">Monitoreo de sensores de temperatura y energía en plantas de manufactura 24/7.</p>
+                <p className="text-blue-200 text-xs leading-relaxed">Monitoreo de sensores con túneles VPN cifrados punto a punto.</p>
               </div>
             </div>
           </div>
@@ -574,7 +575,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-yellow-400 font-bold text-sm tracking-widest uppercase bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Catálogo de Planes y Licencias</span>
             <h2 className="text-3xl md:text-5xl font-extrabold mt-4 mb-4">Soluciones Flexibles para tu Negocio</h2>
-            <p className="text-blue-200 text-lg">Elige entre suscripciones mensuales, anuales o licencias vitalicias (pago único) con soporte anual incluido.</p>
+            <p className="text-blue-200 text-lg">Elige entre suscripciones mensuales, anuales o licencias vitalicias con soporte anual de seguridad incluido.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -588,9 +589,9 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <span className="text-lg text-gray-500 ml-2 font-medium">/ mes</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-sm text-gray-700">
-                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> ERP Contable completo</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> ERP Contable seguro</li>
                   <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> NetGuard Auditor de Red</li>
-                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Actualizaciones automáticas</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Parches de seguridad automáticos</li>
                 </ul>
               </div>
               <div className="space-y-2">
@@ -607,14 +608,14 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
               <div>
                 <div className="inline-block p-3 bg-indigo-100 text-indigo-900 rounded-2xl mb-4 font-bold text-xs uppercase tracking-wider">Desarrollo Web</div>
                 <h3 className="text-2xl font-bold text-blue-950 mb-2">Web & E-commerce</h3>
-                <p className="text-gray-500 mb-6 text-sm">Diseño profesional optimizado para vender más.</p>
+                <p className="text-gray-500 mb-6 text-sm">Diseño profesional protegido contra ataques web.</p>
                 <div className="flex items-baseline mb-6">
                   <span className="text-4xl font-black text-blue-950">$299</span>
                   <span className="text-lg text-gray-500 ml-2 font-medium">/ único</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-sm text-gray-700">
-                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Diseño Responsivo y SEO</li>
-                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Pasarela de pagos integrada</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Seguridad OWASP y SSL</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Pasarela cifrada integrada</li>
                   <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> <strong>Licencia vitalicia + 1 año soporte</strong></li>
                 </ul>
               </div>
@@ -624,18 +625,18 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
             </div>
 
             <div className="bg-gradient-to-b from-yellow-400 to-amber-500 text-blue-950 p-8 rounded-3xl shadow-2xl flex flex-col justify-between relative transform lg:-translate-y-2">
-              <div className="absolute -top-3 right-6 bg-blue-950 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full shadow">MÁS POPULAR</div>
+              <div className="absolute -top-3 right-6 bg-blue-950 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full shadow">MÁS SEGURO</div>
               <div>
                 <div className="inline-block p-3 bg-blue-950/10 text-blue-950 rounded-2xl mb-4 font-bold text-xs uppercase tracking-wider">Sistemas Dedicados</div>
                 <h3 className="text-2xl font-black text-blue-950 mb-2">Contabilidad & Facturación</h3>
-                <p className="text-blue-950/80 mb-6 text-sm font-medium">Software personalizado para la administración exacta de tu empresa.</p>
+                <p className="text-blue-950/80 mb-6 text-sm font-medium">Software con base de datos blindada para tu empresa.</p>
                 <div className="flex items-baseline mb-6">
                   <span className="text-4xl font-black text-blue-950">$599</span>
                   <span className="text-lg text-blue-950/80 ml-2 font-medium">/ proyecto</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-sm font-semibold text-blue-950">
-                  <li className="flex items-center"><CheckCircle size={16} className="text-blue-950 mr-2 flex-shrink-0" /> Módulos contables personalizados</li>
-                  <li className="flex items-center"><CheckCircle size={16} className="text-blue-950 mr-2 flex-shrink-0" /> Facturación fiscal adaptada</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-blue-950 mr-2 flex-shrink-0" /> Base de datos PostgreSQL cifrada</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-blue-950 mr-2 flex-shrink-0" /> Facturación fiscal protegida</li>
                   <li className="flex items-center"><CheckCircle size={16} className="text-blue-950 mr-2 flex-shrink-0" /> <strong>Licencia vitalicia + soporte anual</strong></li>
                 </ul>
               </div>
@@ -648,13 +649,13 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
               <div>
                 <div className="inline-block p-3 bg-green-100 text-green-900 rounded-2xl mb-4 font-bold text-xs uppercase tracking-wider">Apps Móviles</div>
                 <h3 className="text-2xl font-bold text-blue-950 mb-2">Apps iOS & Android</h3>
-                <p className="text-gray-500 mb-6 text-sm">Lleva tu negocio al bolsillo de tus clientes con alto rendimiento.</p>
+                <p className="text-gray-500 mb-6 text-sm">Aplicaciones móviles con cifrado de almacenamiento local.</p>
                 <div className="flex items-baseline mb-6">
                   <span className="text-4xl font-black text-blue-950">$799</span>
                   <span className="text-lg text-gray-500 ml-2 font-medium">/ proyecto</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-sm text-gray-700">
-                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Desarrollo en Flutter (Híbrido)</li>
+                  <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Seguridad en conexiones API</li>
                   <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> Publicación en tiendas oficiales</li>
                   <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> <strong>Licencia vitalicia + soporte anual</strong></li>
                 </ul>
@@ -673,7 +674,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
              <div className="inline-block bg-yellow-100 text-yellow-800 text-xs font-mono font-bold px-4 py-1.5 rounded-full mb-3">
                Tasa BCV del Día: Bs. {bcvRate} (Actualización Automática Diaria)
              </div>
-             <h2 className="text-2xl md:text-3xl font-bold text-blue-950 mt-2 mb-4">Pasarela de Pagos con Conversión a Bolívares</h2>
+             <h2 className="text-2xl md:text-3xl font-bold text-blue-950 mt-2 mb-4">Pasarela de Pagos Segura en Producción</h2>
              <p className="text-gray-600 mb-10 max-w-2xl mx-auto">Selecciona cualquier plan o servicio para generar tu planilla de pago con cálculo automático en VES e integración directa con WhatsApp.</p>
              
              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -705,10 +706,10 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                 <div className="h-10 w-10 bg-yellow-500 text-blue-950 font-black rounded-full flex items-center justify-center border border-yellow-400">GD</div>
                 <span className="text-2xl font-bold text-white"><span className="text-yellow-500">GIGA</span> DEVS</span>
               </div>
-             <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Expertos en desarrollo de software, automatización empresarial y presencia digital con tasa BCV automatizada.</p>
+             <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Expertos en desarrollo de software seguro, automatización empresarial y despliegue en producción en Render.</p>
            </div>
            <div>
-             <h4 className="text-white font-bold mb-4">Contacto</h4>
+             <h4 className="text-white font-bold mb-4">Contacto Seguro</h4>
               <ul className="space-y-2.5 text-sm text-blue-200">
                <li>gigadesvc@gmail.com</li>
                <li>+58 (412) 000-0000</li>
@@ -716,7 +717,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
            </div>
         </div>
         <div className="border-t border-blue-900 container mx-auto px-4 pt-8 text-center text-xs text-blue-400">
-          <p>© {new Date().getFullYear()} GIGA DEVS Corp. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} GIGA DEVS Corp. Todos los derechos reservados. Base de Datos Protegida.</p>
         </div>
       </footer>
 
