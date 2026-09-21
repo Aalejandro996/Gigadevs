@@ -610,7 +610,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                 <h3 className="text-2xl font-bold text-blue-950 mb-2">Web & E-commerce</h3>
                 <p className="text-gray-500 mb-6 text-sm">Diseño profesional protegido contra ataques web.</p>
                 <div className="flex items-baseline mb-6">
-                  <span className="text-4xl font-black text-blue-950">$299</span>
+                  <span className="text-4xl font-black text-blue-950">$150</span>
                   <span className="text-lg text-gray-500 ml-2 font-medium">/ único</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-sm text-gray-700">
@@ -619,8 +619,8 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> <strong>Licencia vitalicia + 1 año soporte</strong></li>
                 </ul>
               </div>
-              <button onClick={() => handleOpenModal('Página Web / E-commerce', 299, 'único')} className="w-full py-3 bg-blue-950 text-white font-bold rounded-xl hover:bg-blue-900 transition text-xs shadow">
-                Comprar Licencia Vitalicia ($299)
+              <button onClick={() => handleOpenModal('Página Web / E-commerce', 150, 'único')} className="w-full py-3 bg-blue-950 text-white font-bold rounded-xl hover:bg-blue-900 transition text-xs shadow">
+                Comprar Licencia Vitalicia ($150)
               </button>
             </div>
 
@@ -631,7 +631,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                 <h3 className="text-2xl font-black text-blue-950 mb-2">Contabilidad & Facturación</h3>
                 <p className="text-blue-950/80 mb-6 text-sm font-medium">Software con base de datos blindada para tu empresa.</p>
                 <div className="flex items-baseline mb-6">
-                  <span className="text-4xl font-black text-blue-950">$599</span>
+                  <span className="text-4xl font-black text-blue-950">$250</span>
                   <span className="text-lg text-blue-950/80 ml-2 font-medium">/ proyecto</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-sm font-semibold text-blue-950">
@@ -640,8 +640,8 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <li className="flex items-center"><CheckCircle size={16} className="text-blue-950 mr-2 flex-shrink-0" /> <strong>Licencia vitalicia + soporte anual</strong></li>
                 </ul>
               </div>
-              <button onClick={() => handleOpenModal('Sistema a Medida Contabilidad/Facturación', 599, 'único')} className="w-full py-3 bg-blue-950 text-white font-extrabold rounded-xl hover:bg-blue-900 transition text-xs shadow-xl">
-                Solicitar Sistema Vitalicio ($599)
+              <button onClick={() => handleOpenModal('Sistema a Medida Contabilidad/Facturación', 250, 'único')} className="w-full py-3 bg-blue-950 text-white font-extrabold rounded-xl hover:bg-blue-900 transition text-xs shadow-xl">
+                Solicitar Sistema Vitalicio ($250)
               </button>
             </div>
 
@@ -651,7 +651,7 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                 <h3 className="text-2xl font-bold text-blue-950 mb-2">Apps iOS & Android</h3>
                 <p className="text-gray-500 mb-6 text-sm">Aplicaciones móviles con cifrado de almacenamiento local.</p>
                 <div className="flex items-baseline mb-6">
-                  <span className="text-4xl font-black text-blue-950">$799</span>
+                  <span className="text-4xl font-black text-blue-950">$400$</span>
                   <span className="text-lg text-gray-500 ml-2 font-medium">/ proyecto</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-sm text-gray-700">
@@ -660,8 +660,8 @@ Método de Pago Seleccionado: ${invoiceData.paymentMethod.toUpperCase()}
                   <li className="flex items-center"><CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" /> <strong>Licencia vitalicia + soporte anual</strong></li>
                 </ul>
               </div>
-              <button onClick={() => handleOpenModal('App Móvil iOS & Android', 799, 'único')} className="w-full py-3 bg-blue-950 text-white font-bold rounded-xl hover:bg-blue-900 transition text-xs shadow">
-                Cotizar App Vitalicia ($799)
+              <button onClick={() => handleOpenModal('App Móvil iOS & Android', 399, 'único')} className="w-full py-3 bg-blue-950 text-white font-bold rounded-xl hover:bg-blue-900 transition text-xs shadow">
+                Cotizar App Vitalicia ($399)
               </button>
             </div>
           </div>
