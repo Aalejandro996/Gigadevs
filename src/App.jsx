@@ -712,7 +712,7 @@
               <h4 className="text-white font-bold mb-4">Contacto Seguro</h4>
                 <ul className="space-y-2.5 text-sm text-blue-200">
                 <li>gigadesvc@gmail.com</li>
-                <li>+58 (412) 000-0000</li>
+                <li>+58 (424) 258-8321</li>
               </ul>
             </div>
           </div>
