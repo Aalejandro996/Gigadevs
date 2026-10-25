@@ -150,6 +150,8 @@ export const ParaQuien = () => (
 export const FAQS = [
   ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios como Quincena.'],
   ['¿Cómo puedo pagar?', 'En dólares o en bolívares a la tasa BCV del día, por pago móvil, transferencia bancaria, Binance Pay o PayPal. Al elegir un plan generas tu planilla de pago y la envías por WhatsApp.'],
+  ['¿Cuánto tarda un proyecto?', 'Depende del alcance. En la propuesta te damos las fechas de entrega antes de empezar, y te mostramos avances durante el desarrollo.'],
+  ['¿El sistema queda siendo mío?', 'Con las licencias vitalicias pagas una sola vez y el sistema es tuyo para siempre, con un año de soporte incluido. Con la suscripción pagas mes a mes o una vez al año.'],
   ['¿Trabajan con negocios fuera de Venezuela?', 'Sí. Trabajamos a distancia con clientes de Venezuela y otros países de Latinoamérica.'],
   ['¿Qué es Quincena?', 'Es nuestra app gratis de finanzas personales para quien cobra por quincena o por semana: registra gastos en dólares y moneda local con la tasa del día, controla pagos y deudas, y muestra cuánto te queda hasta el próximo cobro. Funciona en la web y en Android.'],
   ['¿Cómo entro a mi cuenta de Quincena?', 'Desde el botón "Entrar a Quincena" de esta página o directamente en la app de Android. Si aún no tienes cuenta, puedes crearla gratis.'],
