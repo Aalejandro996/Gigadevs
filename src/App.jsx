@@ -8,7 +8,7 @@ const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(te
 
 const NAV = [
   ['servicios', 'Servicios'],
-  ['quincena', 'Quincena'],
+  ['quincena', 'Quincena VE'],
   ['proyectos', 'Proyectos'],
   ['planes', 'Planes y precios'],
   ['preguntas', 'Preguntas'],
@@ -63,9 +63,9 @@ const SPECS = {
 // Proyectos reales (repositorios de Aalejandro996 en GitHub). Solo se enlazan los que tienen una página pública.
 const PROJECTS = [
   {
-    icon: TrendingUp, name: 'Quincena', tag: 'Producto propio', stack: ['Kotlin', 'Python · Flask', 'PWA'],
+    icon: TrendingUp, name: 'Quincena VE', tag: 'Producto propio', stack: ['Kotlin', 'Python · Flask', 'PWA'],
     text: 'Finanzas personales por quincena en dólares y moneda local, con tasa BCV automática. Web instalable y app nativa para Android con actualizaciones automáticas.',
-    href: quincenaLink('/', 'proyectos'), cta: 'Conocer Quincena',
+    href: quincenaLink('/', 'proyectos'), cta: 'Conocer Quincena VE',
   },
   {
     icon: Tractor, name: 'Sistema administrativo para finca', stack: ['Python · Flask', 'PostgreSQL'],
@@ -297,7 +297,7 @@ const App = () => {
             <div className="hidden 2xl:flex text-xs text-yellow-400 bg-blue-900/80 px-3 py-1.5 rounded-xl border border-blue-800 font-mono items-center gap-1" title="Tasa oficial del Banco Central de Venezuela">
               <Lock size={12} className="text-green-400" /> BCV: Bs. {rate}
             </div>
-            <a href={quincenaLink('/app', 'menu')} className="text-white border border-emerald-400/60 px-4 py-2.5 rounded-xl hover:bg-emerald-500/20 transition font-bold text-sm">Entrar a Quincena</a>
+            <a href={quincenaLink('/app', 'menu')} className="text-white border border-emerald-400/60 px-4 py-2.5 rounded-xl hover:bg-emerald-500/20 transition font-bold text-sm">Entrar a Quincena VE</a>
             <button onClick={() => scrollToSection('contacto')} className="bg-yellow-500 text-blue-950 px-5 py-2.5 rounded-xl hover:bg-yellow-400 transition shadow-md font-bold text-sm">Cotizar gratis</button>
           </div>
 
@@ -312,7 +312,7 @@ const App = () => {
             {NAV.map(([id, label]) => (
               <button key={id} onClick={() => scrollToSection(id)} className={`block w-full text-left py-2.5 font-medium border-b border-blue-900/50 ${id === 'quincena' ? 'text-emerald-300' : 'text-white'}`}>{label}</button>
             ))}
-            <a href={quincenaLink('/app', 'menu-movil')} className="block w-full text-center border border-emerald-400/60 text-white font-bold py-3 rounded-xl mt-4">Entrar a Quincena</a>
+            <a href={quincenaLink('/app', 'menu-movil')} className="block w-full text-center border border-emerald-400/60 text-white font-bold py-3 rounded-xl mt-4">Entrar a Quincena VE</a>
             <button onClick={() => scrollToSection('contacto')} className="block w-full text-center bg-yellow-500 text-blue-950 font-bold py-3 rounded-xl mt-2 shadow-lg">Cotizar gratis</button>
           </div>
         </div>
@@ -646,13 +646,13 @@ const App = () => {
               <Logo size={48} />
               <span className="text-2xl font-bold text-white"><span className="text-yellow-500">GIGA</span> DEVS</span>
             </div>
-            <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, páginas web y apps móviles. Creadores de Quincena.</p>
+            <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, páginas web y apps móviles. Creadores de Quincena VE.</p>
           </div>
           <div>
             <h3 className="text-white font-bold mb-4">Productos</h3>
             <ul className="space-y-2.5 text-sm text-blue-200">
-              <li><a href={quincenaLink('/', 'footer')} className="hover:text-yellow-400">Quincena · finanzas personales</a></li>
-              <li><a href={quincenaLink('/app', 'footer')} className="hover:text-yellow-400">Entrar a Quincena</a></li>
+              <li><a href={quincenaLink('/', 'footer')} className="hover:text-yellow-400">Quincena VE · finanzas personales</a></li>
+              <li><a href={quincenaLink('/app', 'footer')} className="hover:text-yellow-400">Entrar a Quincena VE</a></li>
               <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-yellow-400">Crear cuenta gratis</a></li>
             </ul>
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckCircle, ArrowRight, LogIn, UserPlus, Smartphone, Wallet, HandCoins, CalendarCheck, PiggyBank, MessagesSquare, ClipboardList, Wrench, LifeBuoy, Store, Briefcase, Stethoscope, Rocket, ChevronDown } from 'lucide-react';
 
-// Quincena es el producto propio de Gigadevs. Los enlaces llevan utm para que Quincena sepa cuántas cuentas llegan desde aquí.
+// Quincena VE es el producto propio de Gigadevs. Los enlaces llevan utm para que Quincena VE sepa cuántas cuentas llegan desde aquí.
 export const QUINCENA_URL = 'https://control-financiero-wrm5.onrender.com';
 export const quincenaLink = (path = '/', campaign = 'web') => `${QUINCENA_URL}${path}${path.includes('?') ? '&' : '?'}utm_source=gigadevs&utm_campaign=${campaign}`;
 
@@ -20,11 +20,11 @@ export const QuincenaSection = () => (
           </span>
           <div className="flex items-center gap-4 mt-6 mb-4">
             <QuincenaIcon />
-            <h2 id="t-quincena" className="text-4xl md:text-5xl font-black">Quincena</h2>
+            <h2 id="t-quincena" className="text-4xl md:text-5xl font-black">Quincena VE 🇻🇪</h2>
           </div>
           <p className="text-2xl md:text-3xl font-bold text-emerald-100 mb-4 leading-snug">La app para controlar tu quincena en dólares y en bolívares.</p>
           <p className="text-emerald-50/90 text-lg leading-relaxed mb-8 max-w-2xl">
-            Quincena es una app gratis de finanzas personales para quien cobra cada 15 días o cada semana. Registras tus gastos en dólares o en
+            Quincena VE es una app gratis de finanzas personales para quien cobra cada 15 días o cada semana. Registras tus gastos en dólares o en
             moneda local con la tasa del día, controlas pagos, deudas y lo que te deben, y ves cuánto te queda hasta el próximo cobro.
             Funciona en la web y en Android, en Venezuela, Colombia, Chile, Perú, México y Argentina.
           </p>
@@ -33,7 +33,7 @@ export const QuincenaSection = () => (
               <UserPlus size={20} /> Crear cuenta gratis
             </a>
             <a href={quincenaLink('/app', 'entrar')} className="px-7 py-4 bg-emerald-950/30 border border-white/40 text-white font-bold rounded-2xl hover:bg-emerald-950/50 transition flex items-center justify-center gap-2">
-              <LogIn size={20} /> Entrar a Quincena
+              <LogIn size={20} /> Entrar a Quincena VE
             </a>
             <a href={quincenaLink('/', 'conocer')} className="px-7 py-4 text-white font-bold rounded-2xl hover:underline flex items-center justify-center gap-2">
               Conocer más <ArrowRight size={18} />
@@ -42,7 +42,7 @@ export const QuincenaSection = () => (
         </div>
 
         <div className="lg:col-span-5">
-          <div className="bg-white text-gray-900 rounded-3xl p-7 shadow-2xl max-w-sm mx-auto" role="img" aria-label="Ejemplo de la pantalla de inicio de Quincena">
+          <div className="bg-white text-gray-900 rounded-3xl p-7 shadow-2xl max-w-sm mx-auto" role="img" aria-label="Ejemplo de la pantalla de inicio de Quincena VE">
             <div className="text-sm font-semibold text-gray-500">Te queda esta quincena</div>
             <div className="text-5xl font-black my-2">$148,20</div>
             <div className="h-3 rounded-full bg-emerald-100 overflow-hidden mb-4"><div className="h-full w-[62%] bg-emerald-700"></div></div>
@@ -56,7 +56,7 @@ export const QuincenaSection = () => (
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
         {[
-          { n: '1', t: 'Crea tu cuenta y elige tu país', d: 'Quincena usa tu moneda local y su tipo de cambio oficial, que se actualiza solo. En Venezuela, la tasa BCV y, si quieres, la USDT.' },
+          { n: '1', t: 'Crea tu cuenta y elige tu país', d: 'Quincena VE usa tu moneda local y su tipo de cambio oficial, que se actualiza solo. En Venezuela, la tasa BCV y, si quieres, la USDT.' },
           { n: '2', t: 'Anota tus gastos en segundos', d: 'En dólares o en moneda local. En Android, compártelos desde el mensaje del banco o del pago móvil: el monto ya viene escrito.' },
           { n: '3', t: 'Mira cuánto te queda', d: 'Descuenta lo fijo, te avisa de los pagos que vienen y te muestra lo que realmente te queda hasta el próximo cobro.' },
         ].map((s) => (
@@ -148,13 +148,13 @@ export const ParaQuien = () => (
 );
 
 export const FAQS = [
-  ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios como Quincena.'],
+  ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios como Quincena VE.'],
   ['¿Cómo puedo pagar?', 'En dólares o en bolívares a la tasa BCV del día, por pago móvil, transferencia bancaria, Binance Pay o PayPal. Al elegir un plan generas tu planilla de pago y la envías por WhatsApp.'],
   ['¿Cuánto tarda un proyecto?', 'Depende del alcance. En la propuesta te damos las fechas de entrega antes de empezar, y te mostramos avances durante el desarrollo.'],
   ['¿El sistema queda siendo mío?', 'Con las licencias vitalicias pagas una sola vez y el sistema es tuyo para siempre, con un año de soporte incluido. Con la suscripción pagas mes a mes o una vez al año.'],
   ['¿Trabajan con negocios fuera de Venezuela?', 'Sí. Trabajamos a distancia con clientes de Venezuela y otros países de Latinoamérica.'],
-  ['¿Qué es Quincena?', 'Es nuestra app gratis de finanzas personales para quien cobra por quincena o por semana: registra gastos en dólares y moneda local con la tasa del día, controla pagos y deudas, y muestra cuánto te queda hasta el próximo cobro. Funciona en la web y en Android.'],
-  ['¿Cómo entro a mi cuenta de Quincena?', 'Desde el botón "Entrar a Quincena" de esta página o directamente en la app de Android. Si aún no tienes cuenta, puedes crearla gratis.'],
+  ['¿Qué es Quincena VE?', 'Es nuestra app gratis de finanzas personales para quien cobra por quincena o por semana: registra gastos en dólares y moneda local con la tasa del día, controla pagos y deudas, y muestra cuánto te queda hasta el próximo cobro. Funciona en la web y en Android.'],
+  ['¿Cómo entro a mi cuenta de Quincena VE?', 'Desde el botón "Entrar a Quincena VE" de esta página o directamente en la app de Android. Si aún no tienes cuenta, puedes crearla gratis.'],
 ];
 
 export const Faq = () => (
