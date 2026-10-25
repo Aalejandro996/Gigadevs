@@ -1,4 +1,5 @@
   import React, { useState, useEffect } from 'react';
+import { QuincenaSection, ComoTrabajamos, ParaQuien, Faq, quincenaLink } from './sections.jsx';
   import { Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, Code, CreditCard, Bitcoin, Send, ChevronRight, Activity, Users, Zap, MessageCircle, Cpu, FileText, DollarSign, Download, ExternalLink, Lock } from 'lucide-react';
 
   const App = () => {
@@ -172,6 +173,7 @@
               <button onClick={() => scrollToSection('servicios')} className="hover:text-yellow-400 transition-colors">Web & Apps</button>
               <button onClick={() => scrollToSection('proyectos')} className="hover:text-yellow-400 transition-colors">Casos de Éxito</button>
               <button onClick={() => scrollToSection('planes')} className="hover:text-yellow-400 transition-colors">Planes y Precios</button>
+              <button onClick={() => scrollToSection('quincena')} className="text-emerald-300 hover:text-emerald-200 transition-colors font-semibold">Quincena</button>
             </nav>
 
             <div className="hidden lg:flex items-center space-x-4">
@@ -179,6 +181,9 @@
                 <Lock size={12} className="text-green-400" />
                 <span>Tasa BCV: Bs. {loadingRate ? '...' : bcvRate} 📊</span>
               </div>
+              <a href={quincenaLink('/app', 'menu')} className="text-white border border-emerald-400/60 px-4 py-2.5 rounded-xl hover:bg-emerald-500/20 transition font-bold text-sm">
+                Entrar a Quincena
+              </a>
               <button onClick={() => scrollToSection('contacto')} className="bg-yellow-500 text-blue-950 px-5 py-2.5 rounded-xl hover:bg-yellow-400 transition-all transform hover:scale-105 shadow-md font-bold text-sm">
                 Solicitar Cotización
               </button>
@@ -189,7 +194,7 @@
             </button>
           </div>
 
-          <div className={`lg:hidden absolute w-full bg-blue-950 shadow-2xl transition-all duration-300 ease-in-out border-b border-blue-900 ${isMenuOpen ? 'max-h-[480px] opacity-100 py-4' : 'max-h-0 opacity-0 overflow-hidden py-0'}`}>
+          <div className={`lg:hidden absolute w-full bg-blue-950 shadow-2xl transition-all duration-300 ease-in-out border-b border-blue-900 ${isMenuOpen ? 'max-h-[640px] opacity-100 py-4' : 'max-h-0 opacity-0 overflow-hidden py-0'}`}>
             <div className="px-6 space-y-3">
               <div className="text-xs text-yellow-400 bg-blue-900/80 px-3 py-2 rounded-xl border border-blue-800 font-mono text-center">
                 Tasa BCV Actual: Bs. {loadingRate ? '...' : bcvRate} 📊
@@ -199,7 +204,9 @@
               <button onClick={() => scrollToSection('servicios')} className="block w-full text-left text-white hover:text-yellow-400 py-2 font-medium border-b border-blue-900/50">Web & Apps Móviles</button>
               <button onClick={() => scrollToSection('proyectos')} className="block w-full text-left text-white hover:text-yellow-400 py-2 font-medium border-b border-blue-900/50">Casos de Éxito</button>
               <button onClick={() => scrollToSection('planes')} className="block w-full text-left text-white hover:text-yellow-400 py-2 font-medium border-b border-blue-900/50">Planes y Precios</button>
-              <button onClick={() => scrollToSection('contacto')} className="block w-full text-center bg-yellow-500 text-blue-950 font-bold py-3 rounded-xl mt-4 shadow-lg">Solicitar Cotización</button>
+              <button onClick={() => scrollToSection('quincena')} className="block w-full text-left text-emerald-300 hover:text-emerald-200 py-2 font-semibold border-b border-blue-900/50">Quincena: finanzas personales</button>
+              <a href={quincenaLink('/app', 'menu-movil')} className="block w-full text-center border border-emerald-400/60 text-white font-bold py-3 rounded-xl mt-4">Entrar a Quincena</a>
+              <button onClick={() => scrollToSection('contacto')} className="block w-full text-center bg-yellow-500 text-blue-950 font-bold py-3 rounded-xl mt-2 shadow-lg">Solicitar Cotización</button>
             </div>
           </div>
         </header>
@@ -362,6 +369,9 @@
             </div>
           </div>
         </section>
+
+        {/* --- QUINCENA: PRODUCTO PROPIO --- */}
+        <QuincenaSection />
 
         {/* --- ESPECIFICACIONES TÉCNICAS INTERACTIVAS --- */}
         <section id="detalles" className="py-24 bg-gray-900 text-white">
@@ -527,6 +537,9 @@
           </div>
         </section>
 
+        <ParaQuien />
+        <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
+
         {/* --- CASOS DE ÉXITO --- */}
         <section id="proyectos" className="py-24 bg-white border-t border-gray-100">
           <div className="container mx-auto px-4">
@@ -651,7 +664,7 @@
                   <h3 className="text-2xl font-bold text-blue-950 mb-2">Apps iOS & Android</h3>
                   <p className="text-gray-500 mb-6 text-sm">Aplicaciones móviles con cifrado de almacenamiento local.</p>
                   <div className="flex items-baseline mb-6">
-                    <span className="text-4xl font-black text-blue-950">$400$</span>
+                    <span className="text-4xl font-black text-blue-950">$400</span>
                     <span className="text-lg text-gray-500 ml-2 font-medium">/ proyecto</span>
                   </div>
                   <ul className="space-y-3 mb-8 text-sm text-gray-700">
@@ -698,8 +711,10 @@
           </div>
         </section>
 
+        <Faq />
+
         {/* --- FOOTER --- */}
-        <footer className="bg-blue-950 text-blue-300 py-16 border-t border-blue-900/50">
+        <footer id="contacto" className="bg-blue-950 text-blue-300 py-16 border-t border-blue-900/50">
           <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
@@ -709,10 +724,18 @@
               <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Expertos en desarrollo de software seguro, automatización empresarial y despliegue en producción en Render.</p>
             </div>
             <div>
-              <h4 className="text-white font-bold mb-4">Contacto Seguro</h4>
-                <ul className="space-y-2.5 text-sm text-blue-200">
-                <li>gigadesvc@gmail.com</li>
-                <li>+58 (424) 258-8321</li>
+              <h4 className="text-white font-bold mb-4">Productos</h4>
+              <ul className="space-y-2.5 text-sm text-blue-200">
+                <li><a href={quincenaLink('/', 'footer')} className="hover:text-yellow-400">Quincena · finanzas personales</a></li>
+                <li><a href={quincenaLink('/app', 'footer')} className="hover:text-yellow-400">Entrar a Quincena</a></li>
+                <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-yellow-400">Crear cuenta gratis</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Contacto</h4>
+              <ul className="space-y-2.5 text-sm text-blue-200">
+                <li><a href="mailto:gigadesvc@gmail.com" className="hover:text-yellow-400">gigadesvc@gmail.com</a></li>
+                <li><a href="https://wa.me/584242588321" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">WhatsApp: +58 (424) 258-8321</a></li>
               </ul>
             </div>
           </div>
