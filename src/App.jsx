@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, CreditCard, Bitcoin, ChevronRight, MessageCircle, FileText, DollarSign, Download, ExternalLink, Lock, Mail, Send, Receipt, Package, TrendingUp, Landmark, BadgeCheck, HelpCircle, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
-import { QuincenaSection, ComoTrabajamos, ParaQuien, Faq, quincenaLink } from './sections.jsx';
+import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, CreditCard, Bitcoin, ChevronRight, MessageCircle, FileText, DollarSign, Download, ExternalLink, Lock, Mail, Send, Receipt, Package, TrendingUp, Landmark, BadgeCheck, HelpCircle, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
+import { QuincenaSection, SicasSection, ComoTrabajamos, ParaQuien, Faq, quincenaLink } from './sections.jsx';
 
 const WHATSAPP = '584242588321';
 const EMAIL = 'gigadevsc@gmail.com';
@@ -9,6 +9,7 @@ const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(te
 const NAV = [
   ['servicios', 'Servicios'],
   ['quincena', 'Quincena VE'],
+  ['sicas', 'SICAS'],
   ['proyectos', 'Proyectos'],
   ['planes', 'Planes y precios'],
   ['preguntas', 'Preguntas'],
@@ -43,6 +44,11 @@ const TONES = {
 };
 
 const SPECS = {
+  sicas: {
+    icon: ClipboardCheck, color: 'text-indigo-400', label: 'Auditoría (SICAS)',
+    title: 'SICAS: control y auditoría', sub: 'Auditorías administrativas, financieras y de sistemas con trazabilidad de punta a punta.',
+    blocks: [['Hallazgos sin IA externa', 'Un motor de reglas propio redacta condición, criterio, causa, efecto y recomendación. La información no sale del servidor.'], ['Firma y trazabilidad', 'Aprobación por niveles con MFA, firma electrónica PAdES con sellado, bitácora de solo inserción y doble control en lo crítico.']],
+  },
   erp: {
     icon: Database, color: 'text-yellow-400', label: 'Sistema administrativo (ERP)',
     title: 'GIGA ERP_Contable', sub: 'Base de datos PostgreSQL con permisos por fila: cada usuario ve solo lo que le toca.',
@@ -66,6 +72,11 @@ const PROJECTS = [
     icon: TrendingUp, name: 'Quincena VE', tag: 'Producto propio', stack: ['Kotlin', 'Python · Flask', 'PWA'],
     text: 'Finanzas personales por quincena en dólares y moneda local, con tasa BCV automática. Web instalable y app nativa para Android con actualizaciones automáticas.',
     href: quincenaLink('/', 'proyectos'), cta: 'Conocer Quincena VE',
+  },
+  {
+    icon: ClipboardCheck, name: 'SICAS', tag: 'Producto propio', stack: ['Python · Flask', 'PostgreSQL', 'Firma PAdES'],
+    text: 'Sistema Integral de Control y Auditoría: auditorías administrativas, financieras y de sistemas, hallazgos redactados por un motor de reglas propio, informe con aprobación por niveles y firma electrónica.',
+    href: '#sicas', cta: 'Conocer SICAS',
   },
   {
     icon: Tractor, name: 'Sistema administrativo para finca', stack: ['Python · Flask', 'PostgreSQL'],
@@ -289,7 +300,7 @@ const App = () => {
 
           <nav className="hidden xl:flex gap-6 font-medium text-white text-sm whitespace-nowrap" aria-label="Secciones">
             {NAV.map(([id, label]) => (
-              <button key={id} onClick={() => scrollToSection(id)} className={`hover:text-yellow-400 transition-colors ${id === 'quincena' ? 'text-emerald-300 font-semibold' : ''}`}>{label}</button>
+              <button key={id} onClick={() => scrollToSection(id)} className={`hover:text-yellow-400 transition-colors ${id === 'quincena' ? 'text-emerald-300 font-semibold' : id === 'sicas' ? 'text-indigo-300 font-semibold' : ''}`}>{label}</button>
             ))}
           </nav>
 
@@ -310,7 +321,7 @@ const App = () => {
           <div className="px-6 space-y-1">
             <div className="text-xs text-yellow-400 bg-blue-900/80 px-3 py-2 rounded-xl border border-blue-800 font-mono text-center mb-2">Tasa BCV de hoy: Bs. {rate}</div>
             {NAV.map(([id, label]) => (
-              <button key={id} onClick={() => scrollToSection(id)} className={`block w-full text-left py-2.5 font-medium border-b border-blue-900/50 ${id === 'quincena' ? 'text-emerald-300' : 'text-white'}`}>{label}</button>
+              <button key={id} onClick={() => scrollToSection(id)} className={`block w-full text-left py-2.5 font-medium border-b border-blue-900/50 ${id === 'quincena' ? 'text-emerald-300' : id === 'sicas' ? 'text-indigo-300' : 'text-white'}`}>{label}</button>
             ))}
             <a href={quincenaLink('/app', 'menu-movil')} className="block w-full text-center border border-emerald-400/60 text-white font-bold py-3 rounded-xl mt-4">Entrar a Quincena VE</a>
             <button onClick={() => scrollToSection('contacto')} className="block w-full text-center bg-yellow-500 text-blue-950 font-bold py-3 rounded-xl mt-2 shadow-lg">Cotizar gratis</button>
@@ -400,6 +411,9 @@ const App = () => {
 
         {/* --- QUINCENA: PRODUCTO PROPIO --- */}
         <QuincenaSection />
+
+        {/* --- SICAS: PRODUCTO PROPIO (sin enlace a ninguna instalación) --- */}
+        <SicasSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero una demostración de SICAS, el sistema de control y auditoría.')} onCotizar={() => scrollToSection('contacto')} />
 
         <ParaQuien />
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
@@ -646,7 +660,7 @@ const App = () => {
               <Logo size={48} />
               <span className="text-2xl font-bold text-white"><span className="text-yellow-500">GIGA</span> DEVS</span>
             </div>
-            <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, páginas web y apps móviles. Creadores de Quincena VE.</p>
+            <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, sistemas de auditoría, páginas web y apps móviles. Creadores de Quincena VE y SICAS.</p>
           </div>
           <div>
             <h3 className="text-white font-bold mb-4">Productos</h3>
@@ -654,6 +668,7 @@ const App = () => {
               <li><a href={quincenaLink('/', 'footer')} className="hover:text-yellow-400">Quincena VE · finanzas personales</a></li>
               <li><a href={quincenaLink('/app', 'footer')} className="hover:text-yellow-400">Entrar a Quincena VE</a></li>
               <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-yellow-400">Crear cuenta gratis</a></li>
+              <li><a href="#sicas" onClick={(e) => { e.preventDefault(); scrollToSection('sicas'); }} className="hover:text-yellow-400">SICAS · control y auditoría</a></li>
             </ul>
           </div>
           <div>

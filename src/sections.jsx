@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, ArrowRight, LogIn, UserPlus, Smartphone, Wallet, HandCoins, CalendarCheck, PiggyBank, MessagesSquare, ClipboardList, Wrench, LifeBuoy, Store, Briefcase, Stethoscope, Rocket, ChevronDown } from 'lucide-react';
+import { CheckCircle, ArrowRight, LogIn, UserPlus, Smartphone, Wallet, HandCoins, CalendarCheck, PiggyBank, MessagesSquare, ClipboardList, Wrench, LifeBuoy, Store, Briefcase, Stethoscope, Rocket, ChevronDown, Building2, Landmark, ServerCog, Sparkles, FileSignature, Workflow, History, ShieldCheck, BarChart3, ClipboardCheck, PenLine } from 'lucide-react';
 
 // Quincena VE es el producto propio de Gigadevs. Los enlaces llevan utm para que Quincena VE sepa cuántas cuentas llegan desde aquí.
 export const QUINCENA_URL = 'https://control-financiero-wrm5.onrender.com';
@@ -148,12 +148,13 @@ export const ParaQuien = () => (
 );
 
 export const FAQS = [
-  ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios como Quincena VE.'],
+  ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios como Quincena VE y SICAS.'],
   ['¿Cómo puedo pagar?', 'En dólares o en bolívares a la tasa BCV del día, por pago móvil, transferencia bancaria, Binance Pay o PayPal. Al elegir un plan generas tu planilla de pago y la envías por WhatsApp.'],
   ['¿Cuánto tarda un proyecto?', 'Depende del alcance. En la propuesta te damos las fechas de entrega antes de empezar, y te mostramos avances durante el desarrollo.'],
   ['¿El sistema queda siendo mío?', 'Con las licencias vitalicias pagas una sola vez y el sistema es tuyo para siempre, con un año de soporte incluido. Con la suscripción pagas mes a mes o una vez al año.'],
   ['¿Trabajan con negocios fuera de Venezuela?', 'Sí. Trabajamos a distancia con clientes de Venezuela y otros países de Latinoamérica.'],
   ['¿Qué es Quincena VE?', 'Es nuestra app gratis de finanzas personales para quien cobra por quincena o por semana: registra gastos en dólares y moneda local con la tasa del día, controla pagos y deudas, y muestra cuánto te queda hasta el próximo cobro. Funciona en la web y en Android.'],
+  ['¿Qué es SICAS?', 'Es nuestro Sistema Integral de Control y Auditoría para contralorías y unidades de auditoría interna: gestiona auditorías administrativas, financieras y de sistemas, redacta los hallazgos con su propio motor de reglas y lleva el informe final por la aprobación del Jefe, el Gerente y el Contralor hasta la firma electrónica. Se instala en la infraestructura de tu organización; escríbenos para una demostración.'],
   ['¿Cómo entro a mi cuenta de Quincena VE?', 'Desde el botón "Entrar a Quincena VE" de esta página o directamente en la app de Android. Si aún no tienes cuenta, puedes crearla gratis.'],
 ];
 
@@ -174,6 +175,110 @@ export const Faq = () => (
           </details>
         ))}
       </div>
+    </div>
+  </section>
+);
+
+// SICAS es un producto propio de Gigadevs para contralorías y auditoría interna. Se instala en la
+// infraestructura de cada organización: esta página solo lo presenta y no enlaza a ninguna instalación.
+const SICAS_TYPES = [
+  [Building2, 'Auditoría administrativa', 'Unidades administrativas y procesos: normas y procedimientos, gobierno de la unidad, gestión documental, gastos y control interno.'],
+  [Landmark, 'Auditoría financiera', 'Cuentas por pagar y por cobrar: soportes, aprobaciones, conciliaciones con el mayor, antigüedad de saldos, retenciones y cobranza.'],
+  [ServerCog, 'Auditoría de sistemas', 'Cuestionarios de TI por dominio (accesos, respaldos, cambios, redes, ciberseguridad) en cuatro fases, con criterios de ISO/IEC 27001, COBIT 2019 y CIS Controls.'],
+];
+
+const SICAS_FEATURES = [
+  [Sparkles, 'Hallazgos redactados por su propio motor de reglas', 'Condición, criterio, causa, efecto y recomendación a partir de las cédulas. Sin IA externa: la información no sale del servidor.'],
+  [FileSignature, 'Informe final con firma electrónica', 'PDF de hasta 15 páginas con codificación institucional, aprobado por etapas y firmado con certificado digital y firma escaneada.'],
+  [Workflow, 'Flujo Auditor → Jefe → Gerente → Contralor', 'Los revisores devuelven con puntos a corregir y cada decisión queda registrada. Suplencias temporales cuando alguien no está.'],
+  [History, 'Trazabilidad completa', 'Bitácora de solo inserción con usuario, fecha y motivo de cada cambio, historial de calificaciones por fase y revisiones del informe.'],
+  [ShieldCheck, 'Seguridad de nivel corporativo', 'Doble factor (MFA), segregación de funciones, doble control en lo crítico, cifrado AES-256 y bloqueo fuera del horario laboral.'],
+  [BarChart3, 'Tablero para el Contralor', 'Duración de auditorías, cuellos de botella por fase y carga de cada auditor, medidos en días y horas hábiles con los feriados nacionales.'],
+];
+
+export const SicasSection = ({ demoHref, onCotizar }) => (
+  <section id="sicas" className="py-24 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden" aria-labelledby="t-sicas">
+    <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-indigo-500/10 rounded-full blur-3xl"></div>
+    <div className="container mx-auto px-4 relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-7">
+          <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full text-sm font-semibold text-indigo-100">
+            Producto propio de Gigadevs · Para contralorías y auditoría interna
+          </span>
+          <div className="flex items-center gap-4 mt-6 mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-indigo-500 text-white flex items-center justify-center shadow-lg"><ClipboardCheck size={30} /></div>
+            <div>
+              <h2 id="t-sicas" className="text-4xl md:text-5xl font-black leading-none">SICAS</h2>
+              <p className="text-indigo-200 font-semibold mt-1">Sistema Integral de Control y Auditoría</p>
+            </div>
+          </div>
+          <p className="text-2xl md:text-3xl font-bold text-indigo-100 mb-4 leading-snug">Auditorías administrativas, financieras y de sistemas, de la planificación al informe firmado.</p>
+          <p className="text-indigo-50/90 text-lg leading-relaxed mb-8 max-w-2xl">
+            SICAS ordena todo el trabajo de una unidad de auditoría interna: expedientes, cédulas de trabajo, hallazgos, calificación por fases,
+            informe final y su aprobación por niveles hasta la firma del Contralor. Cada paso queda registrado, y la información se queda en los
+            servidores de tu organización.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a href={demoHref} target="_blank" rel="noopener noreferrer" className="px-7 py-4 bg-white text-indigo-900 font-extrabold rounded-2xl shadow-xl hover:bg-indigo-50 transition flex items-center justify-center gap-2">
+              <MessagesSquare size={20} /> Solicitar una demostración
+            </a>
+            <button onClick={onCotizar} className="px-7 py-4 bg-indigo-950/40 border border-white/40 text-white font-bold rounded-2xl hover:bg-indigo-950/60 transition flex items-center justify-center gap-2">
+              Cotizar para mi organización <ArrowRight size={18} />
+            </button>
+          </div>
+        </div>
+
+        <div className="lg:col-span-5">
+          <div className="bg-white text-gray-900 rounded-3xl p-6 shadow-2xl max-w-md mx-auto" role="img" aria-label="Ejemplo de una auditoría financiera en SICAS">
+            <div className="flex items-center justify-between mb-1">
+              <div className="font-bold text-indigo-950">Auditoría financiera · Cuentas por pagar</div>
+              <span className="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-1 rounded-full">En revisión</span>
+            </div>
+            <div className="text-xs text-gray-500 mb-4">C-ADM-004-2026-A1 · Gerencia de Administración</div>
+            <div className="grid grid-cols-3 gap-2 mb-4 text-center">
+              {[['Planificación', '100%'], ['Trabajo de campo', '78,4%'], ['Informe', '81,2%']].map(([p, v]) => (
+                <div key={p} className="bg-indigo-50 rounded-xl p-2"><div className="text-[11px] text-gray-500 font-semibold">{p}</div><div className="text-lg font-black text-indigo-950">{v}</div></div>
+              ))}
+            </div>
+            {[['ALTO', 'Pagos sin orden aprobada por firma autorizada', 'bg-red-100 text-red-700'], ['MEDIO', 'Auxiliar no conciliado con el mayor', 'bg-amber-100 text-amber-800'], ['BAJO', 'Expedientes de proveedores desactualizados', 'bg-emerald-100 text-emerald-700']].map(([r, t, c]) => (
+              <div key={t} className="flex items-center gap-3 py-2.5 border-t border-gray-100">
+                <span className={`text-[10px] font-black px-2 py-1 rounded-md ${c}`}>{r}</span>
+                <span className="text-sm">{t}</span>
+              </div>
+            ))}
+            <div className="flex items-center justify-between gap-1 mt-4 pt-4 border-t border-gray-100 text-[11px] font-semibold">
+              {[['Auditor', true], ['Jefe', true], ['Gerente', true], ['Contralor', false]].map(([n, ok]) => (
+                <span key={n} className={`flex items-center gap-1 ${ok ? 'text-emerald-700' : 'text-gray-400'}`}>{ok ? <CheckCircle size={14} /> : <PenLine size={14} />} {n}</span>
+              ))}
+            </div>
+            <div className="text-xs text-gray-400 mt-3">Datos de ejemplo</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+        {SICAS_TYPES.map(([Icon, t, d]) => (
+          <div key={t} className="bg-white/10 border border-white/15 rounded-3xl p-6 backdrop-blur-sm">
+            <div className="w-12 h-12 rounded-2xl bg-white text-indigo-900 flex items-center justify-center mb-4"><Icon size={24} /></div>
+            <h3 className="text-xl font-bold mb-2">{t}</h3>
+            <p className="text-indigo-50/85 text-sm leading-relaxed">{d}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+        {SICAS_FEATURES.map(([Icon, t, d]) => (
+          <div key={t} className="bg-white/5 border border-white/10 rounded-2xl p-5 flex gap-4">
+            <Icon size={22} className="text-indigo-300 flex-shrink-0 mt-0.5" />
+            <div><h3 className="font-bold mb-1">{t}</h3><p className="text-indigo-50/80 text-sm leading-relaxed">{d}</p></div>
+          </div>
+        ))}
+      </div>
+
+      <p className="text-center text-indigo-200/80 text-sm mt-10 max-w-3xl mx-auto">
+        SICAS se instala en la infraestructura de tu organización y solo tu equipo tiene acceso. Lo adaptamos a tus tipos de auditoría,
+        tu codificación de informes y tu normativa, con soporte y actualizaciones de seguridad.
+      </p>
     </div>
   </section>
 );
