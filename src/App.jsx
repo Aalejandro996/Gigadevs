@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, CreditCard, Bitcoin, ChevronRight, MessageCircle, FileText, DollarSign, Download, ExternalLink, Lock, Mail, Send, Receipt, Package, TrendingUp, Landmark, BadgeCheck, HelpCircle, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
-import { QuincenaSection, SicasSection, ComoTrabajamos, Faq, quincenaLink } from './sections.jsx';
+import { QuincenaSection, SicasSection, ErpSection, ComoTrabajamos, Faq, quincenaLink } from './sections.jsx';
 
 const WHATSAPP = '584242588321';
 const EMAIL = 'gigadevsc@gmail.com';
@@ -10,6 +10,7 @@ const NAV = [
   ['servicios', 'Servicios'],
   ['quincena', 'Quincena VE'],
   ['sicas', 'SICAS'],
+  ['erp', 'ERP'],
   ['proyectos', 'Proyectos'],
   ['planes', 'Planes y precios'],
   ['preguntas', 'Preguntas'],
@@ -413,6 +414,9 @@ const App = () => {
 
         {/* --- SICAS: PRODUCTO PROPIO (sin enlace a ninguna instalación) --- */}
         <SicasSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero una demostración de SICAS, el sistema de control y auditoría.')} onCotizar={() => scrollToSection('contacto')} />
+
+        {/* --- ERP: PRODUCTO PROPIO (privado: solo presentación, sin acceso a la plataforma) --- */}
+        <ErpSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero una demostración del ERP (facturación y contabilidad).')} onCotizar={() => scrollToSection('contacto')} />
 
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
 

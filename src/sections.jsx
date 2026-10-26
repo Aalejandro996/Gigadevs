@@ -245,3 +245,74 @@ export const SicasSection = ({ demoHref, onCotizar }) => (
     </div>
   </section>
 );
+
+// ERP es un producto PRIVADO de Gigadevs: aquí solo se presenta. Sin enlaces a la plataforma, al repositorio ni a
+// ninguna API; quien se interese pide una demostración o una cotización.
+const ERP_PLANES = [
+  ['ERP Contable', 'Contabilidad VEN-NIF, ISLR, retenciones, libros fiscales, administración y auditoría.'],
+  ['Cash', 'Facturación con número de control, notas de crédito y débito, cobros e inventario.'],
+  ['ERP Administrativo', 'Cuentas por cobrar y pagar, bancos, libro de compras e inventario.'],
+  ['All in One', 'Todo lo anterior en una sola licencia.'],
+];
+
+export const ErpSection = ({ demoHref, onCotizar }) => (
+  <section id="erp" className="py-12 md:py-16 bg-[#191919] text-white relative overflow-hidden" aria-labelledby="t-erp">
+    <div className="absolute -top-40 -right-40 w-[420px] h-[420px] bg-[#87e64b] rounded-full opacity-90"></div>
+    <div className="container mx-auto px-4 relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="lg:col-span-7">
+          <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1 rounded-full text-xs font-semibold text-[#c9f5a8]">
+            Producto propio de Gigadevs · Para empresas
+          </span>
+          <div className="flex items-center gap-4 mt-4 mb-3">
+            <img src="/erp-icon.png" alt="" width={48} height={48} className="rounded-2xl shadow-lg" />
+            <div>
+              <h2 id="t-erp" className="text-3xl md:text-4xl font-black leading-none">ERP</h2>
+              <p className="text-[#87e64b] font-semibold text-sm mt-1">Tu empresa en orden. Tu fisco al día.</p>
+            </div>
+          </div>
+          <p className="text-xl md:text-2xl font-bold text-white mb-3 leading-snug">Facturación, contabilidad e inventario según la normativa venezolana.</p>
+          <p className="text-gray-300 leading-relaxed mb-5 max-w-2xl">
+            Facturas con número de control según la Providencia SNAT/2011/00071, en bolívares o divisas con la tasa BCV del día e IVA e IGTF calculados.
+            Libros de compras y ventas, contabilidad VEN-NIF, cuentas por cobrar y pagar y auditoría financiera. Cada empresa trabaja aislada y segura,
+            y paga solo por los módulos de su plan.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a href={demoHref} target="_blank" rel="noopener noreferrer" className="px-6 py-3.5 bg-[#87e64b] text-[#1a4200] font-extrabold rounded-2xl shadow-xl hover:bg-[#7ad63f] transition flex items-center justify-center gap-2">
+              <MessagesSquare size={20} /> Solicitar una demostración
+            </a>
+            <button onClick={onCotizar} className="px-6 py-3.5 bg-white/5 border border-white/40 text-white font-bold rounded-2xl hover:bg-white/10 transition flex items-center justify-center gap-2">
+              Cotizar para mi empresa <ArrowRight size={18} />
+            </button>
+          </div>
+        </div>
+        <div className="lg:col-span-5 hidden sm:block">
+          <div className="bg-white text-gray-900 rounded-3xl p-5 shadow-2xl max-w-sm mx-auto" role="img" aria-label="Ejemplo de factura emitida en ERP">
+            <div className="flex justify-between items-start gap-2">
+              <div className="text-sm font-semibold text-gray-500">Factura A00000128</div>
+              <div className="text-xs font-bold border-2 border-gray-900 rounded-lg px-2 py-0.5">Control 00-00000128</div>
+            </div>
+            <div className="text-4xl font-black my-3">Bs. 4.234,00</div>
+            {[['Base imponible 16 %', 'Bs. 3.650,00'], ['IVA 16 %', 'Bs. 584,00'], ['Equivalente', '116,00 USD'], ['IGTF 3 % (pago en divisas)', 'Bs. 109,50']].map(([k, v]) => (
+              <div key={k} className="flex justify-between py-2 border-t border-gray-100 text-sm"><span>{k}</span><strong>{v}</strong></div>
+            ))}
+            <div className="text-xs text-gray-400 mt-2">Montos de ejemplo · tasa BCV 36,50</div>
+          </div>
+        </div>
+      </div>
+      <div className="rail md:grid-cols-2 lg:grid-cols-4 mt-8">
+        {ERP_PLANES.map(([t, d]) => (
+          <div key={t} className="bg-white/5 border border-white/15 rounded-2xl p-5">
+            <h3 className="font-bold mb-1.5 text-white">{t}</h3>
+            <p className="text-gray-300 text-sm leading-relaxed">{d}</p>
+          </div>
+        ))}
+      </div>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-6 text-sm text-gray-200">
+        {['Verificación en dos pasos obligatoria', 'Datos de cada cliente aislados en la base de datos', 'Bitácora inalterable de cada operación', 'Licencia en USDT (Binance Pay) o bolívares'].map((t) => (
+          <li key={t} className="flex items-start gap-2"><CheckCircle size={18} className="text-[#87e64b] flex-shrink-0 mt-0.5" /> {t}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+);
