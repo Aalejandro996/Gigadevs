@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Fila deslizable en el teléfono (tarjetas una al lado de la otra); en pantallas medianas pasa a cuadrícula. */
+@layer components {
+  .rail { @apply flex overflow-x-auto snap-x snap-mandatory scroll-px-4 gap-4 -mx-4 px-4 pb-3 md:grid md:overflow-visible md:mx-0 md:px-0 md:pb-0; scrollbar-width: none; }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail > * { @apply snap-start shrink-0 w-[82%] sm:w-[46%] md:w-auto; }
+}

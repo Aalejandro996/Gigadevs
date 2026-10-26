@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, CreditCard, Bitcoin, ChevronRight, MessageCircle, FileText, DollarSign, Download, ExternalLink, Lock, Mail, Send, Receipt, Package, TrendingUp, Landmark, BadgeCheck, HelpCircle, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
-import { QuincenaSection, SicasSection, ComoTrabajamos, ParaQuien, Faq, quincenaLink } from './sections.jsx';
+import { QuincenaSection, SicasSection, ComoTrabajamos, Faq, quincenaLink } from './sections.jsx';
 
 const WHATSAPP = '584242588321';
 const EMAIL = 'gigadevsc@gmail.com';
@@ -331,31 +331,31 @@ const App = () => {
 
       <main>
         {/* --- PORTADA --- */}
-        <section id="inicio" className="relative pt-32 pb-20 md:pt-44 md:pb-28 bg-blue-950 overflow-hidden text-white">
+        <section id="inicio" className="relative pt-24 pb-10 md:pt-32 md:pb-16 bg-blue-950 overflow-hidden text-white">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900 via-blue-950 to-blue-950 opacity-90"></div>
           <div className="absolute top-10 right-10 w-[500px] h-[500px] bg-yellow-500 rounded-full mix-blend-screen filter blur-[120px] opacity-15 motion-safe:animate-pulse"></div>
           <div className="container mx-auto px-4 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 text-center lg:text-left">
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/80 rounded-full border border-blue-700/50 text-yellow-400 font-semibold mb-6 text-sm">
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/80 rounded-full border border-blue-700/50 text-yellow-400 font-semibold mb-4 text-xs">
                   Software a la medida · Hecho en Venezuela
                 </span>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4">
                   Software que ordena tu negocio y te ayuda a <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200">vender más</span>
                 </h1>
-                <p className="text-lg md:text-xl text-blue-100 mb-9 max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                <p className="text-base md:text-xl text-blue-100 mb-6 max-w-2xl leading-relaxed mx-auto lg:mx-0">
                   Creamos sistemas administrativos con facturación e inventario, páginas web, tiendas en línea y apps móviles.
                   Precio cerrado en dólares o en bolívares a tasa BCV, y soporte después de la entrega.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-yellow-500 text-blue-950 font-extrabold rounded-2xl shadow-xl hover:bg-yellow-400 transition flex items-center justify-center gap-2">
+                  <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="px-7 py-3.5 bg-yellow-500 text-blue-950 font-extrabold rounded-2xl shadow-xl hover:bg-yellow-400 transition flex items-center justify-center gap-2">
                     <MessageCircle size={20} /> Cotizar por WhatsApp
                   </a>
-                  <button onClick={() => scrollToSection('planes')} className="px-8 py-4 bg-blue-900/60 border border-blue-700 text-white font-bold rounded-2xl hover:bg-blue-800/80 transition flex items-center justify-center gap-2">
+                  <button onClick={() => scrollToSection('planes')} className="px-7 py-3.5 bg-blue-900/60 border border-blue-700 text-white font-bold rounded-2xl hover:bg-blue-800/80 transition flex items-center justify-center gap-2">
                     Ver planes y precios <ChevronRight size={20} />
                   </button>
                 </div>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mt-10 pt-8 border-t border-blue-900/80 max-w-xl mx-auto lg:mx-0 text-sm text-blue-100 text-left">
+                <ul className="grid grid-cols-2 gap-x-4 gap-y-2 mt-6 pt-5 border-t border-blue-900/80 max-w-xl mx-auto lg:mx-0 text-sm text-blue-100 text-left">
                   {['Precio cerrado antes de empezar', 'Pago en dólares o bolívares (tasa BCV)', 'Soporte y actualizaciones incluidos', 'Seguridad desde el primer día'].map((t) => (
                     <li key={t} className="flex items-center gap-2"><CheckCircle size={16} className="text-yellow-400 flex-shrink-0" /> {t}</li>
                   ))}
@@ -386,23 +386,22 @@ const App = () => {
         </section>
 
         {/* --- SERVICIOS --- */}
-        <section id="servicios" className="py-24 bg-white">
+        <section id="servicios" className="py-12 md:py-16 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-blue-600 font-bold text-sm tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Servicios</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-blue-950 mt-4 mb-6">Todo lo digital que tu negocio necesita</h2>
-              <p className="text-gray-600 text-lg">Desde el sistema con el que facturas hasta la web donde te encuentran tus clientes.</p>
+            <div className="text-center max-w-3xl mx-auto mb-8">
+              <span className="text-blue-600 font-bold text-xs tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Servicios</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-3 mb-3">Todo lo digital que tu negocio necesita</h2>
+              <p className="text-gray-600">Desde el sistema con el que facturas hasta la web donde te encuentran tus clientes.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            <div className="rail md:grid-cols-2 xl:grid-cols-4">
               {SERVICES.map(({ icon: Icon, title, text, items, tone }) => (
-                <div key={title} className="bg-white rounded-3xl p-7 border border-gray-100 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 flex flex-col">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-5 ${TONES[tone]}`}><Icon size={28} /></div>
-                  <h3 className="text-xl font-bold text-blue-950 mb-2">{title}</h3>
-                  <p className="text-gray-600 text-sm mb-5 leading-relaxed">{text}</p>
-                  <ul className="space-y-2.5 text-sm text-gray-700 mb-6 flex-1">
+                <div key={title} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 flex flex-col">
+                  <h3 className="text-lg font-bold text-blue-950 mb-2 flex items-center gap-3"><span className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${TONES[tone]}`}><Icon size={22} /></span>{title}</h3>
+                  <p className="text-gray-600 text-sm mb-3 leading-relaxed">{text}</p>
+                  <ul className="space-y-1.5 text-sm text-gray-700 mb-4 flex-1">
                     {items.map((i) => <li key={i} className="flex items-start gap-2"><CheckCircle size={16} className="text-yellow-500 mt-0.5 flex-shrink-0" /> {i}</li>)}
                   </ul>
-                  <button onClick={() => scrollToSection('planes')} className="w-full py-3 bg-blue-50 text-blue-900 font-bold rounded-xl hover:bg-blue-100 transition text-sm">Ver precios</button>
+                  <button onClick={() => scrollToSection('planes')} className="w-full py-2.5 bg-blue-50 text-blue-900 font-bold rounded-xl hover:bg-blue-100 transition text-sm">Ver precios</button>
                 </div>
               ))}
             </div>
@@ -415,21 +414,20 @@ const App = () => {
         {/* --- SICAS: PRODUCTO PROPIO (sin enlace a ninguna instalación) --- */}
         <SicasSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero una demostración de SICAS, el sistema de control y auditoría.')} onCotizar={() => scrollToSection('contacto')} />
 
-        <ParaQuien />
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
 
         {/* --- CÓMO ESTÁN HECHOS --- */}
-        <section id="detalles" className="py-24 bg-gray-900 text-white">
+        <section id="detalles" className="py-12 md:py-16 bg-gray-900 text-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-yellow-400 font-mono text-sm tracking-widest uppercase">Seguridad y tecnología</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold mt-2 mb-4">Así están hechos nuestros sistemas</h2>
+            <div className="text-center max-w-3xl mx-auto mb-6">
+              <span className="text-yellow-400 font-mono text-xs tracking-widest uppercase">Seguridad y tecnología</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-3">Así están hechos nuestros sistemas</h2>
               <p className="text-gray-400">Elige un sistema para ver qué hace y cómo protege tu información.</p>
             </div>
-            <div className="flex flex-wrap justify-center gap-3 mb-10" role="tablist" aria-label="Sistemas">
+            <div className="flex overflow-x-auto md:flex-wrap md:justify-center gap-2 mb-6 -mx-4 px-4 pb-1" role="tablist" aria-label="Sistemas">
               {Object.entries(SPECS).map(([key, { icon: Icon, label }]) => (
                 <button key={key} role="tab" aria-selected={activeTab === key} onClick={() => setActiveTab(key)}
-                  className={`px-5 py-3 rounded-xl font-bold transition flex items-center gap-2 ${activeTab === key ? 'bg-yellow-500 text-blue-950 shadow-lg' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}>
+                  className={`px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap flex-shrink-0 transition flex items-center gap-2 ${activeTab === key ? 'bg-yellow-500 text-blue-950 shadow-lg' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}>
                   <Icon size={18} /> {label}
                 </button>
               ))}
@@ -438,14 +436,14 @@ const App = () => {
               const s = SPECS[activeTab];
               const Icon = s.icon;
               return (
-                <div className="max-w-4xl mx-auto bg-gray-950 border border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl" role="tabpanel">
-                  <div className="flex items-center gap-4 pb-6 mb-6 border-b border-gray-800">
-                    <div className={`p-4 bg-white/5 rounded-2xl ${s.color}`}><Icon size={34} /></div>
+                <div className="max-w-4xl mx-auto bg-gray-950 border border-gray-800 rounded-3xl p-6 md:p-8 shadow-2xl" role="tabpanel">
+                  <div className="flex items-center gap-4 pb-4 mb-4 border-b border-gray-800">
+                    <div className={`p-3 bg-white/5 rounded-2xl ${s.color}`}><Icon size={28} /></div>
                     <div><h3 className="text-2xl font-bold">{s.title}</h3><p className="text-gray-400 text-sm">{s.sub}</p></div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     {s.blocks.map(([t, d]) => (
-                      <div key={t} className="bg-gray-900 p-5 rounded-2xl border border-gray-800">
+                      <div key={t} className="bg-gray-900 p-4 rounded-2xl border border-gray-800">
                         <h4 className={`font-bold mb-2 flex items-center gap-2 ${s.color}`}><CheckCircle size={16} /> {t}</h4>
                         <p className="text-gray-400">{d}</p>
                       </div>
@@ -458,36 +456,36 @@ const App = () => {
         </section>
 
         {/* --- PROYECTOS --- */}
-        <section id="proyectos" className="py-24 bg-white">
+        <section id="proyectos" className="py-12 md:py-16 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-14">
-              <span className="text-yellow-600 font-bold text-sm tracking-wider uppercase bg-yellow-50 px-3 py-1 rounded-full">Proyectos</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-blue-950 mt-4 mb-4">Lo que hemos construido</h2>
-              <p className="text-gray-600 text-lg">Sistemas reales que hemos desarrollado: administración, auditoría, licencias, comercio y finanzas personales.</p>
+            <div className="text-center max-w-3xl mx-auto mb-8">
+              <span className="text-yellow-600 font-bold text-xs tracking-wider uppercase bg-yellow-50 px-3 py-1 rounded-full">Proyectos</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-3 mb-3">Lo que hemos construido</h2>
+              <p className="text-gray-600">Sistemas reales que hemos desarrollado: administración, auditoría, licencias, comercio y finanzas personales.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="rail md:grid-cols-2 lg:grid-cols-4">
               {PROJECTS.map(({ icon: Icon, name, tag, stack, text, href, cta }) => (
-                <article key={name} className={`rounded-3xl p-7 flex flex-col border transition hover:-translate-y-1 hover:shadow-2xl ${tag ? 'bg-gradient-to-br from-emerald-700 to-emerald-900 text-white border-emerald-600 shadow-xl' : 'bg-gray-50 border-gray-200 shadow-md'}`}>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${tag ? 'bg-white/15 text-white' : 'bg-blue-950 text-yellow-400'}`}><Icon size={24} /></div>
-                    {tag && <span className="text-[11px] font-bold uppercase tracking-wider bg-white text-emerald-800 px-2.5 py-1 rounded-full">{tag}</span>}
+                <article key={name} className={`rounded-2xl p-5 flex flex-col border transition hover:-translate-y-1 hover:shadow-2xl ${tag ? 'bg-gradient-to-br from-emerald-700 to-emerald-900 text-white border-emerald-600 shadow-xl' : 'bg-gray-50 border-gray-200 shadow-md'}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${tag ? 'bg-white/15 text-white' : 'bg-blue-950 text-yellow-400'}`}><Icon size={20} /></div>
+                    {tag && <span className="text-[10px] font-bold uppercase tracking-wider bg-white text-emerald-800 px-2 py-1 rounded-full">{tag}</span>}
                   </div>
-                  <h3 className={`text-xl font-bold mb-2 ${tag ? '' : 'text-blue-950'}`}>{name}</h3>
-                  <p className={`text-sm leading-relaxed mb-5 flex-1 ${tag ? 'text-emerald-50' : 'text-gray-600'}`}>{text}</p>
-                  <div className="flex flex-wrap gap-2 mb-1">
-                    {stack.map((t) => <span key={t} className={`text-xs font-semibold px-2.5 py-1 rounded-full ${tag ? 'bg-white/15 text-white' : 'bg-white border border-gray-200 text-gray-700'}`}>{t}</span>)}
+                  <h3 className={`text-lg font-bold mb-1.5 ${tag ? '' : 'text-blue-950'}`}>{name}</h3>
+                  <p className={`text-sm leading-relaxed mb-3 flex-1 ${tag ? 'text-emerald-50' : 'text-gray-600'}`}>{text}</p>
+                  <div className="flex flex-wrap gap-1.5 mb-1">
+                    {stack.map((t) => <span key={t} className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${tag ? 'bg-white/15 text-white' : 'bg-white border border-gray-200 text-gray-700'}`}>{t}</span>)}
                   </div>
                   {href && (
                     <a href={href} target={href.startsWith('http') && !href.includes('control-financiero') ? '_blank' : undefined} rel="noopener noreferrer"
-                      className={`mt-5 inline-flex items-center gap-1.5 font-bold text-sm ${tag ? 'text-yellow-300 hover:text-yellow-200' : 'text-blue-700 hover:text-blue-900'}`}>
+                      className={`mt-3 inline-flex items-center gap-1.5 font-bold text-sm ${tag ? 'text-yellow-300 hover:text-yellow-200' : 'text-blue-700 hover:text-blue-900'}`}>
                       {cta} <ArrowRight size={16} />
                     </a>
                   )}
                 </article>
               ))}
             </div>
-            <div className="text-center mt-12">
-              <button onClick={() => scrollToSection('contacto')} className="px-8 py-4 bg-blue-950 text-white font-bold rounded-2xl hover:bg-blue-900 transition inline-flex items-center gap-2">
+            <div className="text-center mt-6">
+              <button onClick={() => scrollToSection('contacto')} className="px-7 py-3.5 bg-blue-950 text-white font-bold rounded-2xl hover:bg-blue-900 transition inline-flex items-center gap-2">
                 Tu proyecto puede ser el siguiente <ArrowRight size={18} />
               </button>
             </div>
@@ -495,57 +493,57 @@ const App = () => {
         </section>
 
         {/* --- PLANES Y PRECIOS --- */}
-        <section id="planes" className="py-24 bg-blue-950 relative overflow-hidden text-white">
+        <section id="planes" className="py-12 md:py-16 bg-blue-950 relative overflow-hidden text-white">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-yellow-500/10 rounded-full blur-[120px]"></div>
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-yellow-400 font-bold text-sm tracking-widest uppercase bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Planes y precios</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold mt-4 mb-4">Precios claros, sin sorpresas</h2>
-              <p className="text-blue-200 text-lg">Paga en dólares o en bolívares a la tasa BCV de hoy: <strong className="text-yellow-400">Bs. {rate}</strong> por dólar.</p>
+            <div className="text-center max-w-3xl mx-auto mb-4">
+              <span className="text-yellow-400 font-bold text-xs tracking-widest uppercase bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Planes y precios</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold mt-3 mb-3">Precios claros, sin sorpresas</h2>
+              <p className="text-blue-200">Paga en dólares o en bolívares a la tasa BCV de hoy: <strong className="text-yellow-400">Bs. {rate}</strong> por dólar.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
+            <div className="rail md:grid-cols-2 xl:grid-cols-4 items-stretch pt-4">
               {PLANS.map((plan) => {
                 const price = plan.monthly ? (annual ? plan.annual : plan.monthly) : plan.price;
                 const cycle = plan.monthly ? (annual ? 'anual' : 'mensual') : 'único';
                 const label = plan.monthly ? `${plan.name} (${annual ? 'Anual' : 'Mensual'})` : plan.name;
                 const dark = plan.featured;
                 return (
-                  <article key={plan.id} className={`relative rounded-3xl p-7 flex flex-col shadow-2xl transition hover:-translate-y-1 ${dark ? 'bg-gradient-to-b from-yellow-400 to-amber-500 text-blue-950 ring-4 ring-yellow-300/40' : 'bg-white text-gray-900'}`}>
+                  <article key={plan.id} className={`relative rounded-3xl p-5 flex flex-col shadow-2xl transition hover:-translate-y-1 ${dark ? 'bg-gradient-to-b from-yellow-400 to-amber-500 text-blue-950 ring-4 ring-yellow-300/40' : 'bg-white text-gray-900'}`}>
                     {dark && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-950 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full shadow whitespace-nowrap">⭐ Recomendado</div>}
-                    <div className={`text-xs font-bold uppercase tracking-wider mb-3 ${dark ? 'text-blue-950/70' : 'text-blue-600'}`}>{plan.kind}</div>
-                    <h3 className="text-2xl font-extrabold mb-2">{plan.name}</h3>
-                    <p className={`text-sm mb-5 ${dark ? 'text-blue-950/80' : 'text-gray-500'}`}>{plan.desc}</p>
+                    <div className={`text-xs font-bold uppercase tracking-wider mb-1.5 ${dark ? 'text-blue-950/70' : 'text-blue-600'}`}>{plan.kind}</div>
+                    <h3 className="text-xl font-extrabold mb-1">{plan.name}</h3>
+                    <p className={`text-sm mb-3 ${dark ? 'text-blue-950/80' : 'text-gray-500'}`}>{plan.desc}</p>
 
                     {plan.monthly && (
-                      <div className="grid grid-cols-2 bg-gray-100 rounded-xl p-1 mb-4 text-sm font-bold" role="group" aria-label="Forma de pago de la suscripción">
+                      <div className="grid grid-cols-2 bg-gray-100 rounded-xl p-1 mb-3 text-sm font-bold" role="group" aria-label="Forma de pago de la suscripción">
                         {[[false, 'Mensual'], [true, 'Anual']].map(([value, text]) => (
                           <button key={text} type="button" aria-pressed={annual === value} onClick={() => setAnnual(value)}
-                            className={`py-2 rounded-lg transition ${annual === value ? 'bg-blue-950 text-white shadow' : 'text-gray-600 hover:text-blue-950'}`}>{text}</button>
+                            className={`py-1.5 rounded-lg transition ${annual === value ? 'bg-blue-950 text-white shadow' : 'text-gray-600 hover:text-blue-950'}`}>{text}</button>
                         ))}
                       </div>
                     )}
 
                     <div className="flex items-baseline gap-2">
-                      <span className="text-5xl font-black tracking-tight">${price}</span>
+                      <span className="text-4xl font-black tracking-tight">${price}</span>
                       <span className={`font-medium ${dark ? 'text-blue-950/70' : 'text-gray-500'}`}>{plan.monthly ? (annual ? '/ año' : '/ mes') : 'pago único'}</span>
                     </div>
                     <div className={`text-sm mt-1 mb-1 ${dark ? 'text-blue-950/80' : 'text-gray-600'}`}>≈ Bs. {ves(price)}</div>
-                    <div className={`text-xs font-semibold mb-5 min-h-[1rem] ${dark ? 'text-blue-950' : 'text-green-700'}`}>
+                    <div className={`text-xs font-semibold mb-3 min-h-[1rem] ${dark ? 'text-blue-950' : 'text-green-700'}`}>
                       {plan.monthly ? (annual ? `Ahorras $${plan.monthly * 12 - plan.annual} al año` : `O $${plan.annual} al año y ahorras $${plan.monthly * 12 - plan.annual}`) : 'Licencia vitalicia + 1 año de soporte'}
                     </div>
 
-                    <ul className={`space-y-2.5 text-sm mb-7 flex-1 ${dark ? 'font-semibold' : 'text-gray-700'}`}>
+                    <ul className={`space-y-1.5 text-sm mb-4 flex-1 ${dark ? 'font-semibold' : 'text-gray-700'}`}>
                       {plan.features.map((f) => (
                         <li key={f} className="flex items-start gap-2"><CheckCircle size={17} className={`mt-0.5 flex-shrink-0 ${dark ? 'text-blue-950' : 'text-green-500'}`} /> {f}</li>
                       ))}
                     </ul>
 
-                    <button onClick={() => handleOpenModal(label, price, cycle)} className={`w-full py-3.5 font-extrabold rounded-xl transition shadow ${dark ? 'bg-blue-950 text-white hover:bg-blue-900' : 'bg-blue-950 text-white hover:bg-blue-900'}`}>
+                    <button onClick={() => handleOpenModal(label, price, cycle)} className={`w-full py-3 font-extrabold rounded-xl transition shadow ${dark ? 'bg-blue-950 text-white hover:bg-blue-900' : 'bg-blue-950 text-white hover:bg-blue-900'}`}>
                       Elegir este plan
                     </button>
                     <a href={waLink(`Hola GIGA DEVS, tengo una pregunta sobre el plan "${label}" ($${price}).`)} target="_blank" rel="noopener noreferrer"
-                      className={`mt-3 text-sm font-semibold text-center inline-flex items-center justify-center gap-1.5 ${dark ? 'text-blue-950 hover:underline' : 'text-blue-700 hover:underline'}`}>
+                      className={`mt-2 text-sm font-semibold text-center inline-flex items-center justify-center gap-1.5 ${dark ? 'text-blue-950 hover:underline' : 'text-blue-700 hover:underline'}`}>
                       <HelpCircle size={15} /> Tengo una pregunta
                     </a>
                   </article>
@@ -553,7 +551,7 @@ const App = () => {
               })}
             </div>
 
-            <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12 max-w-5xl mx-auto text-sm text-blue-100">
+            <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6 max-w-5xl mx-auto text-sm text-blue-100">
               {['Precio cerrado antes de empezar', 'Factura al confirmar tu pago', 'Soporte incluido', 'Cotización gratis y sin compromiso'].map((t) => (
                 <li key={t} className="flex items-center gap-2 justify-center text-center"><BadgeCheck size={18} className="text-yellow-400 flex-shrink-0" /> {t}</li>
               ))}
@@ -562,37 +560,37 @@ const App = () => {
         </section>
 
         {/* --- CÓMO PAGAR --- */}
-        <section id="pagos" className="py-24 bg-white border-b border-gray-100">
+        <section id="pagos" className="py-12 md:py-16 bg-white border-b border-gray-100">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-14">
-              <span className="text-blue-600 font-bold text-sm tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Formas de pago</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-4 mb-4">Paga como te quede más cómodo</h2>
-              <p className="text-gray-600 text-lg">En dólares o en bolívares. La tasa BCV se actualiza sola: hoy es <strong className="text-blue-950">Bs. {rate}</strong>.</p>
+            <div className="text-center max-w-3xl mx-auto mb-6">
+              <span className="text-blue-600 font-bold text-xs tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Formas de pago</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-3 mb-3">Paga como te quede más cómodo</h2>
+              <p className="text-gray-600">En dólares o en bolívares. La tasa BCV se actualiza sola: hoy es <strong className="text-blue-950">Bs. {rate}</strong>.</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto mb-14">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto mb-6">
               {PAYMENTS.map(({ icon: Icon, name, currency, text, color }) => (
-                <div key={name} className="bg-gray-50 border border-gray-200 rounded-3xl p-6 hover:shadow-lg hover:border-gray-300 transition flex flex-col">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${color}`}><Icon size={24} /></div>
-                    <span className="text-xs font-bold bg-white border border-gray-200 text-gray-700 px-2.5 py-1 rounded-full">{currency}</span>
+                <div key={name} className="bg-gray-50 border border-gray-200 rounded-2xl p-4 hover:shadow-lg hover:border-gray-300 transition flex flex-col">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${color}`}><Icon size={20} /></div>
+                    <span className="text-[11px] font-bold bg-white border border-gray-200 text-gray-700 px-2 py-0.5 rounded-full">{currency}</span>
                   </div>
-                  <h3 className="font-bold text-blue-950 text-lg mb-1">{name}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{text}</p>
+                  <h3 className="font-bold text-blue-950 text-sm sm:text-base mb-1">{name}</h3>
+                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{text}</p>
                 </div>
               ))}
             </div>
 
-            <div className="max-w-5xl mx-auto bg-blue-950 text-white rounded-3xl p-8 md:p-10">
-              <h3 className="text-xl font-bold mb-6 text-center">Así de fácil</h3>
-              <ol className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="max-w-5xl mx-auto bg-blue-950 text-white rounded-3xl p-5 md:p-6">
+              <h3 className="text-lg font-bold mb-4 text-center">Así de fácil</h3>
+              <ol className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
                   ['Elige tu plan', 'Pulsa "Elegir este plan" y genera tu solicitud con el monto en dólares y en bolívares.'],
                   ['Paga', 'Usa el medio que prefieras. Te enviamos los datos de pago por WhatsApp.'],
                   ['Envía el comprobante', 'Confirmamos tu pago, te enviamos la factura y empezamos tu proyecto.'],
                 ].map(([t, d], i) => (
-                  <li key={t} className="flex gap-4">
-                    <span className="w-10 h-10 rounded-full bg-yellow-500 text-blue-950 font-black flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                  <li key={t} className="flex gap-3">
+                    <span className="w-9 h-9 rounded-full bg-yellow-500 text-blue-950 font-black flex items-center justify-center flex-shrink-0">{i + 1}</span>
                     <div><div className="font-bold mb-1">{t}</div><p className="text-blue-200 text-sm leading-relaxed">{d}</p></div>
                   </li>
                 ))}
@@ -604,26 +602,26 @@ const App = () => {
         <Faq />
 
         {/* --- CONTACTO --- */}
-        <section id="contacto" className="py-24 bg-gray-50 border-t border-gray-200">
+        <section id="contacto" className="py-12 md:py-16 bg-gray-50 border-t border-gray-200">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto items-start">
               <div>
-                <span className="text-blue-600 font-bold text-sm tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Contacto</span>
-                <h2 className="text-3xl md:text-5xl font-extrabold text-blue-950 mt-4 mb-6">Cuéntanos tu proyecto</h2>
-                <p className="text-gray-600 text-lg mb-8">Te respondemos por WhatsApp con una propuesta y un precio cerrado. La cotización es gratis y sin compromiso.</p>
-                <div className="space-y-4">
-                  <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-white p-5 rounded-2xl border border-gray-200 hover:border-green-400 transition">
+                <span className="text-blue-600 font-bold text-xs tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Contacto</span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-3 mb-3">Cuéntanos tu proyecto</h2>
+                <p className="text-gray-600 mb-5">Te respondemos por WhatsApp con una propuesta y un precio cerrado. La cotización es gratis y sin compromiso.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                  <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-white p-4 rounded-2xl border border-gray-200 hover:border-green-400 transition">
                     <div className="w-12 h-12 rounded-xl bg-green-100 text-green-700 flex items-center justify-center"><MessageCircle size={24} /></div>
                     <div><div className="font-bold text-blue-950">WhatsApp</div><div className="text-gray-600 text-sm">+58 (424) 258-8321</div></div>
                   </a>
-                  <a href={`mailto:${EMAIL}`} className="flex items-center gap-4 bg-white p-5 rounded-2xl border border-gray-200 hover:border-blue-400 transition">
+                  <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 bg-white p-4 rounded-2xl border border-gray-200 hover:border-blue-400 transition">
                     <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center"><Mail size={24} /></div>
                     <div><div className="font-bold text-blue-950">Correo</div><div className="text-gray-600 text-sm">{EMAIL}</div></div>
                   </a>
                 </div>
               </div>
 
-              <form onSubmit={contactWhatsApp} className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 space-y-4">
+              <form onSubmit={contactWhatsApp} className="bg-white rounded-3xl p-5 md:p-6 shadow-xl border border-gray-100 space-y-3">
                 <div>
                   <label htmlFor="c-name" className="block text-sm font-bold text-gray-700 mb-1">Tu nombre</label>
                   <input id="c-name" required value={contact.name} onChange={(e) => setContact({ ...contact, name: e.target.value })} autoComplete="name" className={field} />
@@ -640,9 +638,9 @@ const App = () => {
                 </div>
                 <div>
                   <label htmlFor="c-msg" className="block text-sm font-bold text-gray-700 mb-1">Cuéntanos un poco más <span className="font-normal text-gray-400">(opcional)</span></label>
-                  <textarea id="c-msg" rows={4} value={contact.message} onChange={(e) => setContact({ ...contact, message: e.target.value })} className={field} />
+                  <textarea id="c-msg" rows={3} value={contact.message} onChange={(e) => setContact({ ...contact, message: e.target.value })} className={field} />
                 </div>
-                <button type="submit" className="w-full py-4 bg-green-500 text-white font-extrabold rounded-xl hover:bg-green-600 transition shadow-lg flex items-center justify-center gap-2">
+                <button type="submit" className="w-full py-3.5 bg-green-500 text-white font-extrabold rounded-xl hover:bg-green-600 transition shadow-lg flex items-center justify-center gap-2">
                   <Send size={18} /> Enviar por WhatsApp
                 </button>
                 <p className="text-xs text-gray-500 text-center">Se abrirá WhatsApp con tu mensaje listo. Esta página no guarda tus datos.</p>
@@ -653,18 +651,18 @@ const App = () => {
       </main>
 
       {/* --- PIE --- */}
-      <footer className="bg-blue-950 text-blue-300 py-16 border-t border-blue-900/50">
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <Logo size={48} />
+      <footer className="bg-blue-950 text-blue-300 py-8 md:py-10 border-t border-blue-900/50">
+        <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+          <div className="col-span-2">
+            <div className="flex items-center gap-3 mb-3">
+              <Logo size={40} />
               <span className="text-2xl font-bold text-white"><span className="text-yellow-500">GIGA</span> DEVS</span>
             </div>
             <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, sistemas de auditoría, páginas web y apps móviles. Creadores de Quincena VE y SICAS.</p>
           </div>
           <div>
-            <h3 className="text-white font-bold mb-4">Productos</h3>
-            <ul className="space-y-2.5 text-sm text-blue-200">
+            <h3 className="text-white font-bold mb-2">Productos</h3>
+            <ul className="space-y-1.5 text-sm text-blue-200">
               <li><a href={quincenaLink('/', 'footer')} className="hover:text-yellow-400">Quincena VE · finanzas personales</a></li>
               <li><a href={quincenaLink('/app', 'footer')} className="hover:text-yellow-400">Entrar a Quincena VE</a></li>
               <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-yellow-400">Crear cuenta gratis</a></li>
@@ -672,14 +670,14 @@ const App = () => {
             </ul>
           </div>
           <div>
-            <h3 className="text-white font-bold mb-4">Contacto</h3>
-            <ul className="space-y-2.5 text-sm text-blue-200">
+            <h3 className="text-white font-bold mb-2">Contacto</h3>
+            <ul className="space-y-1.5 text-sm text-blue-200">
               <li><a href={`mailto:${EMAIL}`} className="hover:text-yellow-400">{EMAIL}</a></li>
               <li><a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">WhatsApp: +58 (424) 258-8321</a></li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-blue-900 container mx-auto px-4 pt-8 text-center text-xs text-blue-400">
+        <div className="border-t border-blue-900 container mx-auto px-4 pt-5 text-center text-xs text-blue-400">
           <p>© {new Date().getFullYear()} GIGA DEVS Corp. Todos los derechos reservados.</p>
         </div>
       </footer>
