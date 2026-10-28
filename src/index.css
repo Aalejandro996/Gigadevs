@@ -1,9 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Tipografía y ritmo al estilo de apple.com (los colores son los de siempre). */
+@layer base {
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; letter-spacing: -0.011em; }
+  h1, h2, h3 { letter-spacing: -0.028em; }
+}
+
 /* Fila deslizable en el teléfono (tarjetas una al lado de la otra); en pantallas medianas pasa a cuadrícula. */
 @layer components {
   .rail { @apply flex overflow-x-auto snap-x snap-mandatory scroll-px-4 gap-4 -mx-4 px-4 pb-3 md:grid md:overflow-visible md:mx-0 md:px-0 md:pb-0; scrollbar-width: none; }
   .rail::-webkit-scrollbar { display: none; }
   .rail > * { @apply snap-start shrink-0 w-[82%] sm:w-[46%] md:w-auto; }
+
+  /* Titulares grandes y apretados, como en las páginas de producto de Apple. */
+  .display { @apply font-bold leading-[1.05]; letter-spacing: -0.035em; }
+  .eyebrow { @apply text-sm md:text-base font-semibold tracking-normal; }
+
+  /* Enlaces "Más información ›" */
+  .chev { @apply inline-flex items-center gap-1 font-semibold hover:underline underline-offset-4; }
+  .chev::after { content: '›'; @apply text-[1.25em] leading-none translate-y-[-1px] transition-transform; }
+  .chev:hover::after { @apply translate-x-0.5; }
+
+  /* Botón píldora */
+  .pill { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-all duration-300 active:scale-[0.97]; }
+}
+
+:root { --ease-apple: cubic-bezier(0.28, 0.11, 0.32, 1); }
+
+/* Aparecer al entrar en pantalla */
+.reveal { opacity: 0; transform: translate3d(0, 44px, 0) scale(0.985); transition: opacity 1s var(--ease-apple), transform 1.2s var(--ease-apple); transition-delay: var(--d, 0ms); will-change: opacity, transform; }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* Portada: el texto se aleja y el panel se endereza y crece mientras se baja */
+.hero-copy { opacity: calc(1 - var(--p, 0) * 1.6); transform: translate3d(0, calc(var(--p, 0) * -60px), 0) scale(calc(1 - var(--p, 0) * 0.06)); }
+.hero-device { transform-origin: 50% 0; transform: perspective(1400px) rotateX(max(0deg, calc(18deg - var(--p, 0) * 40deg))) scale(min(1, calc(0.9 + var(--p, 0) * 0.22))) translate3d(0, max(0px, calc(40px - var(--p, 0) * 88px)), 0); }
+
+/* Frase que se ilumina palabra por palabra */
+.lit span { color: rgb(203 213 225); transition: color 0.35s var(--ease-apple); }
+.lit span.on { color: rgb(23 37 84); }
+
+/* Mosaico de productos */
+.tile { transition: transform 0.6s var(--ease-apple), box-shadow 0.6s var(--ease-apple); }
+.tile:hover { transform: scale(1.012); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.35); }
+.tile .art { transition: transform 1s var(--ease-apple); }
+.tile:hover .art { transform: translate3d(0, -6px, 0) scale(1.03); }
+
+/* Cristal de la barra superior */
+.glass { -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-copy, .hero-device { opacity: 1; transform: none; }
+  .tile, .tile .art { transition: none; }
 }

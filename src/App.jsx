@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, CreditCard, Bitcoin, ChevronRight, MessageCircle, FileText, DollarSign, Download, ExternalLink, Lock, Mail, Send, Receipt, Package, TrendingUp, Landmark, BadgeCheck, HelpCircle, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
-import { QuincenaSection, SicasSection, ErpSection, ComoTrabajamos, Faq, quincenaLink } from './sections.jsx';
+import { QuincenaSection, SicasSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
+import { useReveal, useScrollProgress } from './motion.js';
 
 const WHATSAPP = '584242588321';
 const EMAIL = 'gigadevsc@gmail.com';
@@ -15,12 +16,12 @@ const InstagramIcon = ({ size = 24 }) => (
 const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
 
 const NAV = [
+  ['productos', 'Productos'],
   ['servicios', 'Servicios'],
   ['quincena', 'Quincena VE'],
-  ['sicas', 'SICAS'],
   ['erp', 'ERP'],
-  ['proyectos', 'Proyectos'],
-  ['planes', 'Planes y precios'],
+  ['sicas', 'SICAS'],
+  ['planes', 'Precios'],
   ['preguntas', 'Preguntas'],
   ['contacto', 'Contacto'],
 ];
@@ -60,8 +61,8 @@ const SPECS = {
   },
   erp: {
     icon: Database, color: 'text-yellow-400', label: 'Sistema administrativo (ERP)',
-    title: 'GIGA ERP_Contable', sub: 'Base de datos PostgreSQL con permisos por fila: cada usuario ve solo lo que le toca.',
-    blocks: [['Datos protegidos', 'Contraseñas cifradas con bcrypt y consultas que impiden la inyección de código (SQL).'], ['Ventas y facturación', 'Cada venta queda registrada con su historial y se respalda automáticamente cada día.']],
+    title: 'ERP: facturación y contabilidad', sub: 'Base de datos PostgreSQL con seguridad por fila: cada empresa ve solo lo suyo.',
+    blocks: [['Datos protegidos', 'Doble factor (MFA) obligatorio, contraseñas cifradas y consultas que impiden la inyección de código (SQL).'], ['Bitácora inalterable', 'Cada factura y cada asiento quedan registrados con su usuario y su fecha, sin poder borrarse.']],
   },
   netguard: {
     icon: ShieldCheck, color: 'text-blue-400', label: 'NetGuard (red)',
@@ -79,7 +80,7 @@ const SPECS = {
 const PROJECTS = [
   {
     icon: TrendingUp, name: 'Quincena VE', tag: 'Producto propio', stack: ['Kotlin', 'Python · Flask', 'PWA'],
-    text: 'Finanzas personales por quincena en dólares y moneda local, con tasa BCV automática. Web instalable y app nativa para Android con actualizaciones automáticas.',
+    text: 'Finanzas personales por quincena y, ahora, para tu negocio: ventas, fiado y caja en dólares y bolívares con tasa BCV automática. Web instalable y app nativa para Android.',
     href: quincenaLink('/', 'proyectos'), cta: 'Conocer Quincena VE',
   },
   {
@@ -166,6 +167,9 @@ const App = () => {
   const [orderData, setOrderData] = useState(null);
 
   const [contact, setContact] = useState({ name: '', business: '', need: 'Un sistema administrativo', message: '' });
+
+  useReveal();
+  useScrollProgress();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -300,7 +304,7 @@ const App = () => {
       </a>
 
       {/* --- ENCABEZADO --- */}
-      <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-blue-950/95 backdrop-blur-md py-2.5 shadow-xl border-b border-blue-900/50' : 'bg-blue-950 py-4'}`}>
+      <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-blue-950/80 glass py-2 border-b border-white/10' : 'bg-blue-950 py-3.5'}`}>
         <div className="container mx-auto px-4 flex justify-between items-center gap-4">
           <a href="#inicio" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center gap-3" aria-label="GIGA DEVS, inicio">
             <Logo size={48} />
@@ -317,8 +321,8 @@ const App = () => {
             <div className="hidden 2xl:flex text-xs text-yellow-400 bg-blue-900/80 px-3 py-1.5 rounded-xl border border-blue-800 font-mono items-center gap-1" title="Tasa oficial del Banco Central de Venezuela">
               <Lock size={12} className="text-green-400" /> BCV: Bs. {rate}
             </div>
-            <a href={quincenaLink('/app', 'menu')} className="text-white border border-emerald-400/60 px-4 py-2.5 rounded-xl hover:bg-emerald-500/20 transition font-bold text-sm">Entrar a Quincena VE</a>
-            <button onClick={() => scrollToSection('contacto')} className="bg-yellow-500 text-blue-950 px-5 py-2.5 rounded-xl hover:bg-yellow-400 transition shadow-md font-bold text-sm">Cotizar gratis</button>
+            <a href={quincenaLink('/app', 'menu')} className="pill !px-4 !py-2 text-white border border-emerald-400/60 hover:bg-emerald-500/20 text-sm">Entrar a Quincena VE</a>
+            <button onClick={() => scrollToSection('contacto')} className="pill !px-5 !py-2 bg-yellow-500 text-blue-950 hover:bg-yellow-400 text-sm">Cotizar gratis</button>
           </div>
 
           <button className="lg:hidden text-yellow-500 p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={isMenuOpen} aria-controls="menu-movil">
@@ -339,78 +343,85 @@ const App = () => {
       </header>
 
       <main>
-        {/* --- PORTADA --- */}
-        <section id="inicio" className="relative pt-24 pb-10 md:pt-32 md:pb-16 bg-blue-950 overflow-hidden text-white">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900 via-blue-950 to-blue-950 opacity-90"></div>
-          <div className="absolute top-10 right-10 w-[500px] h-[500px] bg-yellow-500 rounded-full mix-blend-screen filter blur-[120px] opacity-15 motion-safe:animate-pulse"></div>
+        {/* --- PORTADA: titular grande y panel que se endereza al bajar (estilo apple.com) --- */}
+        <section id="inicio" data-scroll="hero" className="relative pt-32 md:pt-40 pb-16 md:pb-24 bg-blue-950 overflow-hidden text-white">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900 via-blue-950 to-blue-950"></div>
+          <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[760px] h-[420px] bg-yellow-500 rounded-full mix-blend-screen filter blur-[140px] opacity-[0.12]"></div>
           <div className="container mx-auto px-4 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-7 text-center lg:text-left">
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/80 rounded-full border border-blue-700/50 text-yellow-400 font-semibold mb-4 text-xs">
-                  Software a la medida · Hecho en Venezuela
-                </span>
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4">
-                  Software que ordena tu negocio y te ayuda a <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200">vender más</span>
-                </h1>
-                <p className="text-base md:text-xl text-blue-100 mb-6 max-w-2xl leading-relaxed mx-auto lg:mx-0">
-                  Creamos sistemas administrativos con facturación e inventario, páginas web, tiendas en línea y apps móviles.
-                  Precio cerrado en dólares o en bolívares a tasa BCV, y soporte después de la entrega.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="px-7 py-3.5 bg-yellow-500 text-blue-950 font-extrabold rounded-2xl shadow-xl hover:bg-yellow-400 transition flex items-center justify-center gap-2">
-                    <MessageCircle size={20} /> Cotizar por WhatsApp
-                  </a>
-                  <button onClick={() => scrollToSection('planes')} className="px-7 py-3.5 bg-blue-900/60 border border-blue-700 text-white font-bold rounded-2xl hover:bg-blue-800/80 transition flex items-center justify-center gap-2">
-                    Ver planes y precios <ChevronRight size={20} />
-                  </button>
-                </div>
-                <ul className="grid grid-cols-2 gap-x-4 gap-y-2 mt-6 pt-5 border-t border-blue-900/80 max-w-xl mx-auto lg:mx-0 text-sm text-blue-100 text-left">
-                  {['Precio cerrado antes de empezar', 'Pago en dólares o bolívares (tasa BCV)', 'Soporte y actualizaciones incluidos', 'Seguridad desde el primer día'].map((t) => (
-                    <li key={t} className="flex items-center gap-2"><CheckCircle size={16} className="text-yellow-400 flex-shrink-0" /> {t}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="lg:col-span-5 hidden lg:block" aria-hidden="true">
-                <div className="bg-white text-gray-900 rounded-3xl p-6 shadow-2xl max-w-md ml-auto">
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="font-bold text-blue-950">Panel de tu negocio</div>
-                    <span className="text-xs bg-green-100 text-green-700 font-bold px-2 py-1 rounded-full">En línea</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 mb-4">
-                    <div className="bg-blue-50 rounded-2xl p-4"><div className="text-xs text-gray-500 font-semibold">Ventas de hoy</div><div className="text-2xl font-black text-blue-950">$1.284</div><div className="text-xs text-green-600 font-bold">+12% vs. ayer</div></div>
-                    <div className="bg-yellow-50 rounded-2xl p-4"><div className="text-xs text-gray-500 font-semibold">En bolívares</div><div className="text-2xl font-black text-blue-950">Bs. {ves(1284).split(',')[0]}</div><div className="text-xs text-gray-500">Tasa BCV del día</div></div>
-                  </div>
-                  {[[Receipt, 'Venta #000128 registrada', 'hace 2 min'], [Package, 'Stock bajo: 3 productos', 'Almacén principal'], [TrendingUp, 'Cierre de caja listo', 'Turno de la tarde']].map(([Icon, t, s]) => (
-                    <div key={t} className="flex items-center gap-3 py-3 border-t border-gray-100">
-                      <div className="w-9 h-9 rounded-xl bg-blue-950 text-yellow-400 flex items-center justify-center"><Icon size={18} /></div>
-                      <div><div className="text-sm font-semibold">{t}</div><div className="text-xs text-gray-500">{s}</div></div>
-                    </div>
-                  ))}
-                  <div className="text-xs text-gray-400 mt-2">Datos de ejemplo</div>
-                </div>
+            <div className="hero-copy text-center max-w-4xl mx-auto">
+              <p className="eyebrow text-yellow-400 mb-4 reveal">Software a la medida · Hecho en Venezuela</p>
+              <h1 className="display text-5xl sm:text-6xl lg:text-8xl mb-6 reveal" style={{ '--d': '80ms' }}>
+                Ordena tu negocio.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200">Vende más.</span>
+              </h1>
+              <p className="text-lg md:text-2xl text-blue-100 max-w-2xl mx-auto leading-relaxed mb-8 reveal" style={{ '--d': '160ms' }}>
+                Sistemas administrativos, páginas web y apps móviles. Y nuestros productos: Quincena VE, ERP y SICAS.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center items-center reveal" style={{ '--d': '240ms' }}>
+                <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="pill bg-yellow-500 text-blue-950 hover:bg-yellow-400 text-lg px-8">
+                  <MessageCircle size={20} /> Cotizar por WhatsApp
+                </a>
+                <button onClick={() => scrollToSection('productos')} className="chev text-yellow-400 text-lg">Ver nuestros productos</button>
               </div>
             </div>
+
+            <div className="hero-device mt-14 md:mt-20 max-w-4xl mx-auto" aria-hidden="true">
+              <div className="bg-white text-gray-900 rounded-[2rem] p-5 md:p-8 shadow-[0_50px_120px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-red-400"></span><span className="w-3 h-3 rounded-full bg-yellow-400"></span><span className="w-3 h-3 rounded-full bg-green-400"></span><span className="ml-3 font-bold text-blue-950">Panel de tu negocio</span></div>
+                  <span className="text-xs bg-green-100 text-green-700 font-bold px-2 py-1 rounded-full">En línea</span>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  <div className="bg-blue-50 rounded-2xl p-4"><div className="text-xs text-gray-500 font-semibold">Ventas de hoy</div><div className="text-2xl md:text-3xl font-black text-blue-950">$1.284</div><div className="text-xs text-green-600 font-bold">+12% vs. ayer</div></div>
+                  <div className="bg-yellow-50 rounded-2xl p-4"><div className="text-xs text-gray-500 font-semibold">En bolívares</div><div className="text-lg sm:text-2xl md:text-3xl font-black text-blue-950 whitespace-nowrap">Bs. {ves(1284).split(',')[0]}</div><div className="text-xs text-gray-500">Tasa BCV del día</div></div>
+                  <div className="bg-emerald-50 rounded-2xl p-4 hidden md:block"><div className="text-xs text-gray-500 font-semibold">Fiado por cobrar</div><div className="text-3xl font-black text-blue-950">$86</div><div className="text-xs text-gray-500">4 clientes</div></div>
+                  <div className="bg-indigo-50 rounded-2xl p-4 hidden md:block"><div className="text-xs text-gray-500 font-semibold">Facturas del mes</div><div className="text-3xl font-black text-blue-950">128</div><div className="text-xs text-gray-500">Con número de control</div></div>
+                </div>
+                <div className="grid md:grid-cols-3 gap-x-6">
+                  {[[Receipt, 'Venta #000128 registrada', 'hace 2 min'], [Package, 'Stock bajo: 3 productos', 'Almacén principal'], [TrendingUp, 'Cierre de caja listo', 'Turno de la tarde']].map(([Icon, tt, s]) => (
+                    <div key={tt} className="flex items-center gap-3 py-3 border-t border-gray-100">
+                      <div className="w-9 h-9 rounded-xl bg-blue-950 text-yellow-400 flex items-center justify-center flex-shrink-0"><Icon size={18} /></div>
+                      <div><div className="text-sm font-semibold">{tt}</div><div className="text-xs text-gray-500">{s}</div></div>
+                    </div>
+                  ))}
+                </div>
+                <div className="text-xs text-gray-400 mt-2">Datos de ejemplo</div>
+              </div>
+            </div>
+
+            <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 max-w-4xl mx-auto text-sm text-blue-100">
+              {['Precio cerrado antes de empezar', 'Pago en $ o Bs. a tasa BCV', 'Soporte y actualizaciones', 'Seguridad desde el primer día'].map((x, i) => (
+                <li key={x} className="flex items-center justify-center gap-2 text-center reveal" style={{ '--d': `${i * 80}ms` }}><CheckCircle size={16} className="text-yellow-400 flex-shrink-0" /> {x}</li>
+              ))}
+            </ul>
           </div>
         </section>
 
+        {/* --- PRODUCTOS: mosaico como la portada de apple.com --- */}
+        <ProductTiles
+          erpDemo={waLink('Hola GIGA DEVS 👋 Quiero una demostración del ERP (facturación y contabilidad).')}
+          sicasDemo={waLink('Hola GIGA DEVS 👋 Quiero una demostración de SICAS, el sistema de control y auditoría.')}
+          go={scrollToSection}
+        />
+
+        <Statement />
+
         {/* --- SERVICIOS --- */}
-        <section id="servicios" className="py-12 md:py-16 bg-white">
+        <section id="servicios" className="py-20 md:py-28 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-8">
-              <span className="text-blue-600 font-bold text-xs tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Servicios</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-3 mb-3">Todo lo digital que tu negocio necesita</h2>
-              <p className="text-gray-600">Desde el sistema con el que facturas hasta la web donde te encuentran tus clientes.</p>
+            <div className="text-center max-w-3xl mx-auto mb-12 reveal">
+              <p className="eyebrow text-blue-600 mb-3">Servicios</p>
+              <h2 className="display text-4xl md:text-6xl text-blue-950 mb-4">Todo lo digital que tu negocio necesita.</h2>
+              <p className="text-gray-600 text-lg md:text-xl">Desde el sistema con el que facturas hasta la web donde te encuentran tus clientes.</p>
             </div>
             <div className="rail md:grid-cols-2 xl:grid-cols-4">
-              {SERVICES.map(({ icon: Icon, title, text, items, tone }) => (
-                <div key={title} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 flex flex-col">
+              {SERVICES.map(({ icon: Icon, title, text, items, tone }, i) => (
+                <div key={title} className="reveal tile bg-gray-50 rounded-3xl p-6 flex flex-col" style={{ '--d': `${i * 90}ms` }}>
                   <h3 className="text-lg font-bold text-blue-950 mb-2 flex items-center gap-3"><span className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${TONES[tone]}`}><Icon size={22} /></span>{title}</h3>
                   <p className="text-gray-600 text-sm mb-3 leading-relaxed">{text}</p>
                   <ul className="space-y-1.5 text-sm text-gray-700 mb-4 flex-1">
                     {items.map((i) => <li key={i} className="flex items-start gap-2"><CheckCircle size={16} className="text-yellow-500 mt-0.5 flex-shrink-0" /> {i}</li>)}
                   </ul>
-                  <button onClick={() => scrollToSection('planes')} className="w-full py-2.5 bg-blue-50 text-blue-900 font-bold rounded-xl hover:bg-blue-100 transition text-sm">Ver precios</button>
+                  <button onClick={() => scrollToSection('planes')} className="chev text-blue-700 text-sm self-start">Ver precios</button>
                 </div>
               ))}
             </div>
@@ -429,17 +440,17 @@ const App = () => {
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
 
         {/* --- CÓMO ESTÁN HECHOS --- */}
-        <section id="detalles" className="py-12 md:py-16 bg-gray-900 text-white">
+        <section id="detalles" className="py-20 md:py-28 bg-gray-900 text-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-6">
-              <span className="text-yellow-400 font-mono text-xs tracking-widest uppercase">Seguridad y tecnología</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-3">Así están hechos nuestros sistemas</h2>
+            <div className="text-center max-w-3xl mx-auto mb-10 reveal">
+              <p className="eyebrow text-yellow-400 mb-3">Seguridad y tecnología</p>
+              <h2 className="display text-4xl md:text-6xl mb-4">Así están hechos nuestros sistemas.</h2>
               <p className="text-gray-400">Elige un sistema para ver qué hace y cómo protege tu información.</p>
             </div>
             <div className="flex overflow-x-auto md:flex-wrap md:justify-center gap-2 mb-6 -mx-4 px-4 pb-1" role="tablist" aria-label="Sistemas">
               {Object.entries(SPECS).map(([key, { icon: Icon, label }]) => (
                 <button key={key} role="tab" aria-selected={activeTab === key} onClick={() => setActiveTab(key)}
-                  className={`px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap flex-shrink-0 transition flex items-center gap-2 ${activeTab === key ? 'bg-yellow-500 text-blue-950 shadow-lg' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}>
+                  className={`px-4 py-2.5 rounded-full font-bold text-sm whitespace-nowrap flex-shrink-0 transition flex items-center gap-2 ${activeTab === key ? 'bg-yellow-500 text-blue-950 shadow-lg' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}>
                   <Icon size={18} /> {label}
                 </button>
               ))}
@@ -468,16 +479,16 @@ const App = () => {
         </section>
 
         {/* --- PROYECTOS --- */}
-        <section id="proyectos" className="py-12 md:py-16 bg-white">
+        <section id="proyectos" className="py-20 md:py-28 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-8">
-              <span className="text-yellow-600 font-bold text-xs tracking-wider uppercase bg-yellow-50 px-3 py-1 rounded-full">Proyectos</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-3 mb-3">Lo que hemos construido</h2>
+            <div className="text-center max-w-3xl mx-auto mb-12 reveal">
+              <p className="eyebrow text-yellow-600 mb-3">Proyectos</p>
+              <h2 className="display text-4xl md:text-6xl text-blue-950 mb-4">Lo que hemos construido.</h2>
               <p className="text-gray-600">Sistemas reales que hemos desarrollado: administración, auditoría, licencias, comercio y finanzas personales.</p>
             </div>
             <div className="rail md:grid-cols-2 lg:grid-cols-4">
-              {PROJECTS.map(({ icon: Icon, name, tag, stack, text, href, cta }) => (
-                <article key={name} className={`rounded-2xl p-5 flex flex-col border transition hover:-translate-y-1 hover:shadow-2xl ${tag ? 'bg-gradient-to-br from-emerald-700 to-emerald-900 text-white border-emerald-600 shadow-xl' : 'bg-gray-50 border-gray-200 shadow-md'}`}>
+              {PROJECTS.map(({ icon: Icon, name, tag, stack, text, href, cta }, i) => (
+                <article key={name} style={{ '--d': `${(i % 4) * 90}ms` }} className={`reveal tile rounded-3xl p-6 flex flex-col border ${tag ? 'bg-gradient-to-br from-emerald-700 to-emerald-900 text-white border-emerald-600 shadow-xl' : 'bg-gray-50 border-gray-200 shadow-md'}`}>
                   <div className="flex items-center justify-between mb-3">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${tag ? 'bg-white/15 text-white' : 'bg-blue-950 text-yellow-400'}`}><Icon size={20} /></div>
                     {tag && <span className="text-[10px] font-bold uppercase tracking-wider bg-white text-emerald-800 px-2 py-1 rounded-full">{tag}</span>}
@@ -497,7 +508,7 @@ const App = () => {
               ))}
             </div>
             <div className="text-center mt-6">
-              <button onClick={() => scrollToSection('contacto')} className="px-7 py-3.5 bg-blue-950 text-white font-bold rounded-2xl hover:bg-blue-900 transition inline-flex items-center gap-2">
+              <button onClick={() => scrollToSection('contacto')} className="pill bg-blue-950 text-white hover:bg-blue-900 px-8">
                 Tu proyecto puede ser el siguiente <ArrowRight size={18} />
               </button>
             </div>
@@ -505,13 +516,13 @@ const App = () => {
         </section>
 
         {/* --- PLANES Y PRECIOS --- */}
-        <section id="planes" className="py-12 md:py-16 bg-blue-950 relative overflow-hidden text-white">
+        <section id="planes" className="py-20 md:py-28 bg-blue-950 relative overflow-hidden text-white">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-yellow-500/10 rounded-full blur-[120px]"></div>
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center max-w-3xl mx-auto mb-4">
-              <span className="text-yellow-400 font-bold text-xs tracking-widest uppercase bg-blue-900 px-3 py-1 rounded-full border border-blue-800">Planes y precios</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold mt-3 mb-3">Precios claros, sin sorpresas</h2>
-              <p className="text-blue-200">Paga en dólares o en bolívares a la tasa BCV de hoy: <strong className="text-yellow-400">Bs. {rate}</strong> por dólar.</p>
+            <div className="text-center max-w-3xl mx-auto mb-8 reveal">
+              <p className="eyebrow text-yellow-400 mb-3">Planes y precios</p>
+              <h2 className="display text-4xl md:text-6xl mb-4">Precios claros. Sin sorpresas.</h2>
+              <p className="text-blue-200 text-lg">Paga en dólares o en bolívares a la tasa BCV de hoy: <strong className="text-yellow-400">Bs. {rate}</strong> por dólar.</p>
             </div>
 
             <div className="rail md:grid-cols-2 xl:grid-cols-4 items-stretch pt-4">
@@ -521,7 +532,7 @@ const App = () => {
                 const label = plan.monthly ? `${plan.name} (${annual ? 'Anual' : 'Mensual'})` : plan.name;
                 const dark = plan.featured;
                 return (
-                  <article key={plan.id} className={`relative rounded-3xl p-5 flex flex-col shadow-2xl transition hover:-translate-y-1 ${dark ? 'bg-gradient-to-b from-yellow-400 to-amber-500 text-blue-950 ring-4 ring-yellow-300/40' : 'bg-white text-gray-900'}`}>
+                  <article key={plan.id} style={{ '--d': `${PLANS.indexOf(plan) * 90}ms` }} className={`reveal tile relative rounded-3xl p-6 flex flex-col shadow-2xl ${dark ? 'bg-gradient-to-b from-yellow-400 to-amber-500 text-blue-950 ring-4 ring-yellow-300/40' : 'bg-white text-gray-900'}`}>
                     {dark && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-950 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full shadow whitespace-nowrap">⭐ Recomendado</div>}
                     <div className={`text-xs font-bold uppercase tracking-wider mb-1.5 ${dark ? 'text-blue-950/70' : 'text-blue-600'}`}>{plan.kind}</div>
                     <h3 className="text-xl font-extrabold mb-1">{plan.name}</h3>
@@ -551,7 +562,7 @@ const App = () => {
                       ))}
                     </ul>
 
-                    <button onClick={() => handleOpenModal(label, price, cycle)} className={`w-full py-3 font-extrabold rounded-xl transition shadow ${dark ? 'bg-blue-950 text-white hover:bg-blue-900' : 'bg-blue-950 text-white hover:bg-blue-900'}`}>
+                    <button onClick={() => handleOpenModal(label, price, cycle)} className="pill w-full bg-blue-950 text-white hover:bg-blue-900 shadow">
                       Elegir este plan
                     </button>
                     <a href={waLink(`Hola GIGA DEVS, tengo una pregunta sobre el plan "${label}" ($${price}).`)} target="_blank" rel="noopener noreferrer"
@@ -572,17 +583,17 @@ const App = () => {
         </section>
 
         {/* --- CÓMO PAGAR --- */}
-        <section id="pagos" className="py-12 md:py-16 bg-white border-b border-gray-100">
+        <section id="pagos" className="py-20 md:py-28 bg-white border-b border-gray-100">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-6">
-              <span className="text-blue-600 font-bold text-xs tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Formas de pago</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-3 mb-3">Paga como te quede más cómodo</h2>
+            <div className="text-center max-w-3xl mx-auto mb-10 reveal">
+              <p className="eyebrow text-blue-600 mb-3">Formas de pago</p>
+              <h2 className="display text-4xl md:text-6xl text-blue-950 mb-4">Paga como te quede más cómodo.</h2>
               <p className="text-gray-600">En dólares o en bolívares. La tasa BCV se actualiza sola: hoy es <strong className="text-blue-950">Bs. {rate}</strong>.</p>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto mb-6">
-              {PAYMENTS.map(({ icon: Icon, name, currency, text, color }) => (
-                <div key={name} className="bg-gray-50 border border-gray-200 rounded-2xl p-4 hover:shadow-lg hover:border-gray-300 transition flex flex-col">
+              {PAYMENTS.map(({ icon: Icon, name, currency, text, color }, i) => (
+                <div key={name} style={{ '--d': `${i * 80}ms` }} className="reveal tile bg-gray-50 rounded-3xl p-5 flex flex-col">
                   <div className="flex items-center justify-between mb-2">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${color}`}><Icon size={20} /></div>
                     <span className="text-[11px] font-bold bg-white border border-gray-200 text-gray-700 px-2 py-0.5 rounded-full">{currency}</span>
@@ -593,7 +604,7 @@ const App = () => {
               ))}
             </div>
 
-            <div className="max-w-5xl mx-auto bg-blue-950 text-white rounded-3xl p-5 md:p-6">
+            <div className="max-w-5xl mx-auto bg-blue-950 text-white rounded-[2rem] p-6 md:p-8 reveal">
               <h3 className="text-lg font-bold mb-4 text-center">Así de fácil</h3>
               <ol className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
@@ -614,12 +625,12 @@ const App = () => {
         <Faq />
 
         {/* --- CONTACTO --- */}
-        <section id="contacto" className="py-12 md:py-16 bg-gray-50 border-t border-gray-200">
+        <section id="contacto" className="py-20 md:py-28 bg-gray-50 border-t border-gray-200">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto items-start">
-              <div>
-                <span className="text-blue-600 font-bold text-xs tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Contacto</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-blue-950 mt-3 mb-3">Cuéntanos tu proyecto</h2>
+              <div className="reveal">
+                <p className="eyebrow text-blue-600 mb-3">Contacto</p>
+                <h2 className="display text-4xl md:text-6xl text-blue-950 mb-4">Cuéntanos tu proyecto.</h2>
                 <p className="text-gray-600 mb-5">Te respondemos por WhatsApp con una propuesta y un precio cerrado. La cotización es gratis y sin compromiso.</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
                   <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-white p-4 rounded-2xl border border-gray-200 hover:border-green-400 transition">
@@ -641,7 +652,7 @@ const App = () => {
                 </div>
               </div>
 
-              <form onSubmit={contactWhatsApp} className="bg-white rounded-3xl p-5 md:p-6 shadow-xl border border-gray-100 space-y-3">
+              <form onSubmit={contactWhatsApp} className="reveal bg-white rounded-[2rem] p-6 md:p-8 shadow-xl border border-gray-100 space-y-3" style={{ '--d': '120ms' }}>
                 <div>
                   <label htmlFor="c-name" className="block text-sm font-bold text-gray-700 mb-1">Tu nombre</label>
                   <input id="c-name" required value={contact.name} onChange={(e) => setContact({ ...contact, name: e.target.value })} autoComplete="name" className={field} />
@@ -660,7 +671,7 @@ const App = () => {
                   <label htmlFor="c-msg" className="block text-sm font-bold text-gray-700 mb-1">Cuéntanos un poco más <span className="font-normal text-gray-400">(opcional)</span></label>
                   <textarea id="c-msg" rows={3} value={contact.message} onChange={(e) => setContact({ ...contact, message: e.target.value })} className={field} />
                 </div>
-                <button type="submit" className="w-full py-3.5 bg-green-500 text-white font-extrabold rounded-xl hover:bg-green-600 transition shadow-lg flex items-center justify-center gap-2">
+                <button type="submit" className="pill w-full py-3.5 bg-green-500 text-white hover:bg-green-600 shadow-lg">
                   <Send size={18} /> Enviar por WhatsApp
                 </button>
                 <p className="text-xs text-gray-500 text-center">Se abrirá WhatsApp con tu mensaje listo. Esta página no guarda tus datos.</p>
@@ -678,7 +689,7 @@ const App = () => {
               <Logo size={40} />
               <span className="text-2xl font-bold text-white"><span className="text-yellow-500">GIGA</span> DEVS</span>
             </div>
-            <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, sistemas de auditoría, páginas web y apps móviles. Creadores de Quincena VE y SICAS.</p>
+            <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, sistemas de auditoría, páginas web y apps móviles. Creadores de Quincena VE, ERP y SICAS.</p>
           </div>
           <div>
             <h3 className="text-white font-bold mb-2">Productos</h3>
@@ -686,6 +697,8 @@ const App = () => {
               <li><a href={quincenaLink('/', 'footer')} className="hover:text-yellow-400">Quincena VE · finanzas personales</a></li>
               <li><a href={quincenaLink('/app', 'footer')} className="hover:text-yellow-400">Entrar a Quincena VE</a></li>
               <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-yellow-400">Crear cuenta gratis</a></li>
+              <li><a href={quincenaLink('/app', 'footer-negocio') + '#negocio'} className="hover:text-yellow-400">Quincena VE para tu negocio</a></li>
+              <li><a href="#erp" onClick={(e) => { e.preventDefault(); scrollToSection('erp'); }} className="hover:text-yellow-400">ERP · facturación y contabilidad</a></li>
               <li><a href="#sicas" onClick={(e) => { e.preventDefault(); scrollToSection('sicas'); }} className="hover:text-yellow-400">SICAS · control y auditoría</a></li>
             </ul>
           </div>
