@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /404.html
 
+# Gigadevs Corp · Contax® y Quincena VE
 Sitemap: https://gigadevs-corp.onrender.com/sitemap.xml
