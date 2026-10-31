@@ -698,7 +698,7 @@ const App = () => {
               <li><a href={quincenaLink('/app', 'footer')} className="hover:text-yellow-400">Entrar a Quincena VE</a></li>
               <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-yellow-400">Crear cuenta gratis</a></li>
               <li><a href={quincenaLink('/app', 'footer-negocio') + '#negocio'} className="hover:text-yellow-400">Quincena VE para tu negocio</a></li>
-              <li><a href="#contax" onClick={(e) => { e.preventDefault(); scrollToSection('contax'); }} className="hover:text-yellow-400">Contax® · facturación y contabilidad</a></li>
+              <li><a href="https://erp-web-jaby.onrender.com/" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">Contax® · facturación y contabilidad</a></li>
               <li><a href="#sicas" onClick={(e) => { e.preventDefault(); scrollToSection('sicas'); }} className="hover:text-yellow-400">SICAS · control y auditoría</a></li>
             </ul>
           </div>
