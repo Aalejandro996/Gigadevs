@@ -715,7 +715,12 @@ const App = () => {
           </div>
         </div>
         <div className="border-t border-blue-900 container mx-auto px-4 pt-5 text-center text-xs text-blue-400">
-          <p>© {new Date().getFullYear()} GIGA DEVS Corp. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} GIGA DEVS Corp. Todos los derechos reservados. Contax® es una marca registrada de Gigadevs Corp.</p>
+          <p className="mt-2 flex justify-center gap-4 flex-wrap">
+            {[['terminos', 'Términos y condiciones'], ['privacidad', 'Política de privacidad'], ['cookies', 'Política de cookies']].map(([k, t]) => (
+              <a key={k} href={`https://erp-web-jaby.onrender.com/legal/${k}`} target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 underline">{t}</a>
+            ))}
+          </p>
         </div>
       </footer>
 
