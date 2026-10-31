@@ -49,7 +49,7 @@ export const ProductTiles = ({ erpDemo, sicasDemo, go }) => (
       <Tile className="bg-[#191919] text-white" d={0}
         eyebrow={<img src="/contax-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
         title="Contax" sub={<>Tu empresa en orden. <span className="text-[#87e64b]">Tu fisco al día.</span></>}
-        links={<><a href={erpDemo} target="_blank" rel="noopener noreferrer" className="chev text-[#87e64b]">Probar gratis 72 h</a><a href="#contax" onClick={(e) => { e.preventDefault(); go('contax'); }} className="chev text-white">Más información</a></>}>
+        links={<><a href={erpDemo} target="_blank" rel="noopener noreferrer" className="chev text-[#87e64b]">Probar gratis 72 h</a><a href="https://erp-web-jaby.onrender.com/" target="_blank" rel="noopener noreferrer" className="chev text-white">Conocer Contax</a></>}>
         <div className="bg-white text-gray-900 rounded-t-[2rem] p-6 text-left shadow-2xl">
           <div className="flex justify-between items-start gap-2"><span className="text-sm font-semibold text-gray-500">Factura A00000128</span><span className="text-[10px] font-bold border-2 border-gray-900 rounded-md px-1.5">Control 00-00000128</span></div>
           <div className="text-3xl font-black my-2">Bs. 4.234,00</div>
@@ -424,8 +424,11 @@ export const ErpSection = ({ demoHref, onCotizar }) => (
             <a href={demoHref} target="_blank" rel="noopener noreferrer" className="pill bg-[#87e64b] text-[#1a4200] hover:bg-[#7ad63f] shadow-xl">
               <MessagesSquare size={20} /> Probar gratis 72 horas
             </a>
-            <button onClick={onCotizar} className="pill border border-white/40 text-white hover:bg-white/10">
-              Cotizar para mi empresa <ArrowRight size={18} />
+            <a href="https://erp-web-jaby.onrender.com/" target="_blank" rel="noopener noreferrer" className="pill border border-white/40 text-white hover:bg-white/10">
+              Conocer Contax <ArrowRight size={18} />
+            </a>
+            <button onClick={onCotizar} className="pill border border-white/20 text-gray-300 hover:bg-white/10">
+              Cotizar para mi empresa
             </button>
           </div>
         </div>
