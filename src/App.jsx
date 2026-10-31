@@ -19,7 +19,7 @@ const NAV = [
   ['productos', 'Productos'],
   ['servicios', 'Servicios'],
   ['quincena', 'Quincena VE'],
-  ['erp', 'ERP'],
+  ['contax', 'Contax'],
   ['sicas', 'SICAS'],
   ['planes', 'Precios'],
   ['preguntas', 'Preguntas'],
@@ -59,9 +59,9 @@ const SPECS = {
     title: 'SICAS: control y auditoría', sub: 'Auditorías administrativas, financieras y de sistemas con trazabilidad de punta a punta.',
     blocks: [['Hallazgos sin IA externa', 'Un motor de reglas propio redacta condición, criterio, causa, efecto y recomendación. La información no sale del servidor.'], ['Firma y trazabilidad', 'Aprobación por niveles con MFA, firma electrónica PAdES con sellado, bitácora de solo inserción y doble control en lo crítico.']],
   },
-  erp: {
-    icon: Database, color: 'text-yellow-400', label: 'Sistema administrativo (ERP)',
-    title: 'ERP: facturación y contabilidad', sub: 'Base de datos PostgreSQL con seguridad por fila: cada empresa ve solo lo suyo.',
+  contax: {
+    icon: Database, color: 'text-yellow-400', label: 'Sistema administrativo (Contax)',
+    title: 'Contax: facturación y contabilidad', sub: 'Base de datos PostgreSQL con seguridad por fila: cada empresa ve solo lo suyo.',
     blocks: [['Datos protegidos', 'Doble factor (MFA) obligatorio, contraseñas cifradas y consultas que impiden la inyección de código (SQL).'], ['Bitácora inalterable', 'Cada factura y cada asiento quedan registrados con su usuario y su fecha, sin poder borrarse.']],
   },
   netguard: {
@@ -97,7 +97,7 @@ const PROJECTS = [
     text: 'Registro de horas por actividad con roles de administrador y auditor, panel de horas en horario laboral y bitácora de auditoría de cada cambio.',
   },
   {
-    icon: KeyRound, name: 'Servidor de licencias para ERP', stack: ['Python · Flask', 'Turso (libSQL)'],
+    icon: KeyRound, name: 'Servidor de licencias para Contax', stack: ['Python · Flask', 'Turso (libSQL)'],
     text: 'Activa y valida licencias de software por equipo: límite de equipos por licencia, activar o suspender licencias y protección contra intentos abusivos.',
   },
   {
@@ -149,7 +149,7 @@ const Logo = ({ size = 48 }) => (
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeTab, setActiveTab] = useState('erp');
+  const [activeTab, setActiveTab] = useState('contax');
   const [annual, setAnnual] = useState(false);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -354,7 +354,7 @@ const App = () => {
                 Ordena tu negocio.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200">Vende más.</span>
               </h1>
               <p className="text-lg md:text-2xl text-blue-100 max-w-2xl mx-auto leading-relaxed mb-8 reveal" style={{ '--d': '160ms' }}>
-                Sistemas administrativos, páginas web y apps móviles. Y nuestros productos: Quincena VE, ERP y SICAS.
+                Sistemas administrativos, páginas web y apps móviles. Y nuestros productos: Quincena VE, Contax y SICAS.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center items-center reveal" style={{ '--d': '240ms' }}>
                 <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="pill bg-yellow-500 text-blue-950 hover:bg-yellow-400 text-lg px-8">
@@ -398,7 +398,7 @@ const App = () => {
 
         {/* --- PRODUCTOS: mosaico como la portada de apple.com --- */}
         <ProductTiles
-          erpDemo={waLink('Hola GIGA DEVS 👋 Quiero una demostración del ERP (facturación y contabilidad).')}
+          erpDemo={waLink('Hola GIGA DEVS 👋 Quiero probar Contax gratis 72 horas (facturación e inventario).')}
           sicasDemo={waLink('Hola GIGA DEVS 👋 Quiero una demostración de SICAS, el sistema de control y auditoría.')}
           go={scrollToSection}
         />
@@ -434,8 +434,8 @@ const App = () => {
         {/* --- SICAS: PRODUCTO PROPIO (sin enlace a ninguna instalación) --- */}
         <SicasSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero una demostración de SICAS, el sistema de control y auditoría.')} onCotizar={() => scrollToSection('contacto')} />
 
-        {/* --- ERP: PRODUCTO PROPIO (privado: solo presentación, sin acceso a la plataforma) --- */}
-        <ErpSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero una demostración del ERP (facturación y contabilidad).')} onCotizar={() => scrollToSection('contacto')} />
+        {/* --- CONTAX (antes ERP): PRODUCTO PROPIO (privado: solo presentación, sin acceso a la plataforma) --- */}
+        <ErpSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero probar Contax gratis 72 horas (facturación e inventario).')} onCotizar={() => scrollToSection('contacto')} />
 
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
 
@@ -698,7 +698,7 @@ const App = () => {
               <li><a href={quincenaLink('/app', 'footer')} className="hover:text-yellow-400">Entrar a Quincena VE</a></li>
               <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-yellow-400">Crear cuenta gratis</a></li>
               <li><a href={quincenaLink('/app', 'footer-negocio') + '#negocio'} className="hover:text-yellow-400">Quincena VE para tu negocio</a></li>
-              <li><a href="#erp" onClick={(e) => { e.preventDefault(); scrollToSection('erp'); }} className="hover:text-yellow-400">ERP · facturación y contabilidad</a></li>
+              <li><a href="#contax" onClick={(e) => { e.preventDefault(); scrollToSection('contax'); }} className="hover:text-yellow-400">Contax® · facturación y contabilidad</a></li>
               <li><a href="#sicas" onClick={(e) => { e.preventDefault(); scrollToSection('sicas'); }} className="hover:text-yellow-400">SICAS · control y auditoría</a></li>
             </ul>
           </div>

@@ -47,9 +47,9 @@ export const ProductTiles = ({ erpDemo, sicasDemo, go }) => (
       </Tile>
 
       <Tile className="bg-[#191919] text-white" d={0}
-        eyebrow={<img src="/erp-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
-        title="ERP" sub={<>Tu empresa en orden. <span className="text-[#87e64b]">Tu fisco al día.</span></>}
-        links={<><a href={erpDemo} target="_blank" rel="noopener noreferrer" className="chev text-[#87e64b]">Pedir una demostración</a><a href="#erp" onClick={(e) => { e.preventDefault(); go('erp'); }} className="chev text-white">Más información</a></>}>
+        eyebrow={<img src="/contax-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
+        title="Contax" sub={<>Tu empresa en orden. <span className="text-[#87e64b]">Tu fisco al día.</span></>}
+        links={<><a href={erpDemo} target="_blank" rel="noopener noreferrer" className="chev text-[#87e64b]">Probar gratis 72 h</a><a href="#contax" onClick={(e) => { e.preventDefault(); go('contax'); }} className="chev text-white">Más información</a></>}>
         <div className="bg-white text-gray-900 rounded-t-[2rem] p-6 text-left shadow-2xl">
           <div className="flex justify-between items-start gap-2"><span className="text-sm font-semibold text-gray-500">Factura A00000128</span><span className="text-[10px] font-bold border-2 border-gray-900 rounded-md px-1.5">Control 00-00000128</span></div>
           <div className="text-3xl font-black my-2">Bs. 4.234,00</div>
@@ -183,7 +183,7 @@ export const QuincenaSection = () => (
               <a href={quincenaLink('/app', 'negocio') + '#negocio'} className="pill bg-emerald-700 text-white hover:bg-emerald-800 shadow-lg"><Store size={20} /> Crear la cuenta de mi negocio</a>
               <span className="text-sm text-emerald-900/70">¿Ya usas la app? Actívalo en <strong>Más › Mi negocio</strong>.</span>
             </div>
-            <p className="text-xs text-emerald-900/60 mt-4">Quincena VE lleva tus cuentas; no emite facturas fiscales. Para facturar según el SENIAT, mira nuestro ERP.</p>
+            <p className="text-xs text-emerald-900/60 mt-4">Quincena VE lleva tus cuentas; no emite facturas fiscales. Para facturar según el SENIAT, mira Contax.</p>
           </div>
           <div className="lg:col-span-5 reveal" style={{ '--d': '120ms' }}>
             <div className="bg-[#F3F6F2] border-[12px] border-emerald-950 rounded-[2.75rem] p-6 shadow-2xl max-w-xs mx-auto" role="img" aria-label="Ejemplo de Quincena VE para tu negocio">
@@ -216,7 +216,7 @@ export const ComoTrabajamos = ({ onCotizar }) => (
       <div className="rail md:grid-cols-2 lg:grid-cols-4 mb-6">
         {[
           [Store, 'Comercios y tiendas', 'Facturación, inventario multialmacén y ventas en dólares y bolívares con la tasa del día.'],
-          [Briefcase, 'Pymes y empresas', 'ERP contable, control de roles y permisos, auditoría y respaldos en la nube.'],
+          [Briefcase, 'Pymes y empresas', 'Contax: facturación, contabilidad y compras, con roles, auditoría y respaldos en la nube.'],
           [Stethoscope, 'Clínicas y profesionales', 'Agendas de citas, historias y sistemas con privacidad para los datos de tus clientes.'],
           [Rocket, 'Emprendedores', 'Tu página web, tienda en línea o app móvil para empezar a vender con una imagen profesional.'],
         ].map(([Icon, t, d], i) => (
@@ -249,14 +249,14 @@ export const ComoTrabajamos = ({ onCotizar }) => (
 );
 
 export const FAQS = [
-  ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios: Quincena VE (personal y para tu negocio), ERP y SICAS.'],
+  ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios: Quincena VE (personal y para tu negocio), Contax y SICAS.'],
   ['¿Cómo puedo pagar?', 'En dólares o en bolívares a la tasa BCV del día, por pago móvil, transferencia bancaria, Binance Pay o PayPal. Al elegir un plan generas tu planilla de pago y la envías por WhatsApp.'],
   ['¿Cuánto tarda un proyecto?', 'Depende del alcance. En la propuesta te damos las fechas de entrega antes de empezar, y te mostramos avances durante el desarrollo.'],
   ['¿El sistema queda siendo mío?', 'Con las licencias vitalicias pagas una sola vez y el sistema es tuyo para siempre, con un año de soporte incluido. Con la suscripción pagas mes a mes o una vez al año.'],
   ['¿Trabajan con negocios fuera de Venezuela?', 'Sí. Trabajamos a distancia con clientes de Venezuela y otros países de Latinoamérica.'],
   ['¿Qué es Quincena VE?', 'Es nuestra app gratis de finanzas personales para quien cobra por quincena o por semana: registra gastos en dólares y moneda local con la tasa del día, controla pagos y deudas, y muestra cuánto te queda hasta el próximo cobro. Funciona en la web y en Android.'],
   ['¿Quincena VE sirve para mi negocio?', 'Sí. Con Quincena VE para tu negocio, gratis, anotas ventas en bolívares y dólares con la tasa del día, el fiado de tus clientes, los gastos del negocio y el cierre de caja, aparte de tu quincena personal. Negocio Plus (inventario, recibos, Excel para el contador y vendedores) es un plan de pago. Quincena VE no emite facturas fiscales.'],
-  ['¿Qué es el ERP?', 'Es nuestra plataforma web de gestión empresarial: facturación según la Providencia SNAT/2011/00071 en bolívares o divisas con la tasa BCV, contabilidad VEN-NIF, libros de compras y ventas, inventario y cuentas por cobrar y pagar. Se adquiere por planes (ERP Contable, Cash, ERP Administrativo o All in One); escríbenos para una demostración.'],
+  ['¿Qué es Contax?', 'Contax® (antes «ERP») es nuestra plataforma web de gestión empresarial: facturación según la Providencia SNAT/2011/00071 en bolívares o divisas con la tasa BCV, contabilidad VEN-NIF, libros de compras y ventas que cuadran con la contabilidad, órdenes de compra, inventario, cuentas por cobrar y pagar, y un bot de WhatsApp que toma pedidos y lee órdenes de compra en PDF. Migra tus datos desde Galac, Profit Plus o Excel. Planes Contax Contable, Cash, Contax Administrativo, All in One o un combo a tu medida, mensual o anual; pruébalo gratis 72 horas.'],
   ['¿Qué es SICAS?', 'Es nuestro Sistema Integral de Control y Auditoría para contralorías y unidades de auditoría interna: gestiona auditorías administrativas, financieras y de sistemas, redacta los hallazgos con su propio motor de reglas y lleva el informe final por la aprobación del Jefe, el Gerente y el Contralor hasta la firma electrónica. Se instala en la infraestructura de tu organización; escríbenos para una demostración.'],
   ['¿Cómo entro a mi cuenta de Quincena VE?', 'Desde el botón "Entrar a Quincena VE" de esta página o directamente en la app de Android. Si aún no tienes cuenta, puedes crearla gratis.'],
 ];
@@ -380,40 +380,49 @@ export const SicasSection = ({ demoHref, onCotizar }) => (
   </section>
 );
 
-// ERP es un producto PRIVADO de Gigadevs: aquí solo se presenta. Sin enlaces a la plataforma, al repositorio ni a
-// ninguna API; quien se interese pide una demostración o una cotización.
-const ERP_PLANES = [
-  ['ERP Contable', 'Contabilidad VEN-NIF, ISLR, retenciones, libros fiscales, administración y auditoría.'],
-  ['Cash', 'Facturación con número de control, notas de crédito y débito, cobros e inventario.'],
-  ['ERP Administrativo', 'Cuentas por cobrar y pagar, bancos, libro de compras e inventario.'],
-  ['All in One', 'Todo lo anterior en una sola licencia.'],
+// Contax® (antes «ERP») es un producto PRIVADO de Gigadevs: aquí solo se presenta. Sin enlaces a la plataforma, al repositorio
+// ni a ninguna API; quien se interese pide la demo de 72 h, una demostración o una cotización.
+const CONTAX_PLANES = [
+  ['Contax Contable', 'Contabilidad VEN-NIF, ISLR, retenciones, libros fiscales, administración y auditoría.', 'desde $45/mes'],
+  ['Cash', 'Facturación con número de control, notas de crédito y débito, cobros e inventario.', 'desde $25/mes'],
+  ['Contax Administrativo', 'Cuentas por cobrar y pagar, bancos, órdenes de compra, libro de compras e inventario.', 'desde $23/mes'],
+  ['All in One', 'Todo lo anterior en una sola licencia.', 'desde $69/mes'],
+  ['Combo a tu medida', 'Elige solo los módulos que usas, con pago mensual o anual (el anual te regala 2 meses).', 'según lo que incluya'],
+];
+const CONTAX_NOVEDADES = [
+  [Sparkles, 'Arranca guiado', 'Un tutorial te lleva paso a paso: tu empresa con su logo, los módulos que vas a usar y tus órdenes de compra.'],
+  [FileSpreadsheet, 'Trae tus datos', 'Migra clientes, proveedores, inventario y saldos desde Galac, Profit Plus o Excel. Tú validas antes de cargar.'],
+  [MessagesSquare, 'Vende por WhatsApp', 'Un bot atiende a tus clientes: catálogo y pedidos. Si te envían su orden de compra en PDF, la lee y te deja la factura lista.'],
+  [Package, 'Compras en orden', 'Órdenes de compra con tu logo y tus datos, enviadas por correo o WhatsApp; tu proveedor las confirma desde el chat.'],
+  [BarChart3, 'Libros que cuadran', 'Ventas, compras, inventario y cuentas por cobrar y pagar contra la contabilidad, con un clic para contabilizar lo pendiente.'],
+  [ShieldCheck, 'Pruébalo 72 horas', 'Demo gratis de Facturación e Inventario, sin tarjeta. Si te gusta, compras tu licencia en USDT o bolívares.'],
 ];
 
 export const ErpSection = ({ demoHref, onCotizar }) => (
-  <section id="erp" className="py-20 md:py-28 bg-[#191919] text-white relative overflow-hidden" aria-labelledby="t-erp">
+  <section id="contax" className="py-20 md:py-28 bg-[#191919] text-white relative overflow-hidden" aria-labelledby="t-contax">
     <div className="absolute -top-44 -right-44 w-[260px] h-[260px] md:-top-40 md:-right-40 md:w-[420px] md:h-[420px] bg-[#87e64b] rounded-full opacity-90"></div>
     <div className="container mx-auto px-4 relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div className="lg:col-span-7 reveal">
           <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1 rounded-full text-xs font-semibold text-[#c9f5a8]">
-            Producto propio de Gigadevs · Para empresas
+            Producto propio de Gigadevs · Antes «ERP» · Para empresas
           </span>
           <div className="flex items-center gap-4 mt-4 mb-3">
-            <img src="/erp-icon.png" alt="" width={48} height={48} className="rounded-2xl shadow-lg" />
+            <img src="/contax-icon.png" alt="" width={48} height={48} className="rounded-2xl shadow-lg" />
             <div>
-              <h2 id="t-erp" className="display text-5xl md:text-7xl leading-none">ERP</h2>
+              <h2 id="t-contax" className="display text-5xl md:text-7xl leading-none">Conta<span className="text-[#87e64b]">x</span><sup className="text-lg align-super">®</sup></h2>
               <p className="text-[#87e64b] font-semibold text-sm mt-1">Tu empresa en orden. Tu fisco al día.</p>
             </div>
           </div>
-          <p className="text-xl md:text-3xl font-semibold text-white mb-3 leading-snug">Facturación, contabilidad e inventario según la normativa venezolana. En la web, desde cualquier navegador.</p>
+          <p className="text-xl md:text-3xl font-semibold text-white mb-3 leading-snug">Facturación, contabilidad, compras e inventario según la normativa venezolana. En la web y por WhatsApp.</p>
           <p className="text-gray-300 leading-relaxed mb-5 max-w-2xl">
             Facturas con número de control según la Providencia SNAT/2011/00071, en bolívares o divisas con la tasa BCV del día e IVA e IGTF calculados.
-            Libros de compras y ventas, contabilidad VEN-NIF, cuentas por cobrar y pagar y auditoría financiera. Cada empresa trabaja aislada y segura,
-            y paga solo por los módulos de su plan.
+            Libros de compras y ventas que cuadran con la contabilidad VEN-NIF, órdenes de compra, cuentas por cobrar y pagar, auditoría financiera y un bot
+            de WhatsApp que toma pedidos. Cada empresa trabaja aislada y segura, y paga solo por los módulos que usa.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a href={demoHref} target="_blank" rel="noopener noreferrer" className="pill bg-[#87e64b] text-[#1a4200] hover:bg-[#7ad63f] shadow-xl">
-              <MessagesSquare size={20} /> Solicitar una demostración
+              <MessagesSquare size={20} /> Probar gratis 72 horas
             </a>
             <button onClick={onCotizar} className="pill border border-white/40 text-white hover:bg-white/10">
               Cotizar para mi empresa <ArrowRight size={18} />
@@ -421,7 +430,7 @@ export const ErpSection = ({ demoHref, onCotizar }) => (
           </div>
         </div>
         <div className="lg:col-span-5 hidden sm:block reveal" style={{ '--d': '120ms' }}>
-          <div className="bg-white text-gray-900 rounded-[2rem] p-6 shadow-2xl max-w-sm mx-auto" role="img" aria-label="Ejemplo de factura emitida en ERP">
+          <div className="bg-white text-gray-900 rounded-[2rem] p-6 shadow-2xl max-w-sm mx-auto" role="img" aria-label="Ejemplo de factura emitida en Contax">
             <div className="flex justify-between items-start gap-2">
               <div className="text-sm font-semibold text-gray-500">Factura A00000128</div>
               <div className="text-xs font-bold border-2 border-gray-900 rounded-lg px-2 py-0.5">Control 00-00000128</div>
@@ -434,16 +443,29 @@ export const ErpSection = ({ demoHref, onCotizar }) => (
           </div>
         </div>
       </div>
-      <div className="rail md:grid-cols-2 lg:grid-cols-4 mt-8">
-        {ERP_PLANES.map(([t, d], i) => (
-          <div key={t} className="reveal tile bg-white/5 border border-white/15 rounded-3xl p-6" style={{ '--d': `${i * 90}ms` }}>
-            <h3 className="font-bold mb-1.5 text-white">{t}</h3>
+      <h3 className="text-2xl md:text-3xl font-bold mt-14 mb-5 reveal">Lo nuevo de Contax</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {CONTAX_NOVEDADES.map(([Icono, t, d], i) => (
+          <div key={t} className="reveal tile bg-white/5 border border-white/15 rounded-3xl p-6" style={{ '--d': `${i * 70}ms` }}>
+            <Icono size={26} className="text-[#87e64b] mb-3" />
+            <h4 className="font-bold mb-1.5 text-white">{t}</h4>
             <p className="text-gray-300 text-sm leading-relaxed">{d}</p>
           </div>
         ))}
       </div>
+      <h3 className="text-2xl md:text-3xl font-bold mt-14 mb-5 reveal">Planes</h3>
+      <div className="rail md:grid-cols-2 lg:grid-cols-5">
+        {CONTAX_PLANES.map(([t, d, precio], i) => (
+          <div key={t} className="reveal tile bg-white/5 border border-white/15 rounded-3xl p-6" style={{ '--d': `${i * 90}ms` }}>
+            <h4 className="font-bold mb-1.5 text-white">{t}</h4>
+            <p className="text-gray-300 text-sm leading-relaxed mb-3">{d}</p>
+            <p className="text-[#87e64b] font-bold text-sm">{precio}</p>
+          </div>
+        ))}
+      </div>
+      <p className="text-xs text-gray-400 mt-3">Precios de referencia en USD; pago en USDT (Binance Pay) o en bolívares a la tasa BCV del día. Plan anual = 10 meses.</p>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-6 text-sm text-gray-200">
-        {['Verificación en dos pasos obligatoria', 'Varias empresas y tu equipo, con roles', 'Bitácora inalterable de cada operación', 'Licencia en USDT (Binance Pay) o bolívares'].map((t) => (
+        {['Verificación en dos pasos obligatoria', 'Varias empresas y tu equipo, con roles', 'Bitácora inalterable de cada operación', 'Contax® es una marca registrada de Gigadevs Corp'].map((t) => (
           <li key={t} className="flex items-start gap-2"><CheckCircle size={18} className="text-[#87e64b] flex-shrink-0 mt-0.5" /> {t}</li>
         ))}
       </ul>
