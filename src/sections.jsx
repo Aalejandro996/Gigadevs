@@ -11,7 +11,7 @@ const QuincenaIcon = ({ size = 56 }) => (
 
 // Mosaico de productos al estilo de la portada de apple.com: cada producto con sus colores.
 const Tile = ({ className = '', eyebrow, title, sub, children, links, d = 0, dark = true }) => (
-  <article className={`reveal tile relative overflow-hidden rounded-[2rem] text-center flex flex-col items-center pt-12 md:pt-14 px-6 min-h-[540px] md:min-h-[600px] ${className}`} style={{ '--d': `${d}ms` }}>
+  <article className={`reveal tile relative overflow-hidden rounded-[2rem] text-center flex flex-col items-center pt-12 md:pt-14 px-6 min-h-[440px] md:min-h-[500px] ${className}`} style={{ '--d': `${d}ms` }}>
     {eyebrow}
     <h3 className="display text-4xl md:text-5xl mt-2">{title}</h3>
     <p className={`text-lg md:text-xl mt-3 max-w-md ${dark ? 'opacity-90' : 'opacity-80'}`}>{sub}</p>
@@ -94,7 +94,7 @@ export const Statement = () => {
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, []);
   return (
-    <section className="bg-white py-24 md:py-40" aria-label="Lo que hacemos">
+    <section className="bg-white py-16 md:py-24" aria-label="Lo que hacemos">
       <p ref={ref} className="lit display container mx-auto px-6 max-w-5xl text-4xl md:text-6xl lg:text-7xl text-center">
         {STATEMENT.split(' ').map((w, i) => <span key={i}>{w} </span>)}
       </p>
@@ -110,10 +110,10 @@ const NEGOCIO = [
 const NEGOCIO_PLUS = [[Package, 'Productos con inventario'], [Receipt, 'Recibos para WhatsApp'], [FileSpreadsheet, 'Excel para tu contador'], [Users, 'Vendedores desde su teléfono']];
 
 export const QuincenaSection = () => (
-  <section id="quincena" className="py-20 md:py-28 bg-gradient-to-br from-emerald-700 to-emerald-900 text-white relative overflow-hidden" aria-labelledby="t-quincena">
+  <section id="quincena" className="py-14 md:py-20 bg-gradient-to-br from-emerald-700 to-emerald-900 text-white relative overflow-hidden" aria-labelledby="t-quincena">
     <div className="absolute -top-40 -right-40 w-[520px] h-[520px] bg-white/5 rounded-full"></div>
     <div className="container mx-auto px-4 relative z-10">
-      <div className="text-center max-w-4xl mx-auto mb-14 reveal">
+      <div className="text-center max-w-4xl mx-auto mb-10 reveal">
         <QuincenaIcon size={72} />
         <p className="eyebrow text-emerald-200 mt-5 mb-3">Producto propio de Gigadevs · Gratis · Web y Android</p>
         <h2 id="t-quincena" className="display text-5xl md:text-7xl">Quincena VE 🇻🇪</h2>
@@ -140,17 +140,6 @@ export const QuincenaSection = () => (
             <a href={quincenaLink('/', 'conocer')} className="chev text-white px-2">Conocer más</a>
           </div>
         </div>
-        <div className="lg:col-span-5 reveal" style={{ '--d': '120ms' }}>
-          <div className="bg-white text-gray-900 rounded-[2rem] p-6 shadow-2xl max-w-sm mx-auto" role="img" aria-label="Ejemplo de la pantalla de inicio de Quincena VE">
-            <div className="text-sm font-semibold text-gray-500">Te queda esta quincena</div>
-            <div className="text-5xl font-black my-2">$148,20</div>
-            <div className="h-3 rounded-full bg-emerald-100 overflow-hidden mb-3"><div className="h-full w-[62%] bg-emerald-700"></div></div>
-            {[['Alquiler', '$120,00'], ['Mercado', 'Bs. 3.400,00'], ['Carlos te debe · el 15', '$25,00']].map(([k, v]) => (
-              <div key={k} className="flex justify-between py-2.5 border-t border-gray-100 text-sm"><span>{k}</span><strong>{v}</strong></div>
-            ))}
-            <div className="text-xs text-gray-400 mt-1">Montos de ejemplo</div>
-          </div>
-        </div>
       </div>
 
       {/* Negocio */}
@@ -172,31 +161,12 @@ export const QuincenaSection = () => (
                 </div>
               ))}
             </div>
-            <div className="bg-emerald-900 text-white rounded-2xl p-5 mb-6">
-              <div className="font-bold text-yellow-300 mb-2">¿Necesitas más? Negocio Plus</div>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-emerald-50">
-                {NEGOCIO_PLUS.map(([Icon, x]) => <li key={x} className="flex items-center gap-2"><Icon size={16} className="text-emerald-300" /> {x}</li>)}
-              </ul>
-              <p className="text-xs text-emerald-200 mt-3">Plan de pago: se pide por WhatsApp.</p>
-            </div>
+            <p className="text-sm text-emerald-900/80 mb-6"><strong>¿Necesitas más?</strong> Negocio Plus (inventario, recibos, Excel para tu contador y vendedores) se pide por WhatsApp.</p>
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
               <a href={quincenaLink('/app', 'negocio') + '#negocio'} className="pill bg-emerald-700 text-white hover:bg-emerald-800 shadow-lg"><Store size={20} /> Crear la cuenta de mi negocio</a>
               <span className="text-sm text-emerald-900/70">¿Ya usas la app? Actívalo en <strong>Más › Mi negocio</strong>.</span>
             </div>
             <p className="text-xs text-emerald-900/60 mt-4">Quincena VE lleva tus cuentas; no emite facturas fiscales. Para facturar según el SENIAT, mira Contax.</p>
-          </div>
-          <div className="lg:col-span-5 reveal" style={{ '--d': '120ms' }}>
-            <div className="bg-[#F3F6F2] border-[12px] border-emerald-950 rounded-[2.75rem] p-6 shadow-2xl max-w-xs mx-auto" role="img" aria-label="Ejemplo de Quincena VE para tu negocio">
-              <div className="flex justify-between items-center text-emerald-800 font-bold text-sm"><span>Mi negocio</span><span className="bg-emerald-700 text-white text-xs px-2 py-0.5 rounded-full">Hoy</span></div>
-              <div className="text-sm text-gray-500 mt-4">Vendiste hoy</div>
-              <div className="text-5xl font-black text-emerald-800">$128,50</div>
-              <div className="text-xs text-gray-500 mb-3">con la tasa BCV del día</div>
-              {[['Pago móvil', '$65,00', ''], ['Efectivo $', '$40,00', ''], ['Fiado · María', '$12,00', 'text-orange-600']].map(([k, v, c]) => (
-                <div key={k} className="flex justify-between bg-white rounded-xl px-3 py-2.5 mt-2 text-sm"><span>{k}</span><strong className={c}>{v}</strong></div>
-              ))}
-              <div className="bg-emerald-700 text-white text-center font-bold rounded-xl py-2.5 mt-3 text-sm">+ Registrar venta</div>
-              <div className="text-[10px] text-gray-400 text-center mt-2">Montos de ejemplo</div>
-            </div>
           </div>
         </div>
       </div>
@@ -206,25 +176,12 @@ export const QuincenaSection = () => (
 
 // Para quién y cómo trabajamos van en una sola sección para acortar la página.
 export const ComoTrabajamos = ({ onCotizar }) => (
-  <section id="como-trabajamos" className="py-20 md:py-28 bg-white border-t border-gray-100" aria-labelledby="t-como">
+  <section id="como-trabajamos" className="py-14 md:py-20 bg-white border-t border-gray-100" aria-labelledby="t-como">
     <div className="container mx-auto px-4">
-      <div id="para-quien" className="text-center max-w-3xl mx-auto mb-12 reveal">
+      <div id="para-quien" className="text-center max-w-3xl mx-auto mb-8 reveal">
         <p className="eyebrow text-yellow-600 mb-3">Para quién y cómo trabajamos</p>
         <h2 id="t-como" className="display text-4xl md:text-6xl text-blue-950 mb-4">De la idea al sistema funcionando.</h2>
         <p className="text-gray-600">Para negocios de Venezuela y Latinoamérica, con precio cerrado en dólares o en bolívares a tasa BCV y soporte después de la entrega.</p>
-      </div>
-      <div className="rail md:grid-cols-2 lg:grid-cols-4 mb-6">
-        {[
-          [Store, 'Comercios y tiendas', 'Facturación, inventario multialmacén y ventas en dólares y bolívares con la tasa del día.'],
-          [Briefcase, 'Pymes y empresas', 'Contax: facturación, contabilidad y compras, con roles, auditoría y respaldos en la nube.'],
-          [Stethoscope, 'Clínicas y profesionales', 'Agendas de citas, historias y sistemas con privacidad para los datos de tus clientes.'],
-          [Rocket, 'Emprendedores', 'Tu página web, tienda en línea o app móvil para empezar a vender con una imagen profesional.'],
-        ].map(([Icon, t, d], i) => (
-          <div key={t} className="reveal tile bg-gray-50 rounded-3xl p-6" style={{ '--d': `${i * 90}ms` }}>
-            <h3 className="font-bold text-blue-950 mb-1.5 flex items-center gap-2"><span className="w-9 h-9 bg-yellow-100 text-yellow-700 rounded-xl flex items-center justify-center flex-shrink-0"><Icon size={19} /></span>{t}</h3>
-            <p className="text-gray-600 text-sm leading-relaxed">{d}</p>
-          </div>
-        ))}
       </div>
       <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {[
@@ -262,7 +219,7 @@ export const FAQS = [
 ];
 
 export const Faq = () => (
-  <section id="preguntas" className="py-20 md:py-28 bg-white border-t border-gray-100" aria-labelledby="t-faq">
+  <section id="preguntas" className="py-14 md:py-20 bg-white border-t border-gray-100" aria-labelledby="t-faq">
     <div className="container mx-auto px-4 max-w-5xl">
       <div className="text-center mb-10 reveal">
         <p className="eyebrow text-blue-600 mb-3">Preguntas frecuentes</p>
@@ -300,7 +257,7 @@ const SICAS_FEATURES = [
 ];
 
 export const SicasSection = ({ demoHref, onCotizar }) => (
-  <section id="sicas" className="py-20 md:py-28 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden" aria-labelledby="t-sicas">
+  <section id="sicas" className="py-14 md:py-20 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden" aria-labelledby="t-sicas">
     <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-indigo-500/10 rounded-full blur-3xl"></div>
     <div className="container mx-auto px-4 relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -359,23 +316,6 @@ export const SicasSection = ({ demoHref, onCotizar }) => (
         </div>
       </div>
 
-      <div className="rail md:grid-cols-3 mt-8">
-        {SICAS_TYPES.map(([Icon, t, d], i) => (
-          <div key={t} className="reveal tile bg-white/10 border border-white/15 rounded-3xl p-6 backdrop-blur-sm" style={{ '--d': `${i * 90}ms` }}>
-            <h3 className="font-bold mb-1.5 flex items-center gap-2"><span className="w-9 h-9 rounded-xl bg-white text-indigo-900 flex items-center justify-center flex-shrink-0"><Icon size={19} /></span>{t}</h3>
-            <p className="text-indigo-50/85 text-sm leading-relaxed">{d}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="rail md:grid-cols-2 lg:grid-cols-3 mt-4">
-        {SICAS_FEATURES.map(([Icon, t, d], i) => (
-          <div key={t} className="reveal bg-white/5 border border-white/10 rounded-3xl p-5 flex gap-3" style={{ '--d': `${(i % 3) * 90}ms` }}>
-            <Icon size={20} className="text-indigo-300 flex-shrink-0 mt-0.5" />
-            <div><h3 className="font-bold text-sm mb-1">{t}</h3><p className="text-indigo-50/80 text-xs leading-relaxed">{d}</p></div>
-          </div>
-        ))}
-      </div>
     </div>
   </section>
 );
@@ -390,16 +330,14 @@ const CONTAX_PLANES = [
   ['Combo a tu medida', 'Elige solo los módulos que usas, con pago mensual o anual (el anual te regala 2 meses).', 'según lo que incluya'],
 ];
 const CONTAX_NOVEDADES = [
-  [Sparkles, 'Arranca guiado', 'Un tutorial te lleva paso a paso: tu empresa con su logo, los módulos que vas a usar y tus órdenes de compra.'],
   [FileSpreadsheet, 'Trae tus datos', 'Migra clientes, proveedores, inventario y saldos desde Galac, Profit Plus o Excel. Tú validas antes de cargar.'],
   [MessagesSquare, 'Vende por WhatsApp', 'Un bot atiende a tus clientes: catálogo y pedidos. Si te envían su orden de compra en PDF, la lee y te deja la factura lista.'],
-  [Package, 'Compras en orden', 'Órdenes de compra con tu logo y tus datos, enviadas por correo o WhatsApp; tu proveedor las confirma desde el chat.'],
   [BarChart3, 'Libros que cuadran', 'Ventas, compras, inventario y cuentas por cobrar y pagar contra la contabilidad, con un clic para contabilizar lo pendiente.'],
   [ShieldCheck, 'Pruébalo 72 horas', 'Demo gratis de Facturación e Inventario, sin tarjeta. Si te gusta, compras tu licencia en USDT o bolívares.'],
 ];
 
 export const ErpSection = ({ demoHref, onCotizar }) => (
-  <section id="contax" className="py-20 md:py-28 bg-[#191919] text-white relative overflow-hidden" aria-labelledby="t-contax">
+  <section id="contax" className="py-14 md:py-20 bg-[#191919] text-white relative overflow-hidden" aria-labelledby="t-contax">
     <div className="absolute -top-44 -right-44 w-[260px] h-[260px] md:-top-40 md:-right-40 md:w-[420px] md:h-[420px] bg-[#87e64b] rounded-full opacity-90"></div>
     <div className="container mx-auto px-4 relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -430,19 +368,6 @@ export const ErpSection = ({ demoHref, onCotizar }) => (
             <button onClick={onCotizar} className="pill border border-white/20 text-gray-300 hover:bg-white/10">
               Cotizar para mi empresa
             </button>
-          </div>
-        </div>
-        <div className="lg:col-span-5 hidden sm:block reveal" style={{ '--d': '120ms' }}>
-          <div className="bg-white text-gray-900 rounded-[2rem] p-6 shadow-2xl max-w-sm mx-auto" role="img" aria-label="Ejemplo de factura emitida en Contax">
-            <div className="flex justify-between items-start gap-2">
-              <div className="text-sm font-semibold text-gray-500">Factura A00000128</div>
-              <div className="text-xs font-bold border-2 border-gray-900 rounded-lg px-2 py-0.5">Control 00-00000128</div>
-            </div>
-            <div className="text-4xl font-black my-3">Bs. 4.234,00</div>
-            {[['Base imponible 16 %', 'Bs. 3.650,00'], ['IVA 16 %', 'Bs. 584,00'], ['Equivalente', '116,00 USD'], ['IGTF 3 % (pago en divisas)', 'Bs. 109,50']].map(([k, v]) => (
-              <div key={k} className="flex justify-between py-2 border-t border-gray-100 text-sm"><span>{k}</span><strong>{v}</strong></div>
-            ))}
-            <div className="text-xs text-gray-400 mt-2">Montos de ejemplo · tasa BCV 36,50</div>
           </div>
         </div>
       </div>

@@ -17,7 +17,6 @@ const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(te
 
 const NAV = [
   ['productos', 'Productos'],
-  ['servicios', 'Servicios'],
   ['quincena', 'Quincena VE'],
   ['contax', 'Contax'],
   ['sicas', 'SICAS'],
@@ -364,7 +363,7 @@ const App = () => {
               </div>
             </div>
 
-            <div className="hero-device mt-14 md:mt-20 max-w-4xl mx-auto" aria-hidden="true">
+            <div className="hero-device mt-10 md:mt-12 max-w-4xl mx-auto" aria-hidden="true">
               <div className="bg-white text-gray-900 rounded-[2rem] p-5 md:p-8 shadow-[0_50px_120px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-red-400"></span><span className="w-3 h-3 rounded-full bg-yellow-400"></span><span className="w-3 h-3 rounded-full bg-green-400"></span><span className="ml-3 font-bold text-blue-950">Panel de tu negocio</span></div>
@@ -388,7 +387,7 @@ const App = () => {
               </div>
             </div>
 
-            <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 max-w-4xl mx-auto text-sm text-blue-100">
+            <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 max-w-4xl mx-auto text-sm text-blue-100">
               {['Precio cerrado antes de empezar', 'Pago en $ o Bs. a tasa BCV', 'Soporte y actualizaciones', 'Seguridad desde el primer día'].map((x, i) => (
                 <li key={x} className="flex items-center justify-center gap-2 text-center reveal" style={{ '--d': `${i * 80}ms` }}><CheckCircle size={16} className="text-yellow-400 flex-shrink-0" /> {x}</li>
               ))}
@@ -405,29 +404,6 @@ const App = () => {
 
         <Statement />
 
-        {/* --- SERVICIOS --- */}
-        <section id="servicios" className="py-20 md:py-28 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-12 reveal">
-              <p className="eyebrow text-blue-600 mb-3">Servicios</p>
-              <h2 className="display text-4xl md:text-6xl text-blue-950 mb-4">Todo lo digital que tu negocio necesita.</h2>
-              <p className="text-gray-600 text-lg md:text-xl">Desde el sistema con el que facturas hasta la web donde te encuentran tus clientes.</p>
-            </div>
-            <div className="rail md:grid-cols-2 xl:grid-cols-4">
-              {SERVICES.map(({ icon: Icon, title, text, items, tone }, i) => (
-                <div key={title} className="reveal tile bg-gray-50 rounded-3xl p-6 flex flex-col" style={{ '--d': `${i * 90}ms` }}>
-                  <h3 className="text-lg font-bold text-blue-950 mb-2 flex items-center gap-3"><span className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${TONES[tone]}`}><Icon size={22} /></span>{title}</h3>
-                  <p className="text-gray-600 text-sm mb-3 leading-relaxed">{text}</p>
-                  <ul className="space-y-1.5 text-sm text-gray-700 mb-4 flex-1">
-                    {items.map((i) => <li key={i} className="flex items-start gap-2"><CheckCircle size={16} className="text-yellow-500 mt-0.5 flex-shrink-0" /> {i}</li>)}
-                  </ul>
-                  <button onClick={() => scrollToSection('planes')} className="chev text-blue-700 text-sm self-start">Ver precios</button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* --- QUINCENA: PRODUCTO PROPIO --- */}
         <QuincenaSection />
 
@@ -439,84 +415,8 @@ const App = () => {
 
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
 
-        {/* --- CÓMO ESTÁN HECHOS --- */}
-        <section id="detalles" className="py-20 md:py-28 bg-gray-900 text-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-10 reveal">
-              <p className="eyebrow text-yellow-400 mb-3">Seguridad y tecnología</p>
-              <h2 className="display text-4xl md:text-6xl mb-4">Así están hechos nuestros sistemas.</h2>
-              <p className="text-gray-400">Elige un sistema para ver qué hace y cómo protege tu información.</p>
-            </div>
-            <div className="flex overflow-x-auto md:flex-wrap md:justify-center gap-2 mb-6 -mx-4 px-4 pb-1" role="tablist" aria-label="Sistemas">
-              {Object.entries(SPECS).map(([key, { icon: Icon, label }]) => (
-                <button key={key} role="tab" aria-selected={activeTab === key} onClick={() => setActiveTab(key)}
-                  className={`px-4 py-2.5 rounded-full font-bold text-sm whitespace-nowrap flex-shrink-0 transition flex items-center gap-2 ${activeTab === key ? 'bg-yellow-500 text-blue-950 shadow-lg' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}>
-                  <Icon size={18} /> {label}
-                </button>
-              ))}
-            </div>
-            {(() => {
-              const s = SPECS[activeTab];
-              const Icon = s.icon;
-              return (
-                <div className="max-w-4xl mx-auto bg-gray-950 border border-gray-800 rounded-3xl p-6 md:p-8 shadow-2xl" role="tabpanel">
-                  <div className="flex items-center gap-4 pb-4 mb-4 border-b border-gray-800">
-                    <div className={`p-3 bg-white/5 rounded-2xl ${s.color}`}><Icon size={28} /></div>
-                    <div><h3 className="text-2xl font-bold">{s.title}</h3><p className="text-gray-400 text-sm">{s.sub}</p></div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                    {s.blocks.map(([t, d]) => (
-                      <div key={t} className="bg-gray-900 p-4 rounded-2xl border border-gray-800">
-                        <h4 className={`font-bold mb-2 flex items-center gap-2 ${s.color}`}><CheckCircle size={16} /> {t}</h4>
-                        <p className="text-gray-400">{d}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-        </section>
-
-        {/* --- PROYECTOS --- */}
-        <section id="proyectos" className="py-20 md:py-28 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-12 reveal">
-              <p className="eyebrow text-yellow-600 mb-3">Proyectos</p>
-              <h2 className="display text-4xl md:text-6xl text-blue-950 mb-4">Lo que hemos construido.</h2>
-              <p className="text-gray-600">Sistemas reales que hemos desarrollado: administración, auditoría, licencias, comercio y finanzas personales.</p>
-            </div>
-            <div className="rail md:grid-cols-2 lg:grid-cols-4">
-              {PROJECTS.map(({ icon: Icon, name, tag, stack, text, href, cta }, i) => (
-                <article key={name} style={{ '--d': `${(i % 4) * 90}ms` }} className={`reveal tile rounded-3xl p-6 flex flex-col border ${tag ? 'bg-gradient-to-br from-emerald-700 to-emerald-900 text-white border-emerald-600 shadow-xl' : 'bg-gray-50 border-gray-200 shadow-md'}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${tag ? 'bg-white/15 text-white' : 'bg-blue-950 text-yellow-400'}`}><Icon size={20} /></div>
-                    {tag && <span className="text-[10px] font-bold uppercase tracking-wider bg-white text-emerald-800 px-2 py-1 rounded-full">{tag}</span>}
-                  </div>
-                  <h3 className={`text-lg font-bold mb-1.5 ${tag ? '' : 'text-blue-950'}`}>{name}</h3>
-                  <p className={`text-sm leading-relaxed mb-3 flex-1 ${tag ? 'text-emerald-50' : 'text-gray-600'}`}>{text}</p>
-                  <div className="flex flex-wrap gap-1.5 mb-1">
-                    {stack.map((t) => <span key={t} className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${tag ? 'bg-white/15 text-white' : 'bg-white border border-gray-200 text-gray-700'}`}>{t}</span>)}
-                  </div>
-                  {href && (
-                    <a href={href} target={href.startsWith('http') && !href.includes('control-financiero') ? '_blank' : undefined} rel="noopener noreferrer"
-                      className={`mt-3 inline-flex items-center gap-1.5 font-bold text-sm ${tag ? 'text-yellow-300 hover:text-yellow-200' : 'text-blue-700 hover:text-blue-900'}`}>
-                      {cta} <ArrowRight size={16} />
-                    </a>
-                  )}
-                </article>
-              ))}
-            </div>
-            <div className="text-center mt-6">
-              <button onClick={() => scrollToSection('contacto')} className="pill bg-blue-950 text-white hover:bg-blue-900 px-8">
-                Tu proyecto puede ser el siguiente <ArrowRight size={18} />
-              </button>
-            </div>
-          </div>
-        </section>
-
         {/* --- PLANES Y PRECIOS --- */}
-        <section id="planes" className="py-20 md:py-28 bg-blue-950 relative overflow-hidden text-white">
+        <section id="planes" className="py-14 md:py-20 bg-blue-950 relative overflow-hidden text-white">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-yellow-500/10 rounded-full blur-[120px]"></div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-8 reveal">
@@ -582,50 +482,10 @@ const App = () => {
           </div>
         </section>
 
-        {/* --- CÓMO PAGAR --- */}
-        <section id="pagos" className="py-20 md:py-28 bg-white border-b border-gray-100">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-10 reveal">
-              <p className="eyebrow text-blue-600 mb-3">Formas de pago</p>
-              <h2 className="display text-4xl md:text-6xl text-blue-950 mb-4">Paga como te quede más cómodo.</h2>
-              <p className="text-gray-600">En dólares o en bolívares. La tasa BCV se actualiza sola: hoy es <strong className="text-blue-950">Bs. {rate}</strong>.</p>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto mb-6">
-              {PAYMENTS.map(({ icon: Icon, name, currency, text, color }, i) => (
-                <div key={name} style={{ '--d': `${i * 80}ms` }} className="reveal tile bg-gray-50 rounded-3xl p-5 flex flex-col">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${color}`}><Icon size={20} /></div>
-                    <span className="text-[11px] font-bold bg-white border border-gray-200 text-gray-700 px-2 py-0.5 rounded-full">{currency}</span>
-                  </div>
-                  <h3 className="font-bold text-blue-950 text-sm sm:text-base mb-1">{name}</h3>
-                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{text}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="max-w-5xl mx-auto bg-blue-950 text-white rounded-[2rem] p-6 md:p-8 reveal">
-              <h3 className="text-lg font-bold mb-4 text-center">Así de fácil</h3>
-              <ol className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[
-                  ['Elige tu plan', 'Pulsa "Elegir este plan" y genera tu solicitud con el monto en dólares y en bolívares.'],
-                  ['Paga', 'Usa el medio que prefieras. Te enviamos los datos de pago por WhatsApp.'],
-                  ['Envía el comprobante', 'Confirmamos tu pago, te enviamos la factura y empezamos tu proyecto.'],
-                ].map(([t, d], i) => (
-                  <li key={t} className="flex gap-3">
-                    <span className="w-9 h-9 rounded-full bg-yellow-500 text-blue-950 font-black flex items-center justify-center flex-shrink-0">{i + 1}</span>
-                    <div><div className="font-bold mb-1">{t}</div><p className="text-blue-200 text-sm leading-relaxed">{d}</p></div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </section>
-
         <Faq />
 
         {/* --- CONTACTO --- */}
-        <section id="contacto" className="py-20 md:py-28 bg-gray-50 border-t border-gray-200">
+        <section id="contacto" className="py-14 md:py-20 bg-gray-50 border-t border-gray-200">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto items-start">
               <div className="reveal">
