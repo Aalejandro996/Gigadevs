@@ -20,7 +20,7 @@ const Tile = ({ className = '', eyebrow, title, sub, children, links, d = 0, dar
   </article>
 );
 
-export const ProductTiles = ({ erpDemo, sicasDemo, go }) => (
+export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
   <section id="productos" className="bg-white p-3 md:p-4" aria-label="Nuestros productos">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
       <Tile className="bg-gradient-to-b from-emerald-700 to-emerald-900 text-white" d={0}
@@ -59,8 +59,8 @@ export const ProductTiles = ({ erpDemo, sicasDemo, go }) => (
 
       <Tile className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white" d={90}
         eyebrow={<div className="w-14 h-14 rounded-2xl bg-indigo-500 text-white flex items-center justify-center shadow-lg"><ClipboardCheck size={30} /></div>}
-        title="SICAS" sub="Control y auditoría, de la planificación al informe firmado."
-        links={<><a href={sicasDemo} target="_blank" rel="noopener noreferrer" className="chev text-indigo-200">Pedir una demostración</a><a href="#sicas" onClick={(e) => { e.preventDefault(); go('sicas'); }} className="chev text-white">Más información</a></>}>
+        title="Criteriseg" sub="Control y auditoría, de la planificación al informe firmado."
+        links={<><a href={criterisegDemo} target="_blank" rel="noopener noreferrer" className="chev text-indigo-200">Pedir una demostración</a><a href="#criteriseg" onClick={(e) => { e.preventDefault(); go('criteriseg'); }} className="chev text-white">Más información</a></>}>
         <div className="bg-white text-gray-900 rounded-t-[2rem] p-6 text-left shadow-2xl">
           <div className="font-bold text-indigo-950 text-sm">Auditoría financiera · Cuentas por pagar</div>
           {[['ALTO', 'Pagos sin orden aprobada', 'bg-red-100 text-red-700'], ['MEDIO', 'Auxiliar no conciliado', 'bg-amber-100 text-amber-800']].map(([r, x, c]) => <div key={x} className="flex items-center gap-3 py-2 border-t border-gray-100 mt-1"><span className={`text-[10px] font-black px-2 py-1 rounded-md ${c}`}>{r}</span><span className="text-sm">{x}</span></div>)}
@@ -206,7 +206,7 @@ export const ComoTrabajamos = ({ onCotizar }) => (
 );
 
 export const FAQS = [
-  ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios: Quincena VE (personal y para tu negocio), Contax y SICAS.'],
+  ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios: Quincena VE (personal y para tu negocio), Contax y Criteriseg.'],
   ['¿Cómo puedo pagar?', 'En dólares o en bolívares a la tasa BCV del día, por pago móvil, transferencia bancaria, Binance Pay o PayPal. Al elegir un plan generas tu planilla de pago y la envías por WhatsApp.'],
   ['¿Cuánto tarda un proyecto?', 'Depende del alcance. En la propuesta te damos las fechas de entrega antes de empezar, y te mostramos avances durante el desarrollo.'],
   ['¿El sistema queda siendo mío?', 'Con las licencias vitalicias pagas una sola vez y el sistema es tuyo para siempre, con un año de soporte incluido. Con la suscripción pagas mes a mes o una vez al año.'],
@@ -214,7 +214,7 @@ export const FAQS = [
   ['¿Qué es Quincena VE?', 'Es nuestra app gratis de finanzas personales para quien cobra por quincena o por semana: registra gastos en dólares y moneda local con la tasa del día, controla pagos y deudas, y muestra cuánto te queda hasta el próximo cobro. Funciona en la web y en Android.'],
   ['¿Quincena VE sirve para mi negocio?', 'Sí. Con Quincena VE para tu negocio, gratis, anotas ventas en bolívares y dólares con la tasa del día, el fiado de tus clientes, los gastos del negocio y el cierre de caja, aparte de tu quincena personal. Negocio Plus (inventario, recibos, Excel para el contador y vendedores) es un plan de pago. Quincena VE no emite facturas fiscales.'],
   ['¿Qué es Contax?', 'Contax® (antes «ERP») es nuestra plataforma web de gestión empresarial: facturación según la Providencia SNAT/2011/00071 en bolívares o divisas con la tasa BCV, contabilidad VEN-NIF, libros de compras y ventas que cuadran con la contabilidad, órdenes de compra, inventario, cuentas por cobrar y pagar, y un bot de WhatsApp que toma pedidos y lee órdenes de compra en PDF. Migra tus datos desde Galac, Profit Plus o Excel. Planes Contax Contable, Cash, Contax Administrativo, All in One o un combo a tu medida, mensual o anual; pruébalo gratis 72 horas.'],
-  ['¿Qué es SICAS?', 'Es nuestro Sistema Integral de Control y Auditoría para contralorías y unidades de auditoría interna: gestiona auditorías administrativas, financieras y de sistemas, redacta los hallazgos con su propio motor de reglas y lleva el informe final por la aprobación del Jefe, el Gerente y el Contralor hasta la firma electrónica. Se instala en la infraestructura de tu organización; escríbenos para una demostración.'],
+  ['¿Qué es Criteriseg?', 'Es nuestro Sistema Integral de Control y Auditoría para contralorías y unidades de auditoría interna: gestiona auditorías administrativas, financieras y de sistemas, redacta los hallazgos con su propio motor de reglas y lleva el informe final por la aprobación del Jefe, el Gerente y el Contralor hasta la firma electrónica. Se instala en la infraestructura de tu organización; escríbenos para una demostración.'],
   ['¿Cómo entro a mi cuenta de Quincena VE?', 'Desde el botón "Entrar a Quincena VE" de esta página o directamente en la app de Android. Si aún no tienes cuenta, puedes crearla gratis.'],
 ];
 
@@ -239,15 +239,15 @@ export const Faq = () => (
   </section>
 );
 
-// SICAS es un producto propio de Gigadevs para contralorías y auditoría interna. Se instala en la
+// Criteriseg es un producto propio de Gigadevs para contralorías y auditoría interna. Se instala en la
 // infraestructura de cada organización: esta página solo lo presenta y no enlaza a ninguna instalación.
-const SICAS_TYPES = [
+const Criteriseg_TYPES = [
   [Building2, 'Auditoría administrativa', 'Unidades administrativas y procesos: normas y procedimientos, gobierno de la unidad, gestión documental, gastos y control interno.'],
   [Landmark, 'Auditoría financiera', 'Cuentas por pagar y por cobrar: soportes, aprobaciones, conciliaciones con el mayor, antigüedad de saldos, retenciones y cobranza.'],
   [ServerCog, 'Auditoría de sistemas', 'Cuestionarios de TI por dominio (accesos, respaldos, cambios, redes, ciberseguridad) en cuatro fases, con criterios de ISO/IEC 27001, COBIT 2019 y CIS Controls.'],
 ];
 
-const SICAS_FEATURES = [
+const Criteriseg_FEATURES = [
   [Sparkles, 'Hallazgos redactados por su propio motor de reglas', 'Condición, criterio, causa, efecto y recomendación a partir de las cédulas. Sin IA externa: la información no sale del servidor.'],
   [FileSignature, 'Informe final con firma electrónica', 'PDF de hasta 15 páginas con codificación institucional, aprobado por etapas y firmado con certificado digital y firma escaneada.'],
   [Workflow, 'Flujo Auditor → Jefe → Gerente → Contralor', 'Los revisores devuelven con puntos a corregir y cada decisión queda registrada. Suplencias temporales cuando alguien no está.'],
@@ -256,8 +256,8 @@ const SICAS_FEATURES = [
   [BarChart3, 'Tablero para el Contralor', 'Duración de auditorías, cuellos de botella por fase y carga de cada auditor, medidos en días y horas hábiles con los feriados nacionales.'],
 ];
 
-export const SicasSection = ({ demoHref, onCotizar }) => (
-  <section id="sicas" className="py-14 md:py-20 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden" aria-labelledby="t-sicas">
+export const CriterisegSection = ({ demoHref, onCotizar }) => (
+  <section id="criteriseg" className="py-14 md:py-20 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden" aria-labelledby="t-criteriseg">
     <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-indigo-500/10 rounded-full blur-3xl"></div>
     <div className="container mx-auto px-4 relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -266,9 +266,9 @@ export const SicasSection = ({ demoHref, onCotizar }) => (
             Producto propio de Gigadevs · Para contralorías y auditoría interna
           </span>
           <div className="flex items-center gap-4 mt-4 mb-3">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-500 text-white flex items-center justify-center shadow-lg"><ClipboardCheck size={26} /></div>
+            <img src="/criteriseg-icono.svg" alt="" width={56} height={56} className="rounded-2xl bg-white p-1 shadow-lg" />
             <div>
-              <h2 id="t-sicas" className="display text-5xl md:text-7xl leading-none">SICAS</h2>
+              <h2 id="t-criteriseg" className="display text-5xl md:text-7xl leading-none">Criteri<span className="text-[#7DB3E8]">seg</span></h2>
               <p className="text-indigo-200 font-semibold text-sm mt-1">Sistema Integral de Control y Auditoría</p>
             </div>
           </div>
@@ -289,7 +289,7 @@ export const SicasSection = ({ demoHref, onCotizar }) => (
         </div>
 
         <div className="lg:col-span-5 hidden sm:block reveal" style={{ '--d': '120ms' }}>
-          <div className="bg-white text-gray-900 rounded-[2rem] p-6 shadow-2xl max-w-md mx-auto" role="img" aria-label="Ejemplo de una auditoría financiera en SICAS">
+          <div className="bg-white text-gray-900 rounded-[2rem] p-6 shadow-2xl max-w-md mx-auto" role="img" aria-label="Ejemplo de una auditoría financiera en Criteriseg">
             <div className="flex items-center justify-between mb-1">
               <div className="font-bold text-indigo-950">Auditoría financiera · Cuentas por pagar</div>
               <span className="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-1 rounded-full">En revisión</span>
