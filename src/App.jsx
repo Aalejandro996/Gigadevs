@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, ChevronRight, MessageCircle, Lock, Mail, Send, Receipt, Package, TrendingUp, BadgeCheck, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
-import { QuincenaSection, CriterisegSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
+import { QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
 import { useReveal, useScrollProgress } from './motion.js';
 
 const WHATSAPP = '584242588321';
@@ -20,6 +20,7 @@ const NAV = [
   ['quincena', 'Quincena VE'],
   ['contax', 'Contax'],
   ['criteriseg', 'Criteriseg'],
+  ['surtia', 'Surtia™'],
   ['cotizar', 'Cotizar'],
   ['preguntas', 'Preguntas'],
   ['contacto', 'Contacto'],
@@ -248,7 +249,7 @@ const App = () => {
 
       <main>
         {/* --- PORTADA: titular grande y panel que se endereza al bajar (estilo apple.com) --- */}
-        <section id="inicio" data-scroll="hero" className="relative pt-32 md:pt-40 pb-16 md:pb-24 bg-blue-950 overflow-hidden text-white">
+        <section id="inicio" data-scroll="hero" className="relative pt-28 md:pt-32 pb-12 md:pb-16 bg-blue-950 overflow-hidden text-white">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900 via-blue-950 to-blue-950"></div>
           <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[760px] h-[420px] bg-yellow-500 rounded-full mix-blend-screen filter blur-[140px] opacity-[0.12]"></div>
           <div className="container mx-auto px-4 relative z-10">
@@ -258,7 +259,7 @@ const App = () => {
                 Ordena tu negocio.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-200">Vende más.</span>
               </h1>
               <p className="text-lg md:text-2xl text-blue-100 max-w-2xl mx-auto leading-relaxed mb-8 reveal" style={{ '--d': '160ms' }}>
-                Sistemas administrativos, páginas web y apps móviles. Y nuestros productos: Quincena VE, Contax y Criteriseg.
+                Sistemas administrativos, páginas web y apps móviles. Y nuestros productos: Quincena VE, Contax, Criteriseg y Surtia™.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center items-center reveal" style={{ '--d': '240ms' }}>
                 <a href={waLink('Hola GIGA DEVS, quiero cotizar un proyecto')} target="_blank" rel="noopener noreferrer" className="pill bg-yellow-500 text-blue-950 hover:bg-yellow-400 text-lg px-8">
@@ -315,13 +316,16 @@ const App = () => {
         {/* --- Criteriseg: PRODUCTO PROPIO (sin enlace a ninguna instalación) --- */}
         <CriterisegSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero una demostración de Criteriseg, el sistema de control y auditoría.')} onCotizar={() => scrollToSection('contacto')} />
 
+        {/* --- SURTIA: PRODUCTO PROPIO (asistente de ventas por WhatsApp) --- */}
+        <SurtiaSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero ver Surtia con mi propio catálogo.')} onCotizar={() => scrollToSection('contacto')} />
+
         {/* --- CONTAX (antes ERP): PRODUCTO PROPIO (privado: solo presentación, sin acceso a la plataforma) --- */}
         <ErpSection demoHref={waLink('Hola GIGA DEVS 👋 Quiero probar Contax gratis 72 horas (facturación e inventario).')} onCotizar={() => scrollToSection('contacto')} />
 
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
 
         {/* --- COTIZAR: cada sistema es personalizado, sin precios publicados --- */}
-        <section id="cotizar" className="py-14 md:py-20 bg-blue-950 relative overflow-hidden text-white">
+        <section id="cotizar" className="py-10 md:py-14 bg-blue-950 relative overflow-hidden text-white">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-yellow-500/10 rounded-full blur-[120px]"></div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-8 reveal">
@@ -363,7 +367,7 @@ const App = () => {
         <Faq />
 
         {/* --- CONTACTO --- */}
-        <section id="contacto" className="py-14 md:py-20 bg-gray-50 border-t border-gray-200">
+        <section id="contacto" className="py-10 md:py-14 bg-gray-50 border-t border-gray-200">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto items-start">
               <div className="reveal">
@@ -427,7 +431,7 @@ const App = () => {
               <Logo size={40} />
               <span className="text-2xl font-bold text-white"><span className="text-yellow-500">GIGA</span> DEVS</span>
             </div>
-            <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, sistemas de auditoría, páginas web y apps móviles. Creadores de Quincena VE, ERP y Criteriseg.</p>
+            <p className="text-blue-200 max-w-sm text-sm leading-relaxed">Desarrollo de software seguro a la medida en Venezuela: sistemas administrativos, sistemas de auditoría, páginas web y apps móviles. Creadores de Quincena VE, Contax, Criteriseg y Surtia™.</p>
           </div>
           <div>
             <h3 className="text-white font-bold mb-2">Productos</h3>
@@ -438,6 +442,7 @@ const App = () => {
               <li><a href={quincenaLink('/app', 'footer-negocio') + '#negocio'} className="hover:text-yellow-400">Quincena VE para tu negocio</a></li>
               <li><a href="https://erp-web-jaby.onrender.com/" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">Contax® · facturación y contabilidad</a></li>
               <li><a href="#criteriseg" onClick={(e) => { e.preventDefault(); scrollToSection('criteriseg'); }} className="hover:text-yellow-400">Criteriseg · control y auditoría</a></li>
+              <li><a href="#surtia" onClick={(e) => { e.preventDefault(); scrollToSection('surtia'); }} className="hover:text-yellow-400">Surtia™ · ventas por WhatsApp</a></li>
             </ul>
           </div>
           <div>

@@ -9,20 +9,34 @@ const QuincenaIcon = ({ size = 56 }) => (
   <img src="/quincena-icon.png" alt="" width={size} height={size} className="rounded-2xl shadow-lg" />
 );
 
+// Surtia™: asistente de ventas por WhatsApp (producto propio). Marca ™ hasta el registro ante el SAPI.
+const SurtiaMark = ({ size = 56 }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden="true" className="flex-shrink-0"><path d="M50 8C25 8 8 25 8 46c0 14 8 26 20 32l-8 14 20-8c3 1 6 1 10 1 25 0 42-17 42-38S75 8 50 8z" fill="#16C79A" /><text x="50" y="62" fontSize="46" fontWeight="800" textAnchor="middle" fill="#0B2530" fontFamily="Arial">S</text><circle cx="84" cy="16" r="11" fill="#FF7A45" /></svg>
+);
+const SurtiaChat = ({ compact = false }) => (
+  <div className={`bg-[#0B2530] text-white rounded-[2rem] p-5 shadow-2xl text-left ${compact ? '' : 'max-w-md mx-auto ring-1 ring-white/10'}`} role="img" aria-label="Ejemplo de una conversación de WhatsApp atendida por Surtia">
+    <div className="flex justify-end"><div className="bg-[#1f3f4d] rounded-2xl rounded-br-sm px-4 py-2 text-sm">¿Tienen harina?</div></div>
+    <div className="flex justify-start mt-3"><div className="bg-[#16C79A] text-[#0B2530] rounded-2xl rounded-bl-sm px-4 py-3 text-sm font-semibold max-w-[88%]">Sí. Harina Pan 1 kg: precio en Bs del día y en existencia. ¿Cuántas quieres?</div></div>
+    <div className="flex justify-end mt-3"><div className="bg-[#1f3f4d] rounded-2xl rounded-br-sm px-4 py-2 text-sm">Quiero 3</div></div>
+    <div className="flex justify-start mt-3"><div className="bg-[#FF7A45] text-[#0B2530] rounded-2xl rounded-bl-sm px-4 py-2 text-sm font-bold">Pedido recibido ✓ Listo para facturar</div></div>
+    <div className="text-[11px] text-white/50 mt-3">Ejemplo ilustrativo</div>
+  </div>
+);
+
 // Mosaico de productos al estilo de la portada de apple.com: cada producto con sus colores.
 const Tile = ({ className = '', eyebrow, title, sub, children, links, d = 0, dark = true }) => (
-  <article className={`reveal tile relative overflow-hidden rounded-[2rem] text-center flex flex-col items-center pt-12 md:pt-14 px-6 min-h-[440px] md:min-h-[500px] ${className}`} style={{ '--d': `${d}ms` }}>
+  <article className={`reveal tile relative overflow-hidden rounded-[2rem] text-center flex flex-col items-center pt-10 md:pt-12 px-6 min-h-[360px] md:min-h-[400px] ${className}`} style={{ '--d': `${d}ms` }}>
     {eyebrow}
     <h3 className="display text-4xl md:text-5xl mt-2">{title}</h3>
     <p className={`text-lg md:text-xl mt-3 max-w-md ${dark ? 'opacity-90' : 'opacity-80'}`}>{sub}</p>
     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-5 text-base md:text-lg">{links}</div>
-    <div className="art mt-auto w-full max-w-sm pt-8">{children}</div>
+    <div className="art mt-auto w-full max-w-sm pt-6">{children}</div>
   </article>
 );
 
 export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
   <section id="productos" className="bg-white p-3 md:p-4" aria-label="Nuestros productos">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
+    <div className="rail md:grid-cols-2 gap-3 md:gap-4">
       <Tile className="bg-gradient-to-b from-emerald-700 to-emerald-900 text-white" d={0}
         eyebrow={<img src="/quincena-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
         title="Quincena VE" sub="Tu quincena, en dólares y en bolívares. Gratis."
@@ -67,6 +81,7 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
           <div className="flex justify-between text-[11px] font-semibold mt-2 pt-2 border-t border-gray-100">{['Auditor', 'Jefe', 'Gerente'].map((n) => <span key={n} className="text-emerald-700 flex items-center gap-1"><CheckCircle size={13} />{n}</span>)}<span className="text-gray-400 flex items-center gap-1"><PenLine size={13} />Contralor</span></div>
         </div>
       </Tile>
+
     </div>
   </section>
 );
@@ -94,7 +109,7 @@ export const Statement = () => {
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, []);
   return (
-    <section className="bg-white py-16 md:py-24" aria-label="Lo que hacemos">
+    <section className="bg-white py-10 md:py-14" aria-label="Lo que hacemos">
       <p ref={ref} className="lit display container mx-auto px-6 max-w-5xl text-4xl md:text-6xl lg:text-7xl text-center">
         {STATEMENT.split(' ').map((w, i) => <span key={i}>{w} </span>)}
       </p>
@@ -110,7 +125,7 @@ const NEGOCIO = [
 const NEGOCIO_PLUS = [[Package, 'Productos con inventario'], [Receipt, 'Recibos para WhatsApp'], [FileSpreadsheet, 'Excel para tu contador'], [Users, 'Vendedores desde su teléfono']];
 
 export const QuincenaSection = () => (
-  <section id="quincena" className="py-14 md:py-20 bg-gradient-to-br from-emerald-700 to-emerald-900 text-white relative overflow-hidden" aria-labelledby="t-quincena">
+  <section id="quincena" className="py-10 md:py-14 bg-gradient-to-br from-emerald-700 to-emerald-900 text-white relative overflow-hidden" aria-labelledby="t-quincena">
     <div className="absolute -top-40 -right-40 w-[520px] h-[520px] bg-white/5 rounded-full"></div>
     <div className="container mx-auto px-4 relative z-10">
       <div className="text-center max-w-4xl mx-auto mb-10 reveal">
@@ -176,7 +191,7 @@ export const QuincenaSection = () => (
 
 // Para quién y cómo trabajamos van en una sola sección para acortar la página.
 export const ComoTrabajamos = ({ onCotizar }) => (
-  <section id="como-trabajamos" className="py-14 md:py-20 bg-white border-t border-gray-100" aria-labelledby="t-como">
+  <section id="como-trabajamos" className="py-10 md:py-14 bg-white border-t border-gray-100" aria-labelledby="t-como">
     <div className="container mx-auto px-4">
       <div id="para-quien" className="text-center max-w-3xl mx-auto mb-8 reveal">
         <p className="eyebrow text-yellow-600 mb-3">Para quién y cómo trabajamos</p>
@@ -219,7 +234,7 @@ export const FAQS = [
 ];
 
 export const Faq = () => (
-  <section id="preguntas" className="py-14 md:py-20 bg-white border-t border-gray-100" aria-labelledby="t-faq">
+  <section id="preguntas" className="py-10 md:py-14 bg-white border-t border-gray-100" aria-labelledby="t-faq">
     <div className="container mx-auto px-4 max-w-5xl">
       <div className="text-center mb-10 reveal">
         <p className="eyebrow text-blue-600 mb-3">Preguntas frecuentes</p>
@@ -257,7 +272,7 @@ const Criteriseg_FEATURES = [
 ];
 
 export const CriterisegSection = ({ demoHref, onCotizar }) => (
-  <section id="criteriseg" className="py-14 md:py-20 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden" aria-labelledby="t-criteriseg">
+  <section id="criteriseg" className="py-10 md:py-14 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden" aria-labelledby="t-criteriseg">
     <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-indigo-500/10 rounded-full blur-3xl"></div>
     <div className="container mx-auto px-4 relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -320,6 +335,50 @@ export const CriterisegSection = ({ demoHref, onCotizar }) => (
   </section>
 );
 
+export const SurtiaSection = ({ demoHref, onCotizar }) => (
+  <section id="surtia" className="py-10 md:py-14 bg-[#0B2530] text-white relative overflow-hidden" aria-labelledby="t-surtia">
+    <div className="absolute -top-40 -right-40 w-[520px] h-[520px] bg-[#16C79A]/10 rounded-full blur-3xl"></div>
+    <div className="container mx-auto px-4 relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="lg:col-span-7 reveal">
+          <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1 rounded-full text-xs font-semibold text-[#9ff0d6]">
+            Producto propio de Gigadevs · Asistente de ventas por WhatsApp
+          </span>
+          <div className="flex items-center gap-4 mt-3 mb-3">
+            <SurtiaMark size={56} />
+            <h2 id="t-surtia" className="display text-5xl md:text-6xl leading-none">surt<span className="text-[#FF7A45]">i</span>a<sup className="text-[#16C79A] text-[0.35em] align-top ml-1">™</sup></h2>
+          </div>
+          <p className="text-xl md:text-2xl font-bold text-[#c9f5e8] mb-3 leading-snug">Atiende a tus clientes por WhatsApp, a cualquier hora, con tu catálogo y tu existencia real.</p>
+          <p className="text-white/90 leading-relaxed mb-4 max-w-2xl">
+            Surtia™ conversa con tus clientes, busca productos por nombre o código, muestra el precio en bolívares con la tasa BCV del día y arma el pedido con la existencia real.
+            Si el cliente lo pide, la conversación pasa a una persona. Cada pedido nuevo te llega al correo del equipo y queda listo para facturar.
+          </p>
+          <ul className="grid sm:grid-cols-2 gap-2 mb-4 text-sm">
+            {['Atención 24/7 sin contratar más personal', 'Menos errores: usa el código y la existencia reales', 'Pedidos ordenados, listos para facturar', 'Panel web con pedidos, conversaciones y exportación a Excel'].map((x) => (
+              <li key={x} className="flex items-start gap-2"><CheckCircle size={16} className="text-[#16C79A] flex-shrink-0 mt-0.5" /> {x}</li>
+            ))}
+          </ul>
+          <p className="text-sm text-white/80 mb-5 max-w-2xl">
+            Funciona con Profit Plus, en solo lectura: nunca modifica tu sistema. La conexión con tu sistema la hacemos nosotros: tú no instalas ni configuras nada.
+            ¿Trabajas con Excel? También podemos cargar tu catálogo.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a href={demoHref} target="_blank" rel="noopener noreferrer" className="pill bg-[#16C79A] text-[#0B2530] hover:bg-[#3fd9ae] shadow-xl">
+              <MessagesSquare size={20} /> Ver Surtia con mi catálogo
+            </a>
+            <button onClick={onCotizar} className="pill border border-white/40 text-white hover:bg-white/10">
+              Cotizar para mi empresa <ArrowRight size={18} />
+            </button>
+          </div>
+        </div>
+        <div className="lg:col-span-5 hidden sm:block reveal" style={{ '--d': '120ms' }}>
+          <SurtiaChat />
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 // Contax® (antes «ERP») es un producto PRIVADO de Gigadevs: aquí solo se presenta. Sin enlaces a la plataforma, al repositorio
 // ni a ninguna API; quien se interese pide la demo de 72 h, una demostración o una cotización.
 const CONTAX_PLANES = [
@@ -337,7 +396,7 @@ const CONTAX_NOVEDADES = [
 ];
 
 export const ErpSection = ({ demoHref, onCotizar }) => (
-  <section id="contax" className="py-14 md:py-20 bg-[#191919] text-white relative overflow-hidden" aria-labelledby="t-contax">
+  <section id="contax" className="py-10 md:py-14 bg-[#191919] text-white relative overflow-hidden" aria-labelledby="t-contax">
     <div className="absolute -top-44 -right-44 w-[260px] h-[260px] md:-top-40 md:-right-40 md:w-[420px] md:h-[420px] bg-[#87e64b] rounded-full opacity-90"></div>
     <div className="container mx-auto px-4 relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
