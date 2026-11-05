@@ -186,7 +186,7 @@ export const ComoTrabajamos = ({ onCotizar }) => (
       <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           [MessagesSquare, 'Conversamos', 'Nos cuentas por WhatsApp o correo qué necesita tu negocio.'],
-          [ClipboardList, 'Propuesta y precio', 'Alcance, tiempos y precio; generas tu planilla con la tasa BCV del día.'],
+          [ClipboardList, 'Propuesta y cotización', 'Alcance, tiempos y precio cerrado según tu proyecto, en dólares o en bolívares a tasa BCV.'],
           [Wrench, 'Desarrollo', 'Con buenas prácticas de seguridad y avances para que opines antes de la entrega.'],
           [LifeBuoy, 'Entrega y soporte', 'Lo publicamos, te enseñamos a usarlo y te acompañamos con soporte.'],
         ].map(([Icon, t, d], i) => (
@@ -207,13 +207,13 @@ export const ComoTrabajamos = ({ onCotizar }) => (
 
 export const FAQS = [
   ['¿Qué hace Gigadevs?', 'Desarrollamos software a la medida: sistemas administrativos y contables, páginas web y tiendas en línea, apps móviles para Android y iOS, y soluciones de seguridad para redes y equipos. También creamos productos propios: Quincena VE (personal y para tu negocio), Contax y Criteriseg.'],
-  ['¿Cómo puedo pagar?', 'En dólares o en bolívares a la tasa BCV del día, por pago móvil, transferencia bancaria, Binance Pay o PayPal. Al elegir un plan generas tu planilla de pago y la envías por WhatsApp.'],
+  ['¿Cómo puedo pagar?', 'En dólares o en bolívares a la tasa BCV del día, por pago móvil, transferencia bancaria, Binance Pay o PayPal. El monto lo acordamos en la cotización, antes de empezar.'],
   ['¿Cuánto tarda un proyecto?', 'Depende del alcance. En la propuesta te damos las fechas de entrega antes de empezar, y te mostramos avances durante el desarrollo.'],
-  ['¿El sistema queda siendo mío?', 'Con las licencias vitalicias pagas una sola vez y el sistema es tuyo para siempre, con un año de soporte incluido. Con la suscripción pagas mes a mes o una vez al año.'],
+  ['¿El sistema queda siendo mío?', 'Depende de lo que acordemos en la cotización: puede ser una licencia de pago único, con el sistema para siempre y un año de soporte incluido, o una suscripción mensual o anual.'],
   ['¿Trabajan con negocios fuera de Venezuela?', 'Sí. Trabajamos a distancia con clientes de Venezuela y otros países de Latinoamérica.'],
   ['¿Qué es Quincena VE?', 'Es nuestra app gratis de finanzas personales para quien cobra por quincena o por semana: registra gastos en dólares y moneda local con la tasa del día, controla pagos y deudas, y muestra cuánto te queda hasta el próximo cobro. Funciona en la web y en Android.'],
   ['¿Quincena VE sirve para mi negocio?', 'Sí. Con Quincena VE para tu negocio, gratis, anotas ventas en bolívares y dólares con la tasa del día, el fiado de tus clientes, los gastos del negocio y el cierre de caja, aparte de tu quincena personal. Negocio Plus (inventario, recibos, Excel para el contador y vendedores) es un plan de pago. Quincena VE no emite facturas fiscales.'],
-  ['¿Qué es Contax?', 'Contax® (antes «ERP») es nuestra plataforma web de gestión empresarial: facturación según la Providencia SNAT/2011/00071 en bolívares o divisas con la tasa BCV, contabilidad VEN-NIF, libros de compras y ventas que cuadran con la contabilidad, órdenes de compra, inventario, cuentas por cobrar y pagar, y un bot de WhatsApp que toma pedidos y lee órdenes de compra en PDF. Migra tus datos desde Galac, Profit Plus o Excel. Planes Contax Contable, Cash, Contax Administrativo, All in One o un combo a tu medida, mensual o anual; pruébalo gratis 72 horas.'],
+  ['¿Qué es Contax?', 'Contax® (antes «ERP») es nuestra plataforma web de gestión empresarial: facturación según la Providencia SNAT/2011/00071 en bolívares o divisas con la tasa BCV, contabilidad VEN-NIF, libros de compras y ventas que cuadran con la contabilidad, órdenes de compra, inventario, cuentas por cobrar y pagar, y un bot de WhatsApp que toma pedidos y lee órdenes de compra en PDF. Migra tus datos desde Galac, Profit Plus o Excel. Elige solo los módulos que usas y te enviamos una cotización a tu medida; pruébalo gratis 72 horas.'],
   ['¿Qué es Criteriseg?', 'Es nuestro Sistema Integral de Control y Auditoría para contralorías y unidades de auditoría interna: gestiona auditorías administrativas, financieras y de sistemas, redacta los hallazgos con su propio motor de reglas y lleva el informe final por la aprobación del Jefe, el Gerente y el Contralor hasta la firma electrónica. Se instala en la infraestructura de tu organización; escríbenos para una demostración.'],
   ['¿Cómo entro a mi cuenta de Quincena VE?', 'Desde el botón "Entrar a Quincena VE" de esta página o directamente en la app de Android. Si aún no tienes cuenta, puedes crearla gratis.'],
 ];
@@ -323,17 +323,17 @@ export const CriterisegSection = ({ demoHref, onCotizar }) => (
 // Contax® (antes «ERP») es un producto PRIVADO de Gigadevs: aquí solo se presenta. Sin enlaces a la plataforma, al repositorio
 // ni a ninguna API; quien se interese pide la demo de 72 h, una demostración o una cotización.
 const CONTAX_PLANES = [
-  ['Contax Contable', 'Contabilidad VEN-NIF, ISLR, retenciones, libros fiscales, administración y auditoría.', 'desde $45/mes'],
-  ['Cash', 'Facturación con número de control, notas de crédito y débito, cobros e inventario.', 'desde $25/mes'],
-  ['Contax Administrativo', 'Cuentas por cobrar y pagar, bancos, órdenes de compra, libro de compras e inventario.', 'desde $23/mes'],
-  ['All in One', 'Todo lo anterior en una sola licencia.', 'desde $69/mes'],
-  ['Combo a tu medida', 'Elige solo los módulos que usas, con pago mensual o anual (el anual te regala 2 meses).', 'según lo que incluya'],
+  ['Contax Contable', 'Contabilidad VEN-NIF, ISLR, retenciones, libros fiscales, administración y auditoría.'],
+  ['Cash', 'Facturación con número de control, notas de crédito y débito, cobros e inventario.'],
+  ['Contax Administrativo', 'Cuentas por cobrar y pagar, bancos, órdenes de compra, libro de compras e inventario.'],
+  ['All in One', 'Todo lo anterior en una sola licencia.'],
+  ['Combo a tu medida', 'Elige solo los módulos que usas, con pago mensual o anual.'],
 ];
 const CONTAX_NOVEDADES = [
   [FileSpreadsheet, 'Trae tus datos', 'Migra clientes, proveedores, inventario y saldos desde Galac, Profit Plus o Excel. Tú validas antes de cargar.'],
   [MessagesSquare, 'Vende por WhatsApp', 'Un bot atiende a tus clientes: catálogo y pedidos. Si te envían su orden de compra en PDF, la lee y te deja la factura lista.'],
   [BarChart3, 'Libros que cuadran', 'Ventas, compras, inventario y cuentas por cobrar y pagar contra la contabilidad, con un clic para contabilizar lo pendiente.'],
-  [ShieldCheck, 'Pruébalo 72 horas', 'Demo gratis de Facturación e Inventario, sin tarjeta. Si te gusta, compras tu licencia en USDT o bolívares.'],
+  [ShieldCheck, 'Pruébalo 72 horas', 'Demo gratis de Facturación e Inventario, sin tarjeta. Si te gusta, te cotizamos tu licencia en USDT o bolívares.'],
 ];
 
 export const ErpSection = ({ demoHref, onCotizar }) => (
@@ -383,15 +383,15 @@ export const ErpSection = ({ demoHref, onCotizar }) => (
       </div>
       <h3 className="text-2xl md:text-3xl font-bold mt-14 mb-5 reveal">Planes</h3>
       <div className="rail md:grid-cols-2 lg:grid-cols-5">
-        {CONTAX_PLANES.map(([t, d, precio], i) => (
+        {CONTAX_PLANES.map(([t, d], i) => (
           <div key={t} className="reveal tile bg-white/5 border border-white/15 rounded-3xl p-6" style={{ '--d': `${i * 90}ms` }}>
             <h4 className="font-bold mb-1.5 text-white">{t}</h4>
             <p className="text-gray-300 text-sm leading-relaxed mb-3">{d}</p>
-            <p className="text-[#87e64b] font-bold text-sm">{precio}</p>
+            <button onClick={onCotizar} className="text-[#87e64b] font-bold text-sm hover:underline">Cotizar</button>
           </div>
         ))}
       </div>
-      <p className="text-xs text-gray-400 mt-3">Precios de referencia en USD; pago en USDT (Binance Pay) o en bolívares a la tasa BCV del día. Plan anual = 10 meses.</p>
+      <p className="text-xs text-gray-400 mt-3">Cada empresa es distinta: te cotizamos según los módulos, usuarios y empresas que necesites. Pago en USDT (Binance Pay) o en bolívares a la tasa BCV del día.</p>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-6 text-sm text-gray-200">
         {['Verificación en dos pasos obligatoria', 'Varias empresas y tu equipo, con roles', 'Bitácora inalterable de cada operación', 'Contax® es una marca registrada de Gigadevs Corp'].map((t) => (
           <li key={t} className="flex items-start gap-2"><CheckCircle size={18} className="text-[#87e64b] flex-shrink-0 mt-0.5" /> {t}</li>

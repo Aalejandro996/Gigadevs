@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, CreditCard, Bitcoin, ChevronRight, MessageCircle, FileText, DollarSign, Download, ExternalLink, Lock, Mail, Send, Receipt, Package, TrendingUp, Landmark, BadgeCheck, HelpCircle, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, ChevronRight, MessageCircle, Lock, Mail, Send, Receipt, Package, TrendingUp, BadgeCheck, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
 import { QuincenaSection, CriterisegSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
 import { useReveal, useScrollProgress } from './motion.js';
 
@@ -20,7 +20,7 @@ const NAV = [
   ['quincena', 'Quincena VE'],
   ['contax', 'Contax'],
   ['criteriseg', 'Criteriseg'],
-  ['planes', 'Precios'],
+  ['cotizar', 'Cotizar'],
   ['preguntas', 'Preguntas'],
   ['contacto', 'Contacto'],
 ];
@@ -110,35 +110,24 @@ const PROJECTS = [
   },
 ];
 
-// Planes. Cada precio sale de un solo lugar: la tarjeta, el botón y la solicitud muestran lo mismo.
-const PLANS = [
+// Cada sistema es personalizado: no se publican precios, se cotiza según el alcance de cada cliente.
+const SOLUTIONS = [
   {
-    id: 'suite', kind: 'Suscripción', name: 'GIGA Suite Pro', desc: 'Sistema, página web y app para gestionar tu empresa en una sola suscripción.',
-    monthly: 49, annual: 470,
-    features: ['Sistema administrativo a tu medida', 'Página web profesional', 'App móvil o de escritorio'],
-  },
-  {
-    id: 'web', kind: 'Pago único', name: 'Web y tienda en línea', desc: 'Tu negocio en Google con una web rápida, segura y fácil de actualizar.',
-    price: 250, lifetime: true,
-    features: ['Diseño a tu medida y adaptado al teléfono', 'Pagos en línea integrados', 'Seguridad OWASP y certificado HTTPS'],
-  },
-  {
-    id: 'sistema', kind: 'Pago único', name: 'Sistema a la medida', desc: 'Facturación, inventario y ventas en un sistema hecho para tu empresa.',
-    price: 300, lifetime: true, featured: true,
+    id: 'sistema', name: 'Sistema a la medida', desc: 'Facturación, inventario y ventas en un sistema hecho para tu empresa.', featured: true,
     features: ['Facturación, ventas e inventario', 'Base de datos PostgreSQL protegida', 'Usuarios con roles y permisos'],
   },
   {
-    id: 'app', kind: 'Pago único', name: 'App iOS y Android', desc: 'Una app para tus clientes o tu equipo, conectada a tu sistema.',
-    price: 400, lifetime: true,
+    id: 'web', name: 'Web y tienda en línea', desc: 'Tu negocio en Google con una web rápida, segura y fácil de actualizar.',
+    features: ['Diseño a tu medida y adaptado al teléfono', 'Pagos en línea integrados', 'Seguridad OWASP y certificado HTTPS'],
+  },
+  {
+    id: 'app', name: 'App iOS y Android', desc: 'Una app para tus clientes o tu equipo, conectada a tu sistema.',
     features: ['Android e iOS', 'Conexión segura con tu sistema', 'Publicación en las tiendas oficiales'],
   },
-];
-
-const PAYMENTS = [
-  { icon: Smartphone, name: 'Pago Móvil', currency: 'Bolívares', text: 'Desde la app de tu banco, con el monto a la tasa BCV del día.', color: 'bg-green-100 text-green-700' },
-  { icon: Landmark, name: 'Transferencia bancaria', currency: 'Bolívares', text: 'Desde cualquier banco nacional. Ideal para empresas y montos mayores.', color: 'bg-indigo-100 text-indigo-700' },
-  { icon: Bitcoin, name: 'Binance Pay', currency: 'USDT', text: 'Paga en dólares digitales desde tu cuenta de Binance.', color: 'bg-yellow-100 text-yellow-700' },
-  { icon: CreditCard, name: 'PayPal o tarjeta', currency: 'Dólares', text: 'Con tu cuenta PayPal o una tarjeta internacional.', color: 'bg-blue-100 text-blue-700' },
+  {
+    id: 'suite', name: 'Solución integral', desc: 'Sistema, página web y app trabajando juntos para gestionar tu empresa.',
+    features: ['Sistema administrativo a tu medida', 'Página web profesional', 'App móvil o de escritorio'],
+  },
 ];
 
 const Logo = ({ size = 48 }) => (
@@ -149,21 +138,8 @@ const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState('contax');
-  const [annual, setAnnual] = useState(false);
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState('');
-  const [planPriceUSD, setPlanPriceUSD] = useState(0);
-  const [billingCycle, setBillingCycle] = useState('mensual');
-
-  const [clientName, setClientName] = useState('');
-  const [clientEmail, setClientEmail] = useState('');
-  const [clientBusiness, setClientBusiness] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('Pago Móvil (Bs.)');
   const [bcvRate, setBcvRate] = useState(801.17);
   const [loadingRate, setLoadingRate] = useState(true);
-  const [orderGenerated, setOrderGenerated] = useState(false);
-  const [orderData, setOrderData] = useState(null);
 
   const [contact, setContact] = useState({ name: '', business: '', need: 'Un sistema administrativo', message: '' });
 
@@ -191,14 +167,6 @@ const App = () => {
     fetchBCVRate();
   }, []);
 
-  const closeModal = useCallback(() => setModalOpen(false), []);
-  useEffect(() => {
-    if (!modalOpen) return undefined;
-    const onKey = (e) => { if (e.key === 'Escape') closeModal(); };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [modalOpen, closeModal]);
-
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -211,69 +179,6 @@ const App = () => {
   const money = (n) => n.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const rate = loadingRate ? '…' : money(bcvRate);
   const ves = (usd) => money(usd * bcvRate);
-
-  const handleOpenModal = (planName, basePrice, cycle = 'mensual') => {
-    setSelectedPlan(planName);
-    setPlanPriceUSD(basePrice);
-    setBillingCycle(cycle);
-    setOrderGenerated(false);
-    setOrderData(null);
-    setModalOpen(true);
-  };
-
-  // Solicitud de pedido: resume el plan y el monto en bolívares. No es una factura fiscal.
-  const handleGenerateOrder = (e) => {
-    e.preventDefault();
-    if (!clientName || !clientEmail) return;
-    setOrderData({
-      orderNum: 'PED-' + Math.floor(100000 + Math.random() * 900000),
-      dateStr: new Date().toLocaleDateString('es-VE'),
-      clientName, clientEmail, clientBusiness: clientBusiness || 'N/A',
-      selectedPlan, billingCycle, planPriceUSD, bcvRate: money(bcvRate), totalVES: ves(planPriceUSD), paymentMethod,
-    });
-    setOrderGenerated(true);
-  };
-
-  const downloadSummary = () => {
-    if (!orderData) return;
-    const content = [
-      '========================================',
-      '   GIGA DEVS - SOLICITUD DE PEDIDO',
-      '========================================',
-      `Nro de solicitud: ${orderData.orderNum}`,
-      `Fecha: ${orderData.dateStr}`,
-      '----------------------------------------',
-      'CLIENTE',
-      `Nombre: ${orderData.clientName}`,
-      `Correo: ${orderData.clientEmail}`,
-      `Empresa / negocio: ${orderData.clientBusiness}`,
-      '----------------------------------------',
-      'SERVICIO',
-      `Plan: ${orderData.selectedPlan}`,
-      `Modalidad: ${orderData.billingCycle}`,
-      `Monto en USD: $${orderData.planPriceUSD}`,
-      `Tasa BCV del día: Bs. ${orderData.bcvRate}`,
-      `Total en bolívares: Bs. ${orderData.totalVES}`,
-      `Forma de pago elegida: ${orderData.paymentMethod}`,
-      '----------------------------------------',
-      'Este documento es una solicitud de pedido, no una factura fiscal.',
-      'La factura se emite al confirmar el pago.',
-      '========================================',
-    ].join('\n');
-    const url = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' }));
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Solicitud_${orderData.orderNum}.txt`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const orderWhatsApp = () => orderData ? waLink(
-    `Hola GIGA DEVS 👋 Generé la solicitud *${orderData.orderNum}*.\n\n` +
-    `*Cliente:* ${orderData.clientName}\n*Plan:* ${orderData.selectedPlan} (${orderData.billingCycle})\n` +
-    `*Total:* $${orderData.planPriceUSD} | Bs. ${orderData.totalVES} (tasa BCV ${orderData.bcvRate})\n` +
-    `*Forma de pago:* ${orderData.paymentMethod}\n\nQuiero confirmar mi pedido.`
-  ) : '#';
 
   const contactWhatsApp = (e) => {
     e.preventDefault();
@@ -415,59 +320,32 @@ const App = () => {
 
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
 
-        {/* --- PLANES Y PRECIOS --- */}
-        <section id="planes" className="py-14 md:py-20 bg-blue-950 relative overflow-hidden text-white">
+        {/* --- COTIZAR: cada sistema es personalizado, sin precios publicados --- */}
+        <section id="cotizar" className="py-14 md:py-20 bg-blue-950 relative overflow-hidden text-white">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-yellow-500/10 rounded-full blur-[120px]"></div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-8 reveal">
-              <p className="eyebrow text-yellow-400 mb-3">Planes y precios</p>
-              <h2 className="display text-4xl md:text-6xl mb-4">Precios claros. Sin sorpresas.</h2>
-              <p className="text-blue-200 text-lg">Paga en dólares o en bolívares a la tasa BCV de hoy: <strong className="text-yellow-400">Bs. {rate}</strong> por dólar.</p>
+              <p className="eyebrow text-yellow-400 mb-3">Cotiza tu proyecto</p>
+              <h2 className="display text-4xl md:text-6xl mb-4">Cada sistema es único.</h2>
+              <p className="text-blue-200 text-lg">Por eso no tenemos precios fijos: cada sistema se diseña según lo que tu negocio necesita. Cuéntanos tu proyecto y te enviamos una cotización gratis, en dólares o en bolívares a la tasa BCV del día.</p>
             </div>
 
             <div className="rail md:grid-cols-2 xl:grid-cols-4 items-stretch pt-4">
-              {PLANS.map((plan) => {
-                const price = plan.monthly ? (annual ? plan.annual : plan.monthly) : plan.price;
-                const cycle = plan.monthly ? (annual ? 'anual' : 'mensual') : 'único';
-                const label = plan.monthly ? `${plan.name} (${annual ? 'Anual' : 'Mensual'})` : plan.name;
-                const dark = plan.featured;
+              {SOLUTIONS.map((s, i) => {
+                const dark = s.featured;
                 return (
-                  <article key={plan.id} style={{ '--d': `${PLANS.indexOf(plan) * 90}ms` }} className={`reveal tile relative rounded-3xl p-6 flex flex-col shadow-2xl ${dark ? 'bg-gradient-to-b from-yellow-400 to-amber-500 text-blue-950 ring-4 ring-yellow-300/40' : 'bg-white text-gray-900'}`}>
-                    {dark && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-950 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full shadow whitespace-nowrap">⭐ Recomendado</div>}
-                    <div className={`text-xs font-bold uppercase tracking-wider mb-1.5 ${dark ? 'text-blue-950/70' : 'text-blue-600'}`}>{plan.kind}</div>
-                    <h3 className="text-xl font-extrabold mb-1">{plan.name}</h3>
-                    <p className={`text-sm mb-3 ${dark ? 'text-blue-950/80' : 'text-gray-500'}`}>{plan.desc}</p>
-
-                    {plan.monthly && (
-                      <div className="grid grid-cols-2 bg-gray-100 rounded-xl p-1 mb-3 text-sm font-bold" role="group" aria-label="Forma de pago de la suscripción">
-                        {[[false, 'Mensual'], [true, 'Anual']].map(([value, text]) => (
-                          <button key={text} type="button" aria-pressed={annual === value} onClick={() => setAnnual(value)}
-                            className={`py-1.5 rounded-lg transition ${annual === value ? 'bg-blue-950 text-white shadow' : 'text-gray-600 hover:text-blue-950'}`}>{text}</button>
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-black tracking-tight">${price}</span>
-                      <span className={`font-medium ${dark ? 'text-blue-950/70' : 'text-gray-500'}`}>{plan.monthly ? (annual ? '/ año' : '/ mes') : 'pago único'}</span>
-                    </div>
-                    <div className={`text-sm mt-1 mb-1 ${dark ? 'text-blue-950/80' : 'text-gray-600'}`}>≈ Bs. {ves(price)}</div>
-                    <div className={`text-xs font-semibold mb-3 min-h-[1rem] ${dark ? 'text-blue-950' : 'text-green-700'}`}>
-                      {plan.monthly ? (annual ? `Ahorras $${plan.monthly * 12 - plan.annual} al año` : `O $${plan.annual} al año y ahorras $${plan.monthly * 12 - plan.annual}`) : 'Licencia vitalicia + 1 año de soporte'}
-                    </div>
-
-                    <ul className={`space-y-1.5 text-sm mb-4 flex-1 ${dark ? 'font-semibold' : 'text-gray-700'}`}>
-                      {plan.features.map((f) => (
+                  <article key={s.id} style={{ '--d': `${i * 90}ms` }} className={`reveal tile relative rounded-3xl p-6 flex flex-col shadow-2xl ${dark ? 'bg-gradient-to-b from-yellow-400 to-amber-500 text-blue-950 ring-4 ring-yellow-300/40' : 'bg-white text-gray-900'}`}>
+                    {dark && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-950 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full shadow whitespace-nowrap">⭐ Lo más pedido</div>}
+                    <div className={`text-xs font-bold uppercase tracking-wider mb-1.5 ${dark ? 'text-blue-950/70' : 'text-blue-600'}`}>Personalizado</div>
+                    <h3 className="text-xl font-extrabold mb-1">{s.name}</h3>
+                    <p className={`text-sm mb-4 ${dark ? 'text-blue-950/80' : 'text-gray-500'}`}>{s.desc}</p>
+                    <ul className={`space-y-1.5 text-sm mb-5 flex-1 ${dark ? 'font-semibold' : 'text-gray-700'}`}>
+                      {s.features.map((f) => (
                         <li key={f} className="flex items-start gap-2"><CheckCircle size={17} className={`mt-0.5 flex-shrink-0 ${dark ? 'text-blue-950' : 'text-green-500'}`} /> {f}</li>
                       ))}
                     </ul>
-
-                    <button onClick={() => handleOpenModal(label, price, cycle)} className="pill w-full bg-blue-950 text-white hover:bg-blue-900 shadow">
-                      Elegir este plan
-                    </button>
-                    <a href={waLink(`Hola GIGA DEVS, tengo una pregunta sobre el plan "${label}" ($${price}).`)} target="_blank" rel="noopener noreferrer"
-                      className={`mt-2 text-sm font-semibold text-center inline-flex items-center justify-center gap-1.5 ${dark ? 'text-blue-950 hover:underline' : 'text-blue-700 hover:underline'}`}>
-                      <HelpCircle size={15} /> Tengo una pregunta
+                    <a href={waLink(`Hola GIGA DEVS 👋 Quiero cotizar: ${s.name}.`)} target="_blank" rel="noopener noreferrer" className="pill w-full bg-blue-950 text-white hover:bg-blue-900 shadow">
+                      <MessageCircle size={18} /> Cotizar por WhatsApp
                     </a>
                   </article>
                 );
@@ -475,7 +353,7 @@ const App = () => {
             </div>
 
             <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6 max-w-5xl mx-auto text-sm text-blue-100">
-              {['Precio cerrado antes de empezar', 'Factura al confirmar tu pago', 'Soporte incluido', 'Cotización gratis y sin compromiso'].map((t) => (
+              {['Cotización gratis y sin compromiso', 'Precio cerrado antes de empezar', 'Factura al confirmar tu pago', 'Soporte incluido'].map((t) => (
                 <li key={t} className="flex items-center gap-2 justify-center text-center"><BadgeCheck size={18} className="text-yellow-400 flex-shrink-0" /> {t}</li>
               ))}
             </ul>
@@ -584,79 +462,6 @@ const App = () => {
         </div>
       </footer>
 
-      {/* --- SOLICITUD DE PEDIDO --- */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}>
-          <div role="dialog" aria-modal="true" aria-labelledby="pedido-titulo" className="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onClick={closeModal} aria-label="Cerrar" className="absolute top-6 right-6 text-gray-500 hover:text-gray-800 bg-gray-100 p-2 rounded-full"><X size={20} /></button>
-            <div className="flex items-center gap-3 mb-2 pr-10">
-              <div className="p-3 bg-yellow-100 text-yellow-700 rounded-2xl"><DollarSign size={24} /></div>
-              <div>
-                <h2 id="pedido-titulo" className="text-2xl font-black text-blue-950">Solicitud de pedido</h2>
-                <p className="text-gray-500 text-xs">Monto en bolívares con la tasa BCV de hoy (Bs. {rate})</p>
-              </div>
-            </div>
-
-            {!orderGenerated ? (
-              <form onSubmit={handleGenerateOrder} className="space-y-4 mt-6">
-                <div className="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
-                  <div className="text-xs text-blue-700 font-bold uppercase">Servicio elegido</div>
-                  <div className="text-lg font-bold text-blue-950">{selectedPlan}</div>
-                  <div className="text-sm font-semibold text-gray-700 mt-1">Precio: <span className="text-blue-900 font-bold">${planPriceUSD}</span> ({billingCycle})</div>
-                  <div className="text-base font-extrabold text-green-700 mt-1">Total en bolívares: Bs. {ves(planPriceUSD)}</div>
-                </div>
-                <div>
-                  <label htmlFor="p-name" className="block text-xs font-bold text-gray-600 mb-1 uppercase">Nombre y apellido *</label>
-                  <input id="p-name" type="text" required value={clientName} onChange={(e) => setClientName(e.target.value)} autoComplete="name" className={`${field} text-sm`} />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="p-email" className="block text-xs font-bold text-gray-600 mb-1 uppercase">Correo *</label>
-                    <input id="p-email" type="email" required value={clientEmail} onChange={(e) => setClientEmail(e.target.value)} autoComplete="email" className={`${field} text-sm`} />
-                  </div>
-                  <div>
-                    <label htmlFor="p-business" className="block text-xs font-bold text-gray-600 mb-1 uppercase">Empresa</label>
-                    <input id="p-business" type="text" value={clientBusiness} onChange={(e) => setClientBusiness(e.target.value)} autoComplete="organization" className={`${field} text-sm`} />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="p-pay" className="block text-xs font-bold text-gray-600 mb-1 uppercase">Forma de pago</label>
-                  <select id="p-pay" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} className={`${field} text-sm text-gray-700 font-medium`}>
-                    {['Pago Móvil (Bs.)', 'Transferencia bancaria (Bs.)', 'Binance Pay (USDT)', 'PayPal o tarjeta (USD)'].map((o) => <option key={o}>{o}</option>)}
-                  </select>
-                </div>
-                <button type="submit" className="w-full py-4 bg-yellow-500 text-blue-950 font-extrabold rounded-xl hover:bg-yellow-400 transition shadow-lg text-sm mt-2 flex items-center justify-center gap-2">
-                  <FileText size={18} /> Generar solicitud
-                </button>
-              </form>
-            ) : (
-              <div className="space-y-6 mt-6">
-                <div className="bg-green-50 border border-green-200 p-5 rounded-2xl text-center">
-                  <CheckCircle className="mx-auto text-green-600 mb-2" size={40} />
-                  <h3 className="font-extrabold text-green-900 text-lg">¡Solicitud lista!</h3>
-                  <p className="text-gray-600 text-xs mt-1">Número: <strong className="text-blue-900">{orderData.orderNum}</strong></p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-xl border text-xs space-y-2 font-mono">
-                  <div className="flex justify-between gap-4"><span>Cliente:</span> <strong className="text-right">{orderData.clientName}</strong></div>
-                  <div className="flex justify-between gap-4"><span>Servicio:</span> <strong className="text-right">{orderData.selectedPlan}</strong></div>
-                  <div className="flex justify-between gap-4"><span>Monto USD:</span> <strong>${orderData.planPriceUSD}</strong></div>
-                  <div className="flex justify-between gap-4"><span>Tasa BCV:</span> <strong>Bs. {orderData.bcvRate}</strong></div>
-                  <div className="flex justify-between gap-4 border-t pt-2 text-sm text-green-700 font-bold"><span>Total en Bs.:</span> <span>Bs. {orderData.totalVES}</span></div>
-                </div>
-                <p className="text-xs text-gray-500 text-center">Es una solicitud de pedido, no una factura fiscal. La factura se emite al confirmar el pago.</p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a href={orderWhatsApp()} target="_blank" rel="noopener noreferrer" className="flex-1 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition text-sm flex items-center justify-center gap-2 shadow">
-                    <ExternalLink size={16} /> Enviar por WhatsApp
-                  </a>
-                  <button onClick={downloadSummary} className="flex-1 py-3 bg-blue-900 text-white font-bold rounded-xl hover:bg-blue-800 transition text-sm flex items-center justify-center gap-2 shadow">
-                    <Download size={16} /> Descargar resumen
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
