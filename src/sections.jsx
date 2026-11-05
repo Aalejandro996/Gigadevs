@@ -348,10 +348,11 @@ export const SurtiaSection = ({ demoHref, onCotizar }) => (
             <SurtiaMark size={56} />
             <h2 id="t-surtia" className="display text-5xl md:text-6xl leading-none">surt<span className="text-[#FF7A45]">i</span>a<sup className="text-[#16C79A] text-[0.35em] align-top ml-1">™</sup></h2>
           </div>
-          <p className="text-xl md:text-2xl font-bold text-[#c9f5e8] mb-3 leading-snug">Atiende a tus clientes por WhatsApp, a cualquier hora, con tu catálogo y tu existencia real.</p>
+          <p className="text-xl md:text-2xl font-bold text-[#c9f5e8] mb-3 leading-snug">¿Qué es Surtia™? Un asistente de ventas por WhatsApp para distribuidoras y comercios.</p>
           <p className="text-white/90 leading-relaxed mb-4 max-w-2xl">
-            Surtia™ conversa con tus clientes, busca productos por nombre o código, muestra el precio en bolívares con la tasa BCV del día y arma el pedido con la existencia real.
-            Si el cliente lo pide, la conversación pasa a una persona. Cada pedido nuevo te llega al correo del equipo y queda listo para facturar.
+            Responde a tus clientes con tu catálogo, tus precios y tu existencia reales, a cualquier hora. <b className="text-white">Así funciona:</b> el cliente escribe por WhatsApp,
+            Surtia™ consulta el producto, el precio en bolívares con la tasa BCV del día y la existencia, arma el pedido y lo envía a tu panel listo para facturar.
+            Si el cliente pide hablar con una persona, la conversación pasa al equipo.
           </p>
           <ul className="grid sm:grid-cols-2 gap-2 mb-4 text-sm">
             {['Atención 24/7 sin contratar más personal', 'Menos errores: usa el código y la existencia reales', 'Pedidos ordenados, listos para facturar', 'Panel web con pedidos, conversaciones y exportación a Excel'].map((x) => (
