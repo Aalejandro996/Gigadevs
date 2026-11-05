@@ -11,7 +11,7 @@ const QuincenaIcon = ({ size = 56 }) => (
 
 // Surtia™: asistente de ventas por WhatsApp (producto propio). Marca ™ hasta el registro ante el SAPI.
 const SurtiaMark = ({ size = 56 }) => (
-  <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden="true" className="flex-shrink-0"><path d="M50 8C25 8 8 25 8 46c0 14 8 26 20 32l-8 14 20-8c3 1 6 1 10 1 25 0 42-17 42-38S75 8 50 8z" fill="#16C79A" /><text x="50" y="62" fontSize="46" fontWeight="800" textAnchor="middle" fill="#0B2530" fontFamily="Arial">S</text><circle cx="84" cy="16" r="11" fill="#FF7A45" /></svg>
+  <img src="/marketing/surtia/logo-icono.svg" width={size} height={size} alt="" className="flex-shrink-0" />
 );
 const SurtiaChat = ({ compact = false }) => (
   <div className={`bg-[#0B2530] text-white rounded-[2rem] p-5 shadow-2xl text-left ${compact ? '' : 'max-w-md mx-auto ring-1 ring-white/10'}`} role="img" aria-label="Ejemplo de una conversación de WhatsApp atendida por Surtia">
