@@ -50,7 +50,7 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
       </Tile>
 
       <Tile className="bg-gradient-to-b from-emerald-50 to-emerald-100 text-emerald-950" dark={false} d={90}
-        eyebrow={<span className="text-xs font-bold uppercase tracking-widest bg-yellow-400 text-yellow-950 px-3 py-1 rounded-full">Nuevo</span>}
+        eyebrow={<span className="text-xs font-bold uppercase tracking-widest bg-cyan-400 text-cyan-950 px-3 py-1 rounded-full">Nuevo</span>}
         title="Quincena VE para tu negocio" sub="Ventas, fiado y caja en $ y en Bs. Gratis."
         links={<><a href={quincenaLink('/app', 'tile-negocio') + '#negocio'} className="chev text-emerald-800">Crear la cuenta del negocio</a><a href="#quincena-negocio" onClick={(e) => { e.preventDefault(); go('quincena-negocio'); }} className="chev text-emerald-700">Más información</a></>}>
         <div className="bg-white text-gray-900 rounded-t-[2rem] p-6 text-left shadow-2xl border border-emerald-200">
@@ -161,7 +161,7 @@ export const QuincenaSection = () => (
       <div id="quincena-negocio" className="mt-20 md:mt-28 bg-white text-emerald-950 rounded-[2.5rem] p-6 md:p-12 shadow-2xl scroll-mt-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 reveal">
-            <span className="text-xs font-bold uppercase tracking-widest bg-yellow-400 text-yellow-950 px-3 py-1 rounded-full">Nuevo · Ya disponible</span>
+            <span className="text-xs font-bold uppercase tracking-widest bg-cyan-400 text-cyan-950 px-3 py-1 rounded-full">Nuevo · Ya disponible</span>
             <h3 className="display text-3xl md:text-5xl mt-4 mb-4">Quincena VE para tu negocio.</h3>
             <p className="text-lg text-emerald-900/80 leading-relaxed mb-6">
               Ventas, fiado y caja en $ y en Bs. Para bodegas, comida, belleza, venta por Instagram y cualquier emprendimiento que cobra por pago móvil,
@@ -194,7 +194,7 @@ export const ComoTrabajamos = ({ onCotizar }) => (
   <section id="como-trabajamos" className="py-10 md:py-14 bg-white border-t border-gray-100" aria-labelledby="t-como">
     <div className="container mx-auto px-4">
       <div id="para-quien" className="text-center max-w-3xl mx-auto mb-8 reveal">
-        <p className="eyebrow text-yellow-600 mb-3">Para quién y cómo trabajamos</p>
+        <p className="eyebrow text-cyan-600 mb-3">Para quién y cómo trabajamos</p>
         <h2 id="t-como" className="display text-4xl md:text-6xl text-blue-950 mb-4">De la idea al sistema funcionando.</h2>
         <p className="text-gray-600">Para negocios de Venezuela y Latinoamérica, con precio cerrado en dólares o en bolívares a tasa BCV y soporte después de la entrega.</p>
       </div>
@@ -206,13 +206,13 @@ export const ComoTrabajamos = ({ onCotizar }) => (
           [LifeBuoy, 'Entrega y soporte', 'Lo publicamos, te enseñamos a usarlo y te acompañamos con soporte.'],
         ].map(([Icon, t, d], i) => (
           <li key={t} className="reveal flex gap-3 items-start bg-blue-950 text-white rounded-3xl p-5" style={{ '--d': `${i * 90}ms` }}>
-            <span className="w-9 h-9 bg-yellow-500 text-blue-950 rounded-xl flex items-center justify-center flex-shrink-0"><Icon size={18} /></span>
+            <span className="w-9 h-9 bg-cyan-500 text-blue-950 rounded-xl flex items-center justify-center flex-shrink-0"><Icon size={18} /></span>
             <div><div className="font-bold text-sm">{i + 1}. {t}</div><p className="text-blue-200 text-xs leading-relaxed">{d}</p></div>
           </li>
         ))}
       </ol>
       <div className="text-center mt-6">
-        <button onClick={onCotizar} className="pill bg-yellow-500 text-blue-950 hover:bg-yellow-400 shadow-lg px-8">
+        <button onClick={onCotizar} className="pill bg-cyan-500 text-blue-950 hover:bg-cyan-400 shadow-lg px-8">
           Empezar mi proyecto <ArrowRight size={20} />
         </button>
       </div>
