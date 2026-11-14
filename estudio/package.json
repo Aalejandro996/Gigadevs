@@ -1,0 +1,12 @@
+{
+  "name": "gigadevs-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Estudio de identidad y redes de Gigadevs Corp, C.A. (acceso solo administradores)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/security.test.js"
+  },
+  "engines": { "node": ">=20" }
+}

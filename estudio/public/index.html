@@ -1,0 +1,2484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIGADEVS CORP, C.A. | Estudio de Identidad QR & Contenido IA</title>
+    <meta name="description" content="Estudio corporativo de GIGADEVS CORP, C.A. (Los Teques, Miranda) para generación de tarjetas QR de presentación, artes sociales y Reels MP4 con IA.">
+    <meta name="theme-color" content="#060b14">
+    <meta property="og:title" content="GIGADEVS CORP, C.A. | Brand & AI Social Studio">
+    <meta property="og:description" content="Generador de tarjetas corporativas QR y estudio de contenido para Instagram y Facebook impulsado por IA.">
+    <meta property="og:type" content="website">
+    <!-- Favicon Oficial GIGADEVS 3D Neon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg width='64' height='64' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'><rect width='120' height='120' rx='26' fill='%23071324'/><polygon points='60,12 18,54 31,67 60,38' fill='%2338bdf8'/><polygon points='60,12 94,46 76,46 60,30' fill='%230284c7'/><polygon points='18,54 60,96 60,78 31,49' fill='%231e40af'/><polygon points='60,96 104,54 62,54 50,66 83,66 60,84' fill='%2322d3ee'/></svg>">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- MP4 Muxer para exportacion nativa MP4 (WhatsApp, Mac, Windows, iOS) -->
+    <script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --card-bg1: #091526;
+            --card-bg2: #0f2544;
+            --card-accent: #22d3ee;
+            --card-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #060b14;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.10) 0px, transparent 50%);
+            color: #f8fafc;
+        }
+
+        .font-brand {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Paneles Glassmorphism Refinados */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.55);
+        }
+
+        /* Inputs estilizados */
+        .studio-input {
+            background: rgba(2, 6, 23, 0.65);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            transition: all 0.2s ease;
+        }
+        .studio-input:focus {
+            outline: none;
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+        }
+
+        /* Tarjeta de Presentacion (85mm x 55mm) */
+        .business-card {
+            aspect-ratio: 85 / 55;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+            box-sizing: border-box;
+        }
+        .business-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.85), 0 0 25px rgba(34, 211, 238, 0.15);
+        }
+
+        /* Formatos de Redes Sociales */
+        .social-canvas-square {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1 / 1;
+        }
+        .social-canvas-vertical {
+            width: 100%;
+            max-width: 340px;
+            aspect-ratio: 9 / 16;
+        }
+
+        /* Animaciones dinamicas para Reels y vista previa */
+        @keyframes floatGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(12px, -12px) scale(1.08); }
+        }
+        @keyframes pulseScan {
+            0%, 100% { opacity: 0.35; transform: translateY(-100%); }
+            50% { opacity: 0.9; transform: translateY(100%); }
+        }
+        @keyframes reelZoomKenBurns {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.07); }
+            100% { transform: scale(1); }
+        }
+        @keyframes slideFadeUp {
+            0% { opacity: 0; transform: translateY(14px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes neonWavePulse {
+            0%, 100% { transform: scale(0.95); opacity: 0.25; }
+            50% { transform: scale(1.12); opacity: 0.65; }
+        }
+        @keyframes cardFloat3D {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-6px) rotateX(3deg); }
+        }
+        .animate-float-glow {
+            animation: floatGlow 6s ease-in-out infinite;
+        }
+        .animate-ken-burns {
+            animation: reelZoomKenBurns 8s ease-in-out infinite;
+        }
+        .animate-scene-enter {
+            animation: slideFadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .animate-neon-wave {
+            animation: neonWavePulse 3s ease-in-out infinite;
+        }
+        .animate-float-3d {
+            animation: cardFloat3D 4s ease-in-out infinite;
+        }
+        .reel-scanline {
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.65), transparent);
+            height: 2px;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            animation: pulseScan 2.8s linear infinite;
+            pointer-events: none;
+        }
+
+        /* Scrollbar sutil */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060b14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+
+        /* Estilos exclusivos de impresion en tamaño real 85x55mm */
+        @page {
+            size: auto;
+            margin: 10mm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                box-sizing: border-box !important;
+            }
+            html, body {
+                width: 100% !important;
+                height: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+                overflow: visible !important;
+            }
+            header, nav, .no-print, #toast, #section-social, #section-cards > div:first-child {
+                display: none !important;
+            }
+            main, #section-cards, #section-cards > div:last-child {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            #print-area {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                width: 100% !important;
+                gap: 12mm !important;
+                padding-top: 6mm !important;
+                background: #ffffff !important;
+            }
+            #print-area > div {
+                width: auto !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            .business-card {
+                width: 85mm !important;
+                height: 55mm !important;
+                min-width: 85mm !important;
+                max-width: 85mm !important;
+                min-height: 55mm !important;
+                max-height: 55mm !important;
+                padding: 4.5mm 5mm !important;
+                border-radius: 3mm !important;
+                box-shadow: none !important;
+                transform: none !important;
+                border: 0.5pt dashed #94a3b8 !important;
+                overflow: hidden !important;
+                position: relative !important;
+            }
+            #card-front, #card-back {
+                background-color: var(--card-bg1, #091526) !important;
+                background-image: linear-gradient(135deg, var(--card-bg1, #091526) 0%, var(--card-bg2, #0f2544) 100%) !important;
+            }
+            #card-front .logo-container {
+                width: 9.5mm !important;
+                height: 9.5mm !important;
+                padding: 0.8mm !important;
+            }
+            #card-front h3 {
+                font-size: 11.5pt !important;
+                line-height: 1.05 !important;
+            }
+            #card-front .brand-sub {
+                font-size: 6.5pt !important;
+                letter-spacing: 0.2em !important;
+            }
+            #card-front .linkedin-badge {
+                padding: 1mm 2.2mm !important;
+                font-size: 6.5pt !important;
+            }
+            #card-front #card-name {
+                font-size: 8.5pt !important;
+                line-height: 1.15 !important;
+            }
+            #card-front #card-role {
+                font-size: 7pt !important;
+                line-height: 1.15 !important;
+            }
+            #card-front .front-meta {
+                font-size: 6pt !important;
+                line-height: 1.25 !important;
+            }
+            #card-front .qr-front-box {
+                padding: 1.2mm !important;
+                border-radius: 2mm !important;
+            }
+            #card-front #qr-linkedin {
+                width: 18.5mm !important;
+                height: 18.5mm !important;
+            }
+            #card-front #qr-linkedin img,
+            #card-front #qr-linkedin canvas {
+                width: 100% !important;
+                height: 100% !important;
+            }
+            #card-front .qr-front-label {
+                font-size: 5pt !important;
+                margin-top: 0.8mm !important;
+            }
+            #card-back {
+                gap: 3mm !important;
+            }
+            #card-back .back-left {
+                max-width: 56% !important;
+                height: 100% !important;
+                justify-content: space-between !important;
+            }
+            #card-back .logo-container {
+                width: 8mm !important;
+                height: 8mm !important;
+                padding: 0.8mm !important;
+            }
+            #card-back .back-brand-title {
+                font-size: 8pt !important;
+                line-height: 1.1 !important;
+            }
+            #card-back .back-brand-loc {
+                font-size: 6pt !important;
+            }
+            #card-back h4 {
+                font-size: 9pt !important;
+                line-height: 1.15 !important;
+            }
+            #card-back .back-desc {
+                font-size: 6pt !important;
+                line-height: 1.25 !important;
+                margin-top: 1mm !important;
+            }
+            #card-back .wa-pill {
+                padding: 1mm 2.2mm !important;
+                font-size: 6.5pt !important;
+            }
+            #card-back .qr-back-box {
+                padding: 1.6mm !important;
+                border-radius: 2.5mm !important;
+            }
+            #card-back #qr-whatsapp {
+                width: 22mm !important;
+                height: 22mm !important;
+            }
+            #card-back #qr-whatsapp img,
+            #card-back #qr-whatsapp canvas {
+                width: 100% !important;
+                height: 100% !important;
+            }
+            #card-back .qr-back-label {
+                font-size: 5.5pt !important;
+                margin-top: 1.2mm !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-cyan-400 selection:text-slate-950">
+
+    <!-- Notificacion Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900/95 border border-cyan-400/40 text-white font-medium px-5 py-3.5 rounded-2xl shadow-2xl backdrop-blur-md flex items-center gap-3">
+        <div class="w-7 h-7 rounded-full bg-cyan-400/20 text-cyan-400 flex items-center justify-center shrink-0">
+            <i data-lucide="check" class="w-4 h-4"></i>
+        </div>
+        <span id="toast-msg" class="text-sm">Acción completada</span>
+    </div>
+
+    <!-- Header Ejecutivo -->
+    <header class="border-b border-slate-800/70 bg-slate-950/75 backdrop-blur-xl sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded-2xl bg-slate-900/80 flex items-center justify-center p-1.5 shadow-lg shadow-cyan-500/20 ring-1 ring-cyan-500/30">
+                    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_0_10px_rgba(34,211,238,0.65)]">
+                        <defs>
+                            <linearGradient id="gTL" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#67e8f9"/></linearGradient>
+                            <linearGradient id="gTR" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient>
+                            <linearGradient id="gBL" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#0f294a"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+                            <linearGradient id="gBR" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+                        </defs>
+                        <polygon points="60,10 18,52 30,64 60,34" fill="url(#gTL)"/>
+                        <polygon points="60,10 92,42 75,42 60,27" fill="url(#gTR)"/>
+                        <polygon points="18,52 60,94 60,76 30,46" fill="url(#gBL)"/>
+                        <polygon points="60,94 102,52 62,52 50,64 82,64 60,82" fill="url(#gBR)"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-brand font-bold text-lg sm:text-xl tracking-tight text-white">GIGADEVS CORP<span class="text-cyan-400">, C.A.</span></h1>
+                        <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Brand Studio</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Tarjetas Corporativas QR & Generador Social con IA</p>
+                </div>
+            </div>
+
+            <!-- Navegacion -->
+            <div class="flex items-center gap-2.5">
+                <button hidden onclick="openRenderDeployGuide()" class="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-900/90 hover:bg-slate-800 text-cyan-300 border border-cyan-500/25 transition" title="Cómo publicar en Render">
+                    <i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i>
+                    <span>Guía Render</span>
+                </button>
+                <nav class="flex bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 shadow-inner">
+                    <button onclick="switchTab('cards')" id="tab-cards" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 shadow-md flex items-center gap-2">
+                        <i data-lucide="credit-card" class="w-4 h-4"></i>
+                        <span>Tarjeta QR</span>
+                    </button>
+                    <button onclick="switchTab('social')" id="tab-social" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>Redes Sociales IA</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ===================================================================== -->
+        <!-- SECCION 1: TARJETA DE PRESENTACION CON QR FRENTE Y REVERSO            -->
+        <!-- ===================================================================== -->
+        <section id="section-cards" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Panel Izquierdo de Configuracion -->
+            <div class="lg:col-span-5 glass-panel rounded-3xl p-6 space-y-5">
+                <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                    <div>
+                        <h2 class="text-base font-bold text-white flex items-center gap-2">
+                            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-cyan-400"></i>
+                            Configuración de Tarjeta
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Personaliza datos, enlaces QR y paleta visual</p>
+                    </div>
+                    <span class="text-[11px] font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 px-3 py-1 rounded-full">85 × 55 mm</span>
+                </div>
+
+                <!-- Identidad Oficial Protegida -->
+                <div class="bg-slate-950/60 border border-cyan-500/25 rounded-2xl p-3 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-slate-900/90 border border-cyan-500/30 flex items-center justify-center p-1.5 shrink-0 shadow-md shadow-cyan-500/20">
+                        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_0_8px_rgba(34,211,238,0.65)]">
+                            <polygon points="60,10 18,52 30,64 60,34" fill="url(#gTL)"/>
+                            <polygon points="60,10 92,42 75,42 60,27" fill="url(#gTR)"/>
+                            <polygon points="18,52 60,94 60,76 30,46" fill="url(#gBL)"/>
+                            <polygon points="60,94 102,52 62,52 50,64 82,64 60,82" fill="url(#gBR)"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400 block">Identidad Oficial Fija</span>
+                        <p class="text-xs text-slate-300">Logotipo 3D Neón de <strong>GIGADEVS CORP, C.A.</strong> sincronizado en tarjetas, artes, video MP4 y favicon.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">Nombre / Cargo</label>
+                        <input type="text" id="inputName" value="Equipo Directivo" oninput="updateCardText()" class="studio-input w-full rounded-xl px-3.5 py-2.5 text-sm text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">Especialidad</label>
+                        <input type="text" id="inputRole" value="Desarrollo de Software & IA" oninput="updateCardText()" class="studio-input w-full rounded-xl px-3.5 py-2.5 text-sm text-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Ubicación</label>
+                    <input type="text" id="inputLocation" value="Los Teques, Miranda - Venezuela" oninput="updateCardText()" class="studio-input w-full rounded-xl px-3.5 py-2.5 text-sm text-white">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">RIF <span class="text-[10px] text-slate-500">(aparece en tarjeta, arte, video y pie cuando se complete)</span></label>
+                    <input type="text" id="inputRif" value="" placeholder="J-00000000-0" oninput="updateCardText()" class="studio-input w-full rounded-xl px-3.5 py-2.5 text-sm text-white uppercase">
+                </div>
+
+                <div class="grid grid-cols-1 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5 flex items-center justify-between">
+                            <span>Enlace QR Frente (LinkedIn)</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">Frontal</span>
+                        </label>
+                        <input type="url" id="inputLinkedin" value="https://www.linkedin.com/company/gigadevs-corp" oninput="generateAllQRs()" class="studio-input w-full rounded-xl px-3.5 py-2.5 text-xs text-slate-200">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5 flex items-center justify-between">
+                            <span>Enlace QR Reverso (WhatsApp)</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Reverso</span>
+                        </label>
+                        <input type="url" id="inputWhatsapp" value="https://wa.me/584242588321" oninput="generateAllQRs()" class="studio-input w-full rounded-xl px-3.5 py-2.5 text-xs text-slate-200">
+                    </div>
+                </div>
+
+                <!-- Colores de la Tarjeta -->
+                <div class="pt-3 border-t border-slate-800/80 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                            <i data-lucide="palette" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            Personalizar Colores
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="applyCardTheme('#091526', '#0f2544', '#22d3ee', '#ffffff')" class="w-5 h-5 rounded-full bg-[#091526] ring-2 ring-cyan-400 transition hover:scale-110" title="Azul Gigadevs"></button>
+                            <button type="button" onclick="applyCardTheme('#09090b', '#18181b', '#38bdf8', '#ffffff')" class="w-5 h-5 rounded-full bg-zinc-950 ring-2 ring-sky-400 transition hover:scale-110" title="Obsidiana"></button>
+                            <button type="button" onclick="applyCardTheme('#0f172a', '#1e1b4b', '#818cf8', '#ffffff')" class="w-5 h-5 rounded-full bg-indigo-950 ring-2 ring-indigo-400 transition hover:scale-110" title="Índigo Tech"></button>
+                            <button type="button" onclick="applyCardTheme('#ffffff', '#f1f5f9', '#0284c7', '#0f172a')" class="w-5 h-5 rounded-full bg-white ring-2 ring-sky-600 transition hover:scale-110" title="Claro Minimal"></button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-2">
+                        <label class="bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center cursor-pointer hover:border-slate-700 transition">
+                            <span class="text-[10px] text-slate-400 mb-1">Base 1</span>
+                            <input type="color" id="colorBg1" value="#091526" oninput="updateCardColors()" class="w-full h-6 rounded cursor-pointer bg-transparent border-0">
+                        </label>
+                        <label class="bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center cursor-pointer hover:border-slate-700 transition">
+                            <span class="text-[10px] text-slate-400 mb-1">Base 2</span>
+                            <input type="color" id="colorBg2" value="#0f2544" oninput="updateCardColors()" class="w-full h-6 rounded cursor-pointer bg-transparent border-0">
+                        </label>
+                        <label class="bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center cursor-pointer hover:border-slate-700 transition">
+                            <span class="text-[10px] text-slate-400 mb-1">Acento</span>
+                            <input type="color" id="colorAccent" value="#22d3ee" oninput="updateCardColors()" class="w-full h-6 rounded cursor-pointer bg-transparent border-0">
+                        </label>
+                        <label class="bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center cursor-pointer hover:border-slate-700 transition">
+                            <span class="text-[10px] text-slate-400 mb-1">Texto</span>
+                            <input type="color" id="colorText" value="#ffffff" oninput="updateCardColors()" class="w-full h-6 rounded cursor-pointer bg-transparent border-0">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Botones de Exportacion -->
+                <div class="pt-3 border-t border-slate-800/80 space-y-2.5">
+                    <button onclick="window.print()" class="w-full bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 hover:brightness-110 text-slate-950 font-bold py-3 px-4 rounded-xl shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 transition">
+                        <i data-lucide="printer" class="w-4 h-4"></i>
+                        Imprimir Tarjeta (Doble Cara)
+                    </button>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button onclick="downloadCardsPDF()" class="bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold py-2.5 px-3 rounded-xl border border-slate-700/80 flex items-center justify-center gap-2 text-xs transition">
+                            <i data-lucide="file-text" class="w-4 h-4 text-rose-400"></i>
+                            PDF Imprenta
+                        </button>
+                        <button onclick="downloadCardsPNG()" class="bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold py-2.5 px-3 rounded-xl border border-slate-700/80 flex items-center justify-center gap-2 text-xs transition">
+                            <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
+                            Imágenes PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista Previa de Tarjetas -->
+            <div class="lg:col-span-7">
+                <div id="print-area" class="flex flex-col items-center gap-8">
+                    
+                    <!-- CARA FRONTAL -->
+                    <div class="w-full flex flex-col items-center">
+                        <span class="no-print text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2.5 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span> Frente • LinkedIn Corporativo
+                        </span>
+                        
+                        <div id="card-front" style="background: linear-gradient(135deg, #091526 0%, #0f2544 100%); color: #ffffff;" class="business-card rounded-2xl p-5 sm:p-6 relative overflow-hidden flex flex-col justify-between">
+                            <div class="absolute -left-12 -bottom-12 w-52 h-52 rounded-full bg-cyan-500/15 blur-2xl pointer-events-none"></div>
+                            <div class="absolute -right-12 -top-12 w-52 h-52 rounded-full bg-blue-500/20 blur-2xl pointer-events-none"></div>
+                            <div id="front-bottom-bar" style="background-color: #22d3ee;" class="absolute bottom-0 left-0 right-0 h-1"></div>
+
+                            <!-- Superior -->
+                            <div class="flex items-center justify-between gap-2 z-10 w-full">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="logo-container w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center shrink-0 bg-slate-900/80 rounded-xl p-1.5 shadow-lg shadow-cyan-500/20 border border-cyan-500/30">
+                                        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_0_10px_rgba(34,211,238,0.65)]">
+                                            <defs>
+                                                <linearGradient id="gTL" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#67e8f9"/></linearGradient>
+                                                <linearGradient id="gTR" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient>
+                                                <linearGradient id="gBL" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#0f294a"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+                                                <linearGradient id="gBR" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+                                            </defs>
+                                            <polygon points="60,10 18,52 30,64 60,34" fill="url(#gTL)"/>
+                                            <polygon points="60,10 92,42 75,42 60,27" fill="url(#gTR)"/>
+                                            <polygon points="18,52 60,94 60,76 30,46" fill="url(#gBL)"/>
+                                            <polygon points="60,94 102,52 62,52 50,64 82,64 60,82" fill="url(#gBR)"/>
+                                        </svg>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h3 class="font-brand font-extrabold text-lg sm:text-xl tracking-tight leading-none">GIGADEVS</h3>
+                                        <p class="card-dynamic-accent brand-sub font-brand font-bold text-[11px] tracking-[0.22em] text-cyan-400 mt-0.5">CORP, C.A.</p>
+                                    </div>
+                                </div>
+
+                                <div id="front-linkedin-badge" style="border-color: #22d3ee; color: #22d3ee;" class="linkedin-badge bg-white/5 border px-2.5 py-1 rounded-lg flex items-center gap-1.5 text-xs font-bold shrink-0">
+                                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                                    <span>LinkedIn</span>
+                                </div>
+                            </div>
+
+                            <!-- Inferior -->
+                            <div class="flex items-end justify-between gap-3 z-10 w-full pb-1">
+                                <div class="space-y-1 min-w-0 flex-1">
+                                    <div>
+                                        <p id="card-name" class="font-bold text-sm sm:text-base truncate">Equipo Directivo</p>
+                                        <p id="card-role" class="card-dynamic-accent text-xs font-medium text-cyan-400 truncate">Desarrollo de Software & IA</p>
+                                    </div>
+                                    <div class="front-meta pt-0.5 space-y-1 text-[10.5px] sm:text-[11px] opacity-85">
+                                        <p class="flex items-center gap-1.5 min-w-0">
+                                            <i data-lucide="map-pin" class="card-dynamic-accent w-3 h-3 text-cyan-400 shrink-0"></i>
+                                            <span id="card-location" class="truncate">Los Teques, Miranda - Venezuela</span>
+                                        </p>
+                                        <p class="flex items-center gap-1.5 font-medium min-w-0">
+                                            <i data-lucide="globe" class="card-dynamic-accent w-3 h-3 text-cyan-400 shrink-0"></i>
+                                            <span id="card-linkedin-short" class="truncate">linkedin.com/company/gigadevs-corp</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col items-center shrink-0">
+                                    <div id="qr-front-box" style="border-color: #22d3ee;" class="qr-front-box p-1.5 bg-white rounded-xl border-2 shadow-lg">
+                                        <div id="qr-linkedin" class="w-[76px] h-[76px] sm:w-[84px] sm:h-[84px] flex items-center justify-center"></div>
+                                    </div>
+                                    <span class="card-dynamic-accent qr-front-label text-[8.5px] font-bold uppercase tracking-wider text-cyan-400 mt-1 whitespace-nowrap">Conecta en LinkedIn</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARA TRASERA -->
+                    <div class="w-full flex flex-col items-center">
+                        <span class="no-print text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2.5 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span> Reverso • Contacto Directo WhatsApp
+                        </span>
+
+                        <div id="card-back" style="background: linear-gradient(135deg, #091526 0%, #0f2544 100%); color: #ffffff;" class="business-card rounded-2xl p-5 sm:p-6 relative overflow-hidden flex items-center justify-between gap-4">
+                            <div class="absolute -left-12 -bottom-12 w-52 h-52 rounded-full bg-cyan-500/15 blur-2xl pointer-events-none"></div>
+                            <div class="absolute -right-12 -top-12 w-52 h-52 rounded-full bg-emerald-500/15 blur-2xl pointer-events-none"></div>
+                            <div id="back-bottom-bar" style="background-color: #22d3ee;" class="absolute bottom-0 left-0 right-0 h-1"></div>
+
+                            <div class="back-left flex flex-col justify-between h-full z-10 min-w-0 flex-1">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="logo-container w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 bg-slate-900/80 rounded-xl p-1 shadow-lg shadow-cyan-500/20 border border-cyan-500/30">
+                                        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_0_10px_rgba(34,211,238,0.65)]">
+                                            <defs>
+                                                <linearGradient id="gTL" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#67e8f9"/></linearGradient>
+                                                <linearGradient id="gTR" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient>
+                                                <linearGradient id="gBL" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#0f294a"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+                                                <linearGradient id="gBR" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+                                            </defs>
+                                            <polygon points="60,10 18,52 30,64 60,34" fill="url(#gTL)"/>
+                                            <polygon points="60,10 92,42 75,42 60,27" fill="url(#gTR)"/>
+                                            <polygon points="18,52 60,94 60,76 30,46" fill="url(#gBL)"/>
+                                            <polygon points="60,94 102,52 62,52 50,64 82,64 60,82" fill="url(#gBR)"/>
+                                        </svg>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <span class="back-brand-title font-brand font-bold text-xs sm:text-sm tracking-wider block truncate">GIGADEVS CORP, C.A.</span>
+                                        <span class="card-dynamic-accent back-brand-loc text-[10px] text-cyan-400 block truncate">Los Teques, Miranda</span>
+                                        <span id="card-rif" class="hidden card-dynamic-accent back-brand-loc text-[10px] text-cyan-400 block truncate"></span>
+                                    </div>
+                                </div>
+
+                                <div class="my-auto py-1">
+                                    <h4 class="font-brand font-bold text-sm sm:text-base leading-snug">
+                                        ¿Tienes un proyecto en mente?
+                                    </h4>
+                                    <p class="back-desc text-[11px] sm:text-xs opacity-85 mt-1 leading-snug">
+                                        Escanea el código para iniciar una conversación directa por WhatsApp.
+                                    </p>
+                                </div>
+
+                                <div class="wa-pill inline-flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold w-fit">
+                                    <i data-lucide="message-circle" class="w-3.5 h-3.5 shrink-0"></i>
+                                    <span id="card-wa-display" class="whitespace-nowrap">+58 424 258 8321</span>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col items-center justify-center z-10 shrink-0">
+                                <div class="qr-back-box p-2 bg-white rounded-2xl shadow-lg border-2 border-emerald-400">
+                                    <div id="qr-whatsapp" class="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center"></div>
+                                </div>
+                                <span class="qr-back-label text-[9.5px] font-bold uppercase tracking-wider text-emerald-400 mt-1.5 whitespace-nowrap">
+                                    Escanea para chatear
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SECCION 2: ESTUDIO DE REDES SOCIALES CON IA GEMINI                    -->
+        <!-- ===================================================================== -->
+        <section id="section-social" class="hidden grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Panel de Configuracion IA y Estilo (4 columnas) -->
+            <div class="lg:col-span-4 glass-panel rounded-3xl p-6 space-y-5">
+                <div class="border-b border-slate-800/80 pb-4">
+                    <h2 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="wand-2" class="w-4 h-4 text-cyan-400"></i>
+                        Generador Social con Gemini IA
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Adapta formato, colores, arte y copy con hashtags</p>
+                </div>
+
+                <!-- Red Social: Instagram o Facebook -->
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">1. Plataforma Social</label>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="button" onclick="setSocialPlatform('instagram')" id="plat-instagram" class="py-2.5 px-3 rounded-xl border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-xs flex items-center justify-center gap-2 transition">
+                            <i data-lucide="instagram" class="w-4 h-4 text-pink-400"></i>
+                            Instagram
+                        </button>
+                        <button type="button" onclick="setSocialPlatform('facebook')" id="plat-facebook" class="py-2.5 px-3 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-xs flex items-center justify-center gap-2 transition">
+                            <i data-lucide="facebook" class="w-4 h-4 text-blue-400"></i>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formato: Post, Historia o Reel -->
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">2. Formato de Publicación</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button type="button" onclick="setSocialFormat('post')" id="fmt-post" class="py-2 px-2 rounded-xl border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-xs flex flex-col items-center gap-1 transition">
+                            <i data-lucide="square" class="w-4 h-4 text-cyan-400"></i>
+                            <span>Post (1:1)</span>
+                        </button>
+                        <button type="button" onclick="setSocialFormat('story')" id="fmt-story" class="py-2 px-2 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-xs flex flex-col items-center gap-1 transition">
+                            <i data-lucide="smartphone" class="w-4 h-4 text-purple-400"></i>
+                            <span>Historia (9:16)</span>
+                        </button>
+                        <button type="button" onclick="setSocialFormat('reel')" id="fmt-reel" class="py-2 px-2 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-xs flex flex-col items-center gap-1 transition">
+                            <i data-lucide="clapperboard" class="w-4 h-4 text-amber-400"></i>
+                            <span>Reel Video</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Estilo Visual / Composicion Dinamica -->
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">3. Estilo Visual & Composición</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button type="button" onclick="setSocialLayoutStyle('executive')" id="style-executive" class="py-2 px-2 rounded-xl border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-[11px] transition">
+                            Ejecutivo Glow
+                        </button>
+                        <button type="button" onclick="setSocialLayoutStyle('cybergrid')" id="style-cybergrid" class="py-2 px-2 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-[11px] transition">
+                            Cyber Grid
+                        </button>
+                        <button type="button" onclick="setSocialLayoutStyle('spotlight')" id="style-spotlight" class="py-2 px-2 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-[11px] transition">
+                            Impacto Central
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Referencia Visual: Subir Imagen o Analizar Link Web -->
+                <div class="bg-slate-950/55 border border-slate-800/90 rounded-2xl p-3.5 space-y-3">
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                        <i data-lucide="scan-search" class="w-3.5 h-3.5"></i>
+                        Referencia Visual o Link Web (IA)
+                    </label>
+
+                    <!-- Subir imagen referente -->
+                    <div class="flex items-center gap-2">
+                        <label class="flex-1 cursor-pointer bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-xl px-3 py-2 text-[11px] font-semibold text-slate-200 flex items-center justify-center gap-1.5 transition">
+                            <i data-lucide="image-plus" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            <span id="ref-img-label">Insertar imagen o referente</span>
+                            <input type="file" id="socialRefImageInput" accept="image/*" class="hidden" onchange="handleSocialRefImage(event)">
+                        </label>
+                        <button type="button" id="btn-clear-ref-img" onclick="clearSocialRefImage()" class="hidden px-2.5 py-2 bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 rounded-xl text-[11px] font-semibold text-rose-300 transition" title="Quitar imagen">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Link web para analizar estilo y contenido -->
+                    <div class="space-y-1.5">
+                        <div class="flex gap-1.5">
+                            <input type="url" id="socialRefLink" placeholder="Pega un link web (ej: https://tusitio.com)" class="studio-input flex-1 rounded-xl px-3 py-2 text-[11px] text-white placeholder-slate-500">
+                            <button type="button" id="btn-analyze-link" onclick="analyzeLinkAndBuildArt()" class="px-3 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 rounded-xl text-[11px] font-bold text-cyan-300 flex items-center gap-1 shrink-0 transition" title="Analizar link y adaptar estilo">
+                                <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+                                <span>Analizar</span>
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-slate-400 leading-tight">La IA analizará el link o imagen para adaptar colores, estilo y crear el arte automáticamente.</p>
+                    </div>
+                </div>
+
+                <!-- Control de Codigos QR en Redes Sociales -->
+                <div class="bg-slate-950/55 border border-slate-800/90 rounded-2xl p-3 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                            <i data-lucide="qr-code" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            Mostrar Códigos QR
+                        </label>
+                        <button type="button" id="toggle-qr-btn" onclick="toggleSocialQR()" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 transition">
+                            Activado
+                        </button>
+                    </div>
+                    <div id="qr-selector-group" class="grid grid-cols-3 gap-1.5">
+                        <button type="button" onclick="setSocialQRChoice('both')" id="qr-opt-both" class="py-1.5 px-2 rounded-lg border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-[11px] transition">
+                            Ambos QR
+                        </button>
+                        <button type="button" onclick="setSocialQRChoice('linkedin')" id="qr-opt-linkedin" class="py-1.5 px-2 rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 hover:text-white font-semibold text-[11px] transition">
+                            LinkedIn
+                        </button>
+                        <button type="button" onclick="setSocialQRChoice('whatsapp')" id="qr-opt-whatsapp" class="py-1.5 px-2 rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 hover:text-white font-semibold text-[11px] transition">
+                            WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tema de la Publicacion para Gemini -->
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">4. ¿Qué deseas promocionar?</label>
+                    <textarea id="aiTopic" rows="3" placeholder="Ej: Lanzamiento de desarrollo de apps móviles, automatización con IA para empresas en Miranda, o conexión directa por QR..." class="studio-input w-full rounded-xl p-3 text-xs text-white placeholder-slate-500 leading-relaxed">Promoción de nuestras soluciones de desarrollo de software a medida, páginas web e inteligencia artificial en Los Teques, invitando a conectar por LinkedIn y WhatsApp.</textarea>
+                </div>
+
+                <!-- Tono -->
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Tono de Comunicación</label>
+                    <select id="aiTone" class="studio-input w-full rounded-xl px-3 py-2 text-xs text-white">
+                        <option value="Profesional, innovador y persuasivo">Profesional, innovador y persuasivo</option>
+                        <option value="Cercano, dinámico y directo a la acción">Cercano, dinámico y directo a la acción</option>
+                        <option value="Corporativo ejecutivo B2B">Corporativo ejecutivo B2B</option>
+                        <option value="Lanzamiento tecnológico de alto impacto">Lanzamiento tecnológico de alto impacto</option>
+                    </select>
+                </div>
+
+                <!-- Boton Generar con Gemini -->
+                <button type="button" id="btn-generate-ai" onclick="generateSocialWithGemini()" class="w-full bg-gradient-to-r from-cyan-400 via-sky-500 to-indigo-500 hover:brightness-110 text-slate-950 font-extrabold py-3 px-4 rounded-xl shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 text-xs sm:text-sm transition">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span>Generar Arte, Guion Reel + Copy IA</span>
+                </button>
+
+                <!-- Personalizacion de Colores del Post (Igual que la tarjeta) -->
+                <div class="pt-3 border-t border-slate-800/80 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                            <i data-lucide="palette" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            Colores del Arte
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="applySocialTheme('#081221', '#0d223d', '#22d3ee', '#ffffff')" class="w-5 h-5 rounded-full bg-[#081221] ring-2 ring-cyan-400 transition hover:scale-110" title="Azul Gigadevs"></button>
+                            <button type="button" onclick="applySocialTheme('#09090b', '#18181b', '#38bdf8', '#ffffff')" class="w-5 h-5 rounded-full bg-zinc-950 ring-2 ring-sky-400 transition hover:scale-110" title="Negro Tech"></button>
+                            <button type="button" onclick="applySocialTheme('#1e1b4b', '#312e81', '#a5b4fc', '#ffffff')" class="w-5 h-5 rounded-full bg-indigo-950 ring-2 ring-indigo-400 transition hover:scale-110" title="Índigo"></button>
+                            <button type="button" onclick="applySocialTheme('#f8fafc', '#e2e8f0', '#0284c7', '#0f172a')" class="w-5 h-5 rounded-full bg-slate-100 ring-2 ring-sky-600 transition hover:scale-110" title="Claro Corporativo"></button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-2">
+                        <label class="bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center cursor-pointer hover:border-slate-700 transition">
+                            <span class="text-[10px] text-slate-400 mb-1">Base 1</span>
+                            <input type="color" id="socialBg1" value="#081221" oninput="updateSocialColors()" class="w-full h-6 rounded cursor-pointer bg-transparent border-0">
+                        </label>
+                        <label class="bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center cursor-pointer hover:border-slate-700 transition">
+                            <span class="text-[10px] text-slate-400 mb-1">Base 2</span>
+                            <input type="color" id="socialBg2" value="#0d223d" oninput="updateSocialColors()" class="w-full h-6 rounded cursor-pointer bg-transparent border-0">
+                        </label>
+                        <label class="bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center cursor-pointer hover:border-slate-700 transition">
+                            <span class="text-[10px] text-slate-400 mb-1">Acento</span>
+                            <input type="color" id="socialAccent" value="#22d3ee" oninput="updateSocialColors()" class="w-full h-6 rounded cursor-pointer bg-transparent border-0">
+                        </label>
+                        <label class="bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center cursor-pointer hover:border-slate-700 transition">
+                            <span class="text-[10px] text-slate-400 mb-1">Texto</span>
+                            <input type="color" id="socialText" value="#ffffff" oninput="updateSocialColors()" class="w-full h-6 rounded cursor-pointer bg-transparent border-0">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lienzo Visual Dinamico (4 columnas) -->
+            <div class="lg:col-span-4 flex flex-col items-center">
+                <div class="w-full max-w-[450px] flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <span id="social-preview-badge" class="text-[11px] font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                        <i data-lucide="instagram" class="w-3.5 h-3.5"></i> Instagram • Post (1:1)
+                    </span>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="downloadSocialGraphic()" class="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition">
+                            <i data-lucide="image" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            PNG
+                        </button>
+                        <button id="btn-export-video" onclick="exportReelVideo()" class="text-xs bg-gradient-to-r from-amber-400 to-orange-500 hover:brightness-110 text-slate-950 font-bold px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition shadow-md">
+                            <i data-lucide="video" class="w-3.5 h-3.5"></i>
+                            Video MP4
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Arte Visual Exportable -->
+                <div id="social-canvas" style="background: linear-gradient(135deg, #081221 0%, #0d223d 100%); color: #ffffff;" class="social-canvas-square rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden border border-slate-700/80 shadow-2xl transition-all duration-300">
+                    <img id="social-ref-bg-img" src="" alt="Referencia" class="hidden absolute inset-0 w-full h-full object-cover opacity-25 pointer-events-none transition-all duration-500">
+                    <div id="social-ref-overlay" class="hidden absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/55 to-slate-950/75 pointer-events-none"></div>
+
+                    <!-- Capas decorativas dinamicas -->
+                    <div id="decor-glow-1" class="animate-float-glow absolute -top-16 -right-16 w-64 h-64 rounded-full bg-cyan-500/20 blur-2xl pointer-events-none"></div>
+                    <div id="decor-glow-2" class="animate-float-glow absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-blue-600/20 blur-2xl pointer-events-none"></div>
+                    <div id="decor-cyber-grid" class="hidden absolute inset-0 opacity-20 pointer-events-none" style="background-image: linear-gradient(to right, rgba(34,211,238,0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(34,211,238,0.25) 1px, transparent 1px); background-size: 28px 28px;"></div>
+                    <div id="decor-neon-waves" class="hidden absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div class="w-56 h-56 rounded-full border border-cyan-400/40 animate-neon-wave"></div>
+                        <div class="w-80 h-80 rounded-full border border-sky-400/25 animate-neon-wave absolute"></div>
+                    </div>
+                    <div id="reel-scanline-bar" class="hidden reel-scanline z-20"></div>
+                    
+                    <div id="reel-progress-bars" class="hidden absolute top-2 left-4 right-4 z-20 grid grid-cols-3 gap-1.5">
+                        <div class="h-1 rounded-full bg-white/20 overflow-hidden"><div id="reel-prog-0" class="h-full bg-cyan-400 w-0 transition-all duration-300"></div></div>
+                        <div class="h-1 rounded-full bg-white/20 overflow-hidden"><div id="reel-prog-1" class="h-full bg-cyan-400 w-0 transition-all duration-300"></div></div>
+                        <div class="h-1 rounded-full bg-white/20 overflow-hidden"><div id="reel-prog-2" class="h-full bg-cyan-400 w-0 transition-all duration-300"></div></div>
+                    </div>
+                    <div id="reel-badge-overlay" class="hidden absolute top-4 right-3 z-20 bg-amber-400/20 border border-amber-400/50 text-amber-300 text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span> <span id="reel-live-scene-indicator">REEL ANIMADO</span>
+                    </div>
+                    <div id="social-top-bar" style="background-color: #22d3ee;" class="absolute top-0 left-0 right-0 h-1 z-20"></div>
+
+                    <!-- Encabezado Corporativo Inmutable -->
+                    <div id="social-header-row" class="flex items-center justify-between gap-2 z-10">
+                        <div class="flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/15">
+                            <div class="logo-container w-7 h-7 flex items-center justify-center bg-slate-900/80 rounded-lg p-1 shrink-0 shadow-md shadow-cyan-500/20 border border-cyan-500/30">
+                                <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_0_10px_rgba(34,211,238,0.65)]">
+                                    <defs>
+                                        <linearGradient id="gTL" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#67e8f9"/></linearGradient>
+                                        <linearGradient id="gTR" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient>
+                                        <linearGradient id="gBL" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#0f294a"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+                                        <linearGradient id="gBR" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+                                    </defs>
+                                    <polygon points="60,10 18,52 30,64 60,34" fill="url(#gTL)"/>
+                                    <polygon points="60,10 92,42 75,42 60,27" fill="url(#gTR)"/>
+                                    <polygon points="18,52 60,94 60,76 30,46" fill="url(#gBL)"/>
+                                    <polygon points="60,94 102,52 62,52 50,64 82,64 60,82" fill="url(#gBR)"/>
+                                </svg>
+                            </div>
+                            <span class="font-brand font-bold text-[11px] tracking-wider">GIGADEVS CORP, C.A.</span>
+                        </div>
+                        <span id="social-loc-pill" style="border-color: rgba(34, 211, 238, 0.35); color: #22d3ee;" class="social-dynamic-accent text-[10px] font-semibold bg-white/5 border px-2.5 py-1 rounded-full shrink-0">
+                            Los Teques • Miranda
+                        </span>
+                    </div>
+
+                    <!-- Tarjeta flotante de imagen referente cuando se activa modo tarjeta -->
+                    <div id="social-ref-card-wrap" class="hidden z-10 my-1.5 rounded-2xl overflow-hidden border border-white/20 shadow-lg max-h-32 relative">
+                        <img id="social-ref-card-img" src="" alt="Vista Referencia" class="w-full h-28 object-cover">
+                    </div>
+
+                    <!-- Cuerpo Central Editable / Generado por IA -->
+                    <div id="social-body-block" class="z-10 my-auto py-2 space-y-2">
+                        <p id="social-kicker" style="color: #22d3ee;" class="social-dynamic-accent font-bold text-[10px] uppercase tracking-[0.22em]">
+                            INNOVACIÓN & CONECTIVIDAD
+                        </p>
+                        <h2 id="social-headline" class="font-brand font-extrabold text-xl sm:text-2xl leading-tight">
+                            Conecta con nosotros a <span style="color: #22d3ee;" class="social-dynamic-accent">un solo escaneo</span>
+                        </h2>
+                        <p id="social-subcopy" class="text-xs opacity-90 leading-relaxed">
+                            Impulsamos tus ideas tecnológicas con soluciones a medida. Síguenos en LinkedIn o escríbenos directo por WhatsApp.
+                        </p>
+                        <!-- Pildoras de contacto cuando se ocultan los QR -->
+                        <div id="social-noqr-cta" class="hidden pt-2 flex flex-wrap gap-2">
+                            <span class="bg-white/10 border border-white/15 px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-cyan-400"></span> <span id="social-linkedin-short">linkedin.com/company/gigadevs-corp</span>
+                            </span>
+                            <span class="bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span> WhatsApp: <span id="social-wa-display">+58 424 258 8321</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Bloque Inferior con Codigos QR Configurables -->
+                    <div id="social-qr-grid" class="grid grid-cols-2 gap-3 z-10">
+                        <div id="social-card-linkedin" class="bg-white/95 rounded-2xl p-2.5 flex items-center gap-2.5 shadow-lg">
+                            <div id="ig-qr-linkedin" class="w-12 h-12 shrink-0 flex items-center justify-center"></div>
+                            <div class="min-w-0">
+                                <span class="text-[9px] font-extrabold uppercase text-[#0a66c2] block leading-tight">LinkedIn</span>
+                                <p class="text-[10.5px] font-bold text-slate-900 leading-tight mt-0.5">Perfil Oficial</p>
+                                <p id="social-li-handle" class="text-[9px] text-slate-600 leading-normal mt-0.5">gigadevs-corp</p>
+                            </div>
+                        </div>
+
+                        <div id="social-card-whatsapp" class="bg-white/95 rounded-2xl p-2.5 flex items-center gap-2.5 shadow-lg">
+                            <div id="ig-qr-whatsapp" class="w-12 h-12 shrink-0 flex items-center justify-center"></div>
+                            <div class="min-w-0">
+                                <span class="text-[9px] font-extrabold uppercase text-emerald-600 block leading-tight">WhatsApp</span>
+                                <p class="text-[10.5px] font-bold text-slate-900 leading-tight mt-0.5">Chat Directo</p>
+                                <p id="social-wa-handle" class="text-[9px] text-slate-600 leading-normal mt-0.5">+58 424 258 8321</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="social-rif-line" class="hidden text-[10px] font-semibold opacity-80 text-center z-10"></p>
+                </div>
+
+                <!-- Edicion rapida directa del texto dentro del arte -->
+                <div class="w-full max-w-[450px] mt-4 glass-panel rounded-2xl p-3.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">Ajuste Rápido del Texto en Imagen</label>
+                        <button type="button" id="btn-preview-reel-anim" onclick="toggleReelLivePreview()" class="text-[10px] font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1">
+                            <i data-lucide="play" class="w-3 h-3"></i>
+                            <span id="reel-preview-btn-text">Previsualizar Animación</span>
+                        </button>
+                    </div>
+                    <input type="text" id="editSocialHeadline" value="Conecta con nosotros a un solo escaneo" oninput="syncManualSocialText()" class="studio-input w-full rounded-xl px-3 py-1.5 text-xs text-white">
+                    <input type="text" id="editSocialSubcopy" value="Impulsamos tus ideas tecnológicas con soluciones a medida. Síguenos en LinkedIn o escríbenos directo por WhatsApp." oninput="syncManualSocialText()" class="studio-input w-full rounded-xl px-3 py-1.5 text-xs text-slate-300">
+                </div>
+            </div>
+
+            <!-- Panel Derecho: Copy, Guion de Reel y Hashtags Generados por IA (4 columnas) -->
+            <div class="lg:col-span-4 glass-panel rounded-3xl p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
+                    <div>
+                        <h3 id="caption-title" class="text-sm font-bold text-white flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-4 h-4 text-cyan-400"></i>
+                            Copy + Hashtags Listos
+                        </h3>
+                        <p id="caption-subtitle" class="text-[11px] text-slate-400 mt-0.5">Optimizado para Instagram Post</p>
+                    </div>
+                    <button onclick="copySocialCaption()" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition shadow-md">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        Copiar
+                    </button>
+                </div>
+
+                <!-- Sub-pestañas Copy vs Guion de Escenas para Reel -->
+                <div class="flex bg-slate-950/70 p-1 rounded-xl border border-slate-800">
+                    <button type="button" onclick="switchRightPanelTab('caption')" id="rtab-caption" class="flex-1 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-white transition">
+                        Copy & Hashtags
+                    </button>
+                    <button type="button" onclick="switchRightPanelTab('script')" id="rtab-script" class="flex-1 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
+                        <i data-lucide="film" class="w-3.5 h-3.5 text-amber-400"></i>
+                        Guion & Animación Reel
+                    </button>
+                </div>
+
+                <div id="panel-caption-box">
+                    <textarea id="social-caption" rows="15" class="studio-input w-full rounded-2xl p-4 text-xs sm:text-sm text-slate-200 leading-relaxed">🚀 ¡En GIGADEVS CORP, C.A. estamos a un escaneo de distancia! 📲💻
+
+Transformamos tus ideas en soluciones digitales de alto impacto desde Los Teques, Miranda para el mundo. 🌍✨
+
+Ahora conectar con nuestro equipo es más rápido que nunca:
+🔵 Escanea nuestro QR de LinkedIn para conocer nuestros proyectos, alianzas y novedades corporativas:
+👉 linkedin.com/company/gigadevs-corp
+
+🟢 Escanea nuestro QR de WhatsApp para asesoría inmediata y atención personalizada:
+👉 wa.me/584242588321
+
+💡 ¿Listo para llevar tu negocio al siguiente nivel tecnológico? Guarda este post o escríbenos hoy mismo. ¡Conectemos! 🤝⚡
+
+#GigadevsCorp #DesarrolloDeSoftware #Tecnologia #InnovacionDigital #LosTeques #Miranda #Venezuela #TransformacionDigital #SolucionesTech #Networking #WhatsAppBusiness #LinkedInVenezuela</textarea>
+                </div>
+
+                <!-- Panel de Escenas y Animaciones para Renderizar Video Reel -->
+                <div id="panel-script-box" class="hidden space-y-3">
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1.5">Estilo de Animación del Reel</label>
+                        <div class="grid grid-cols-2 gap-1.5">
+                            <button type="button" onclick="setReelAnimStyle('cyberscan')" id="anim-cyberscan" class="py-1.5 px-2 rounded-lg border border-amber-400 bg-amber-500/15 text-white font-semibold text-[10.5px] transition">
+                                Cyber Scan + Partículas
+                            </button>
+                            <button type="button" onclick="setReelAnimStyle('kenburns')" id="anim-kenburns" class="py-1.5 px-2 rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 hover:text-white font-semibold text-[10.5px] transition">
+                                Zoom Dinámico 3D
+                            </button>
+                            <button type="button" onclick="setReelAnimStyle('pulsegrid')" id="anim-pulsegrid" class="py-1.5 px-2 rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 hover:text-white font-semibold text-[10.5px] transition">
+                                Pulso Matrix Grid
+                            </button>
+                            <button type="button" onclick="setReelAnimStyle('neonwaves')" id="anim-neonwaves" class="py-1.5 px-2 rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 hover:text-white font-semibold text-[10.5px] transition">
+                                Ondas Neon 3D
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-[11px] text-slate-400">Estas 3 escenas animadas se renderizan automáticamente cuando pulsas <strong class="text-amber-400">Video Reel</strong>:</p>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-2.5">
+                            <span class="text-[10px] font-bold uppercase text-cyan-400">Escena 1 (0s - 3s) • Gancho Visual</span>
+                            <input type="text" id="reelScene1" value="¿Buscas llevar tu empresa al siguiente nivel digital?" class="studio-input w-full rounded-lg px-2.5 py-1.5 text-xs text-white mt-1">
+                        </div>
+                        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-2.5">
+                            <span class="text-[10px] font-bold uppercase text-sky-400">Escena 2 (3s - 6s) • Propuesta de Valor</span>
+                            <input type="text" id="reelScene2" value="Software a medida, Web e IA desde Los Teques, Miranda" class="studio-input w-full rounded-lg px-2.5 py-1.5 text-xs text-white mt-1">
+                        </div>
+                        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-2.5">
+                            <span class="text-[10px] font-bold uppercase text-emerald-400">Escena 3 (6s - 9s) • Llamado a la Acción + QR</span>
+                            <input type="text" id="reelScene3" value="Escanea nuestro QR y conéctate hoy con GIGADEVS CORP, C.A." class="studio-input w-full rounded-lg px-2.5 py-1.5 text-xs text-white mt-1">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="toggleReelLivePreview()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-2.5 px-3 rounded-xl border border-amber-400/30 text-xs flex items-center justify-center gap-1.5 transition">
+                            <i data-lucide="play-circle" class="w-4 h-4"></i>
+                            <span id="reel-panel-preview-txt">Vista Previa</span>
+                        </button>
+                        <button type="button" onclick="exportReelVideo()" class="bg-gradient-to-r from-amber-400 to-orange-500 hover:brightness-110 text-slate-950 font-bold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 transition shadow-md">
+                            <i data-lucide="video" class="w-4 h-4"></i>
+                            Descargar MP4
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-3.5 flex items-start gap-2.5">
+                    <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                    <p id="social-tip" class="text-[11px] text-slate-300 leading-relaxed">
+                        <strong>Tip Instagram Post:</strong> Etiqueta a <span class="text-cyan-400">@gigadevs-corp</span> y fija este post en tu perfil para que tus visitantes tengan acceso inmediato a tu LinkedIn y WhatsApp.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="no-print border-t border-slate-800/70 py-5 px-4 text-center text-[11px] text-slate-500">
+        GIGADEVS CORP, C.A. · Los Teques, Miranda, Venezuela · RIF: <span id="footer-rif">pendiente de registro</span>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        let currentPlatform = 'instagram';
+        let currentFormat = 'post';
+        let currentLayoutStyle = 'executive';
+        let currentReelAnimStyle = 'cyberscan';
+        let showSocialQR = true;
+        let socialQRChoice = 'both'; 
+        let socialRefImageDataUrl = null;
+        let socialRefImageObj = null;
+        let reelLiveInterval = null;
+        let reelLiveStep = 0;
+
+        function saveStudioState() {
+            try {
+                const state = {
+                    name: document.getElementById('inputName').value,
+                    role: document.getElementById('inputRole').value,
+                    location: document.getElementById('inputLocation').value,
+                    linkedin: document.getElementById('inputLinkedin').value,
+                    whatsapp: document.getElementById('inputWhatsapp').value,
+                    rif: document.getElementById('inputRif').value,
+                    cardBg1: document.getElementById('colorBg1').value,
+                    cardBg2: document.getElementById('colorBg2').value,
+                    cardAccent: document.getElementById('colorAccent').value,
+                    cardText: document.getElementById('colorText').value
+                };
+                localStorage.setItem('gigadevs_studio_state', JSON.stringify(state));
+            } catch (e) {}
+        }
+
+        function loadStudioState() {
+            try {
+                const raw = localStorage.getItem('gigadevs_studio_state');
+                if (!raw) return;
+                const s = JSON.parse(raw);
+                if (s.name) document.getElementById('inputName').value = s.name;
+                if (s.role) document.getElementById('inputRole').value = s.role;
+                if (s.location) document.getElementById('inputLocation').value = s.location;
+                if (s.linkedin) document.getElementById('inputLinkedin').value = s.linkedin;
+                if (s.whatsapp) document.getElementById('inputWhatsapp').value = s.whatsapp;
+                if (s.rif) document.getElementById('inputRif').value = s.rif;
+                if (s.cardBg1) document.getElementById('colorBg1').value = s.cardBg1;
+                if (s.cardBg2) document.getElementById('colorBg2').value = s.cardBg2;
+                if (s.cardAccent) document.getElementById('colorAccent').value = s.cardAccent;
+                if (s.cardText) document.getElementById('colorText').value = s.cardText;
+                updateCardText();
+                updateCardColors();
+            } catch (e) {}
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3200);
+        }
+
+        function switchTab(tab) {
+            const secCards = document.getElementById('section-cards');
+            const secSocial = document.getElementById('section-social');
+            const btnCards = document.getElementById('tab-cards');
+            const btnSocial = document.getElementById('tab-social');
+
+            if (tab === 'cards') {
+                secCards.classList.remove('hidden');
+                secCards.classList.add('grid');
+                secSocial.classList.add('hidden');
+                secSocial.classList.remove('grid');
+
+                btnCards.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 shadow-md flex items-center gap-2';
+                btnSocial.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white flex items-center gap-2';
+            } else {
+                secSocial.classList.remove('hidden');
+                secSocial.classList.add('grid');
+                secCards.classList.add('hidden');
+                secCards.classList.remove('grid');
+
+                btnSocial.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 shadow-md flex items-center gap-2';
+                btnCards.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white flex items-center gap-2';
+            }
+        }
+
+        function getRif() {
+            const el = document.getElementById('inputRif');
+            return el ? el.value.trim() : '';
+        }
+
+        function waDisplay(url) {
+            const m = url.match(/wa\.me\/(\d+)/);
+            const digits = m ? m[1] : url.replace(/\D/g, '');
+            if (digits.length < 11) return url;
+            return `+${digits.slice(0, 2)} ${digits.slice(2, 5)} ${digits.slice(5, 8)} ${digits.slice(8)}`;
+        }
+
+        function getContactData() {
+            const li = document.getElementById('inputLinkedin').value.trim() || 'https://www.linkedin.com/company/gigadevs-corp';
+            const wa = document.getElementById('inputWhatsapp').value.trim() || 'https://wa.me/584242588321';
+            const liShort = li.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+            return {
+                liShort,
+                liHandle: liShort.replace(/^linkedin\.com\/company\//, ''),
+                waTxt: waDisplay(wa),
+                rif: getRif()
+            };
+        }
+
+        function setText(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+        }
+
+        function syncContactLabels() {
+            const c = getContactData();
+            setText('card-linkedin-short', c.liShort);
+            setText('card-wa-display', c.waTxt);
+            setText('social-linkedin-short', c.liShort);
+            setText('social-wa-display', c.waTxt);
+            setText('social-li-handle', c.liHandle);
+            setText('social-wa-handle', c.waTxt);
+
+            ['card-rif', 'social-rif-line'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.textContent = c.rif ? `RIF ${c.rif}` : '';
+                el.classList.toggle('hidden', !c.rif);
+            });
+            setText('footer-rif', c.rif || 'pendiente de registro');
+        }
+
+        function updateCardText() {
+            document.getElementById('card-name').textContent = document.getElementById('inputName').value || 'GIGADEVS CORP, C.A.';
+            document.getElementById('card-role').textContent = document.getElementById('inputRole').value || 'Soluciones Tecnológicas';
+            document.getElementById('card-location').textContent = document.getElementById('inputLocation').value || 'Los Teques, Miranda';
+            saveStudioState();
+            syncContactLabels();
+        }
+
+        function updateCardColors() {
+            const bg1 = document.getElementById('colorBg1').value;
+            const bg2 = document.getElementById('colorBg2').value;
+            const accent = document.getElementById('colorAccent').value;
+            const text = document.getElementById('colorText').value;
+
+            document.documentElement.style.setProperty('--card-bg1', bg1);
+            document.documentElement.style.setProperty('--card-bg2', bg2);
+
+            const front = document.getElementById('card-front');
+            const back = document.getElementById('card-back');
+
+            front.style.background = `linear-gradient(135deg, ${bg1} 0%, ${bg2} 100%)`;
+            front.style.color = text;
+            back.style.background = `linear-gradient(135deg, ${bg1} 0%, ${bg2} 100%)`;
+            back.style.color = text;
+
+            document.getElementById('front-bottom-bar').style.backgroundColor = accent;
+            document.getElementById('back-bottom-bar').style.backgroundColor = accent;
+            document.getElementById('qr-front-box').style.borderColor = accent;
+
+            const badge = document.getElementById('front-linkedin-badge');
+            badge.style.borderColor = accent;
+            badge.style.color = accent;
+
+            document.querySelectorAll('.card-dynamic-accent').forEach(el => {
+                el.style.color = accent;
+            });
+            saveStudioState();
+        }
+
+        function applyCardTheme(bg1, bg2, accent, text) {
+            document.getElementById('colorBg1').value = bg1;
+            document.getElementById('colorBg2').value = bg2;
+            document.getElementById('colorAccent').value = accent;
+            document.getElementById('colorText').value = text;
+            updateCardColors();
+            showToast('Paleta de tarjeta actualizada');
+        }
+
+        function setSocialPlatform(platform) {
+            currentPlatform = platform;
+            const btnIg = document.getElementById('plat-instagram');
+            const btnFb = document.getElementById('plat-facebook');
+
+            if (platform === 'instagram') {
+                btnIg.className = 'py-2.5 px-3 rounded-xl border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-xs flex items-center justify-center gap-2 transition';
+                btnFb.className = 'py-2.5 px-3 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-xs flex items-center justify-center gap-2 transition';
+            } else {
+                btnFb.className = 'py-2.5 px-3 rounded-xl border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-xs flex items-center justify-center gap-2 transition';
+                btnIg.className = 'py-2.5 px-3 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-xs flex items-center justify-center gap-2 transition';
+            }
+            updateSocialLayout();
+        }
+
+        function setSocialFormat(format) {
+            currentFormat = format;
+            ['post', 'story', 'reel'].forEach(f => {
+                const btn = document.getElementById(`fmt-${f}`);
+                if (!btn) return;
+                if (f === format) {
+                    btn.className = 'py-2 px-2 rounded-xl border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-xs flex flex-col items-center gap-1 transition';
+                } else {
+                    btn.className = 'py-2 px-2 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-xs flex flex-col items-center gap-1 transition';
+                }
+            });
+            if (format === 'reel') {
+                switchRightPanelTab('script');
+                startReelLivePreview();
+            } else {
+                stopReelLivePreview();
+            }
+            updateSocialLayout();
+        }
+
+        function setReelAnimStyle(style) {
+            currentReelAnimStyle = style;
+            ['cyberscan', 'kenburns', 'pulsegrid', 'neonwaves'].forEach(s => {
+                const btn = document.getElementById(`anim-${s}`);
+                if (!btn) return;
+                if (s === style) {
+                    btn.className = 'py-1.5 px-2 rounded-lg border border-amber-400 bg-amber-500/15 text-white font-semibold text-[10.5px] transition';
+                } else {
+                    btn.className = 'py-1.5 px-2 rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 hover:text-white font-semibold text-[10.5px] transition';
+                }
+            });
+            const scanline = document.getElementById('reel-scanline-bar');
+            const waves = document.getElementById('decor-neon-waves');
+            const grid = document.getElementById('decor-cyber-grid');
+            const bgImg = document.getElementById('social-ref-bg-img');
+            const bodyBlock = document.getElementById('social-body-block');
+
+            scanline.classList.toggle('hidden', style !== 'cyberscan');
+            waves.classList.toggle('hidden', style !== 'neonwaves');
+            if (style === 'pulsegrid') grid.classList.remove('hidden');
+            bodyBlock.classList.toggle('animate-float-3d', style === 'kenburns' || style === 'neonwaves');
+
+            if (socialRefImageDataUrl) {
+                bgImg.classList.toggle('animate-ken-burns', style === 'kenburns');
+            }
+            showToast('Animación de Reel actualizada');
+        }
+
+        function startReelLivePreview() {
+            stopReelLivePreview();
+            const scanline = document.getElementById('reel-scanline-bar');
+            const waves = document.getElementById('decor-neon-waves');
+            const progBars = document.getElementById('reel-progress-bars');
+            const badge = document.getElementById('reel-badge-overlay');
+            const indicator = document.getElementById('reel-live-scene-indicator');
+            const headlineEl = document.getElementById('social-headline');
+            const btnTxt1 = document.getElementById('reel-preview-btn-text');
+            const btnTxt2 = document.getElementById('reel-panel-preview-txt');
+
+            if (currentReelAnimStyle === 'cyberscan') scanline.classList.remove('hidden');
+            if (currentReelAnimStyle === 'neonwaves') waves.classList.remove('hidden');
+            progBars.classList.remove('hidden');
+            badge.classList.remove('hidden');
+            if (btnTxt1) btnTxt1.textContent = 'Detener Animación';
+            if (btnTxt2) btnTxt2.textContent = 'Detener';
+
+            reelLiveStep = 0;
+            const runStep = () => {
+                const scenes = [
+                    document.getElementById('reelScene1').value,
+                    document.getElementById('reelScene2').value,
+                    document.getElementById('reelScene3').value
+                ];
+                [0, 1, 2].forEach(idx => {
+                    const bar = document.getElementById(`reel-prog-${idx}`);
+                    if (bar) bar.style.width = idx <= reelLiveStep ? '100%' : '0%';
+                });
+                indicator.textContent = `ESCENA ${reelLiveStep + 1}/3`;
+                headlineEl.classList.remove('animate-scene-enter');
+                void headlineEl.offsetWidth;
+                headlineEl.textContent = scenes[reelLiveStep] || headlineEl.textContent;
+                headlineEl.classList.add('animate-scene-enter');
+                reelLiveStep = (reelLiveStep + 1) % 3;
+            };
+
+            runStep();
+            reelLiveInterval = setInterval(runStep, 2800);
+        }
+
+        function stopReelLivePreview() {
+            if (reelLiveInterval) {
+                clearInterval(reelLiveInterval);
+                reelLiveInterval = null;
+            }
+            document.getElementById('reel-scanline-bar').classList.add('hidden');
+            document.getElementById('decor-neon-waves').classList.add('hidden');
+            document.getElementById('reel-progress-bars').classList.add('hidden');
+            const btnTxt1 = document.getElementById('reel-preview-btn-text');
+            const btnTxt2 = document.getElementById('reel-panel-preview-txt');
+            if (btnTxt1) btnTxt1.textContent = 'Previsualizar Animación';
+            if (btnTxt2) btnTxt2.textContent = 'Vista Previa';
+
+            const manualH = document.getElementById('editSocialHeadline').value;
+            if (manualH) document.getElementById('social-headline').textContent = manualH;
+        }
+
+        function toggleReelLivePreview() {
+            if (reelLiveInterval) {
+                stopReelLivePreview();
+            } else {
+                startReelLivePreview();
+            }
+        }
+
+        function handleSocialRefImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                socialRefImageDataUrl = e.target.result;
+                const img = new Image();
+                img.onload = function() {
+                    socialRefImageObj = img;
+                };
+                img.src = e.target.result;
+
+                const bgImg = document.getElementById('social-ref-bg-img');
+                const overlay = document.getElementById('social-ref-overlay');
+                bgImg.src = e.target.result;
+                bgImg.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+                if (currentReelAnimStyle === 'kenburns') {
+                    bgImg.classList.add('animate-ken-burns');
+                }
+                document.getElementById('ref-img-label').textContent = file.name.slice(0, 22);
+                document.getElementById('btn-clear-ref-img').classList.remove('hidden');
+                showToast('Imagen de referencia integrada al arte');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearSocialRefImage() {
+            socialRefImageDataUrl = null;
+            socialRefImageObj = null;
+            const bgImg = document.getElementById('social-ref-bg-img');
+            bgImg.src = '';
+            bgImg.classList.add('hidden');
+            bgImg.classList.remove('animate-ken-burns');
+            document.getElementById('social-ref-overlay').classList.add('hidden');
+            document.getElementById('socialRefImageInput').value = '';
+            document.getElementById('ref-img-label').textContent = 'Insertar imagen o referente';
+            document.getElementById('btn-clear-ref-img').classList.add('hidden');
+            showToast('Imagen de referencia eliminada');
+        }
+
+        async function fetchWebMetadata(rawUrl) {
+            const normalizedUrl = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
+            const fallback = {
+                url: normalizedUrl,
+                domain: normalizedUrl.replace(/^https?:\/\/(www\.)?/, '').split('/')[0],
+                title: '', description: '', themeColor: '', headings: '', rawSnippet: ''
+            };
+            try {
+                const res = await fetch(`/api/link-meta?url=${encodeURIComponent(normalizedUrl)}`, {
+                    headers: { 'X-Requested-With': 'gigadevs-studio' }
+                });
+                if (!res.ok) return fallback;
+                return { ...fallback, ...(await res.json()) };
+            } catch (e) {
+                return fallback;
+            }
+        }
+
+        async function analyzeLinkAndBuildArt() {
+            const urlInput = document.getElementById('socialRefLink').value.trim();
+            if (!urlInput) {
+                showToast('Pega primero el enlace de una página web para analizar');
+                return;
+            }
+            const btn = document.getElementById('btn-analyze-link');
+            const origHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<svg class="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg><span>Extrayendo...</span>`;
+
+            const webData = await fetchWebMetadata(urlInput);
+            const userGoal = document.getElementById('aiTopic').value.trim() || 'Promocionar este proyecto/sitio web conectado con GIGADEVS CORP, C.A.';
+            const linkedinUrl = document.getElementById('inputLinkedin').value.trim();
+            const whatsappUrl = document.getElementById('inputWhatsapp').value.trim();
+
+            const extractedContext = `
+URL analizada: ${webData.url}
+Dominio: ${webData.domain}
+Título real de la web: ${webData.title || 'No detectado'}
+Descripción meta real: ${webData.description || 'No detectada'}
+Titulares H1/H2 detectados: ${webData.headings || 'No detectados'}
+Color de tema HTML detectado: ${webData.themeColor || 'No detectado'}
+Extracto real del contenido de la página: ${webData.rawSnippet || 'No disponible'}`;
+
+            const prompt = `Analiza los datos reales extraídos de esta página web y crea una pieza publicitaria de alto impacto:
+${extractedContext}
+
+Objetivo adicional del usuario: "${userGoal}".
+Empresa emisora: GIGADEVS CORP, C.A. (Los Teques, Miranda, Venezuela | LinkedIn: ${linkedinUrl} | WhatsApp: ${whatsappUrl}).
+Plataforma: ${currentPlatform.toUpperCase()}, Formato: ${currentFormat.toUpperCase()}.
+
+Devuelve un JSON con:
+1. "bg1": color hex oscuro o base principal acorde al estilo/theme-color del sitio web (ej. "#0b192c").
+2. "bg2": color hex secundario del degradado acorde al sitio web (ej. "#132c4e").
+3. "accent": color hex de acento vibrante acorde al sitio web (ej. "#22d3ee").
+4. "text": color hex de texto con alto contraste ("#ffffff" o "#0f172a").
+5. "kicker": etiqueta corta superior en mayúsculas basada en el rubro real del sitio (máx 4 palabras).
+6. "headline": titular de alto impacto basado en el contenido real del sitio web (máx 8 palabras).
+7. "subcopy": resumen persuasivo real del proyecto/sitio web (máx 22 palabras).
+8. "scene1": escena 1 del Reel (0-3s) con gancho real del sitio.
+9. "scene2": escena 2 del Reel (3-6s) destacando su propuesta de valor real.
+10. "scene3": escena 3 del Reel (6-9s) invitando a escanear QR de GIGADEVS CORP, C.A.
+11. "caption": copy completo para ${currentPlatform} con emojis, resumen real de ${webData.title || webData.domain}, enlace ${webData.url}, contacto de GIGADEVS CORP, C.A. y 10 hashtags relevantes al rubro real.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            bg1: { type: "STRING" },
+                            bg2: { type: "STRING" },
+                            accent: { type: "STRING" },
+                            text: { type: "STRING" },
+                            kicker: { type: "STRING" },
+                            headline: { type: "STRING" },
+                            subcopy: { type: "STRING" },
+                            scene1: { type: "STRING" },
+                            scene2: { type: "STRING" },
+                            scene3: { type: "STRING" },
+                            caption: { type: "STRING" }
+                        },
+                        required: ["bg1", "bg2", "accent", "text", "kicker", "headline", "subcopy", "scene1", "scene2", "scene3", "caption"]
+                    }
+                }
+            };
+
+            const apiUrl = '/api/gemini';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'gigadevs-studio' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) throw new Error('Error analyzing URL');
+                const result = await response.json();
+                const rawText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                const data = JSON.parse(rawText);
+
+                applySocialTheme(data.bg1, data.bg2, data.accent, data.text);
+                document.getElementById('social-kicker').textContent = data.kicker.toUpperCase();
+                document.getElementById('social-headline').textContent = data.headline;
+                document.getElementById('social-subcopy').textContent = data.subcopy;
+                document.getElementById('editSocialHeadline').value = data.headline;
+                document.getElementById('editSocialSubcopy').value = data.subcopy;
+                document.getElementById('reelScene1').value = data.scene1;
+                document.getElementById('reelScene2').value = data.scene2;
+                document.getElementById('reelScene3').value = data.scene3;
+                document.getElementById('social-caption').value = data.caption;
+
+                showToast(`¡Web "${webData.title || webData.domain}" analizada y adaptada!`);
+            } catch (err) {
+                const realTitle = webData.title ? webData.title.split('|')[0].split('-')[0].trim() : webData.domain;
+                const realDesc = webData.description || webData.rawSnippet.slice(0, 130) || userGoal;
+                if (webData.themeColor && /^#[0-9A-Fa-f]{6}$/.test(webData.themeColor)) {
+                    applySocialTheme('#081221', '#0f2544', webData.themeColor, '#ffffff');
+                }
+                const fallback = buildSmartFallbackContent(`${realTitle}: ${realDesc}`, 'Profesional, innovador y persuasivo', currentPlatform, currentFormat, linkedinUrl, whatsappUrl);
+                const headlineClean = realTitle.length > 48 ? realTitle.slice(0, 45) + '...' : realTitle;
+                const subcopyClean = realDesc.length > 115 ? realDesc.slice(0, 112) + '...' : realDesc;
+
+                document.getElementById('social-kicker').textContent = `WEB • ${webData.domain.toUpperCase()}`;
+                document.getElementById('social-headline').textContent = headlineClean || fallback.headline;
+                document.getElementById('social-subcopy').textContent = subcopyClean || fallback.subcopy;
+                document.getElementById('editSocialHeadline').value = headlineClean || fallback.headline;
+                document.getElementById('editSocialSubcopy').value = subcopyClean || fallback.subcopy;
+                document.getElementById('reelScene1').value = `Conoce ${realTitle}`;
+                document.getElementById('reelScene2').value = subcopyClean.slice(0, 75);
+                document.getElementById('reelScene3').value = `Desarrollado junto a GIGADEVS CORP, C.A. • Escanea el QR`;
+                document.getElementById('social-caption').value = `🌐 ${realTitle}\n\n${realDesc}\n\n🔗 Visita el enlace: ${webData.url}\n\n${fallback.caption}`;
+                showToast(`Metadatos extraídos de ${webData.domain} y aplicados al arte`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = origHTML;
+                lucide.createIcons();
+            }
+        }
+
+        function setSocialLayoutStyle(style) {
+            currentLayoutStyle = style;
+            ['executive', 'cybergrid', 'spotlight'].forEach(s => {
+                const btn = document.getElementById(`style-${s}`);
+                if (!btn) return;
+                if (s === style) {
+                    btn.className = 'py-2 px-2 rounded-xl border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-[11px] transition';
+                } else {
+                    btn.className = 'py-2 px-2 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white font-semibold text-[11px] transition';
+                }
+            });
+
+            const grid = document.getElementById('decor-cyber-grid');
+            const body = document.getElementById('social-body-block');
+            const header = document.getElementById('social-header-row');
+
+            grid.classList.add('hidden');
+            body.classList.remove('text-center', 'items-center');
+            header.classList.remove('flex-col', 'items-center');
+
+            if (style === 'cybergrid') {
+                grid.classList.remove('hidden');
+            } else if (style === 'spotlight') {
+                body.classList.add('text-center', 'items-center');
+                header.classList.add('flex-col', 'items-center');
+            }
+        }
+
+        function toggleSocialQR() {
+            showSocialQR = !showSocialQR;
+            const btn = document.getElementById('toggle-qr-btn');
+            const selectorGroup = document.getElementById('qr-selector-group');
+
+            if (showSocialQR) {
+                btn.textContent = 'Activado';
+                btn.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 transition';
+                selectorGroup.classList.remove('opacity-40', 'pointer-events-none');
+            } else {
+                btn.textContent = 'Oculto';
+                btn.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-800 text-slate-400 border border-slate-700 transition';
+                selectorGroup.classList.add('opacity-40', 'pointer-events-none');
+            }
+            updateSocialQRVisibility();
+        }
+
+        function setSocialQRChoice(choice) {
+            socialQRChoice = choice;
+            ['both', 'linkedin', 'whatsapp'].forEach(opt => {
+                const btn = document.getElementById(`qr-opt-${opt}`);
+                if (!btn) return;
+                if (opt === choice) {
+                    btn.className = 'py-1.5 px-2 rounded-lg border border-cyan-400 bg-cyan-500/15 text-white font-semibold text-[11px] transition';
+                } else {
+                    btn.className = 'py-1.5 px-2 rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 hover:text-white font-semibold text-[11px] transition';
+                }
+            });
+            updateSocialQRVisibility();
+        }
+
+        function updateSocialQRVisibility() {
+            const qrGrid = document.getElementById('social-qr-grid');
+            const cardLi = document.getElementById('social-card-linkedin');
+            const cardWa = document.getElementById('social-card-whatsapp');
+            const noQrCta = document.getElementById('social-noqr-cta');
+
+            if (!showSocialQR) {
+                qrGrid.classList.add('hidden');
+                noQrCta.classList.remove('hidden');
+                return;
+            }
+
+            qrGrid.classList.remove('hidden');
+            noQrCta.classList.add('hidden');
+
+            if (socialQRChoice === 'both') {
+                cardLi.classList.remove('hidden');
+                cardWa.classList.remove('hidden');
+                qrGrid.className = currentFormat === 'post' ? 'grid grid-cols-2 gap-3 z-10' : 'grid grid-cols-1 gap-2.5 z-10';
+            } else if (socialQRChoice === 'linkedin') {
+                cardLi.classList.remove('hidden');
+                cardWa.classList.add('hidden');
+                qrGrid.className = 'grid grid-cols-1 gap-2.5 z-10';
+            } else {
+                cardLi.classList.add('hidden');
+                cardWa.classList.remove('hidden');
+                qrGrid.className = 'grid grid-cols-1 gap-2.5 z-10';
+            }
+        }
+
+        function switchRightPanelTab(tab) {
+            const capBox = document.getElementById('panel-caption-box');
+            const scrBox = document.getElementById('panel-script-box');
+            const btnCap = document.getElementById('rtab-caption');
+            const btnScr = document.getElementById('rtab-script');
+
+            if (tab === 'caption') {
+                capBox.classList.remove('hidden');
+                scrBox.classList.add('hidden');
+                btnCap.className = 'flex-1 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-white transition';
+                btnScr.className = 'flex-1 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5';
+            } else {
+                scrBox.classList.remove('hidden');
+                capBox.classList.add('hidden');
+                btnScr.className = 'flex-1 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-white transition flex items-center justify-center gap-1.5';
+                btnCap.className = 'flex-1 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition';
+            }
+        }
+
+        function updateSocialLayout() {
+            const canvas = document.getElementById('social-canvas');
+            const badge = document.getElementById('social-preview-badge');
+            const capSub = document.getElementById('caption-subtitle');
+            const tip = document.getElementById('social-tip');
+            const reelBadge = document.getElementById('reel-badge-overlay');
+
+            const platLabel = currentPlatform === 'instagram' ? 'Instagram' : 'Facebook';
+            const fmtLabel = currentFormat === 'post' ? 'Post (1:1)' : (currentFormat === 'story' ? 'Historia (9:16)' : 'Reel Video (9:16)');
+
+            badge.innerHTML = `<i data-lucide="${currentPlatform}" class="w-3.5 h-3.5"></i> ${platLabel} • ${fmtLabel}`;
+            capSub.textContent = `Optimizado para ${platLabel} (${fmtLabel})`;
+
+            if (currentFormat === 'post') {
+                canvas.classList.remove('social-canvas-vertical');
+                canvas.classList.add('social-canvas-square');
+                reelBadge.classList.add('hidden');
+            } else {
+                canvas.classList.remove('social-canvas-square');
+                canvas.classList.add('social-canvas-vertical');
+                if (currentFormat === 'reel') {
+                    reelBadge.classList.remove('hidden');
+                } else {
+                    reelBadge.classList.add('hidden');
+                }
+            }
+
+            updateSocialQRVisibility();
+
+            if (currentPlatform === 'instagram' && currentFormat === 'story') {
+                tip.innerHTML = `<strong>Tip Instagram Historia:</strong> Sube esta historia vertical y añade el sticker de enlace directo a <span class="text-cyan-400">${document.getElementById('inputWhatsapp').value.trim() || 'https://wa.me/584242588321'}</span>.`;
+            } else if (currentFormat === 'reel') {
+                tip.innerHTML = `<strong>Tip ${platLabel} Reel:</strong> Pulsa <span class="text-amber-400">Video Reel</span> para descargar el clip animado de 9 segundos en formato vertical 9:16 listo para subir.`;
+            } else if (currentPlatform === 'facebook') {
+                tip.innerHTML = `<strong>Tip Facebook ${fmtLabel}:</strong> Publica el arte junto con los enlaces clicables en la descripción para maximizar el alcance.`;
+            } else {
+                tip.innerHTML = `<strong>Tip Instagram Post:</strong> Etiqueta a <span class="text-cyan-400">@gigadevs-corp</span> y fija este post en tu perfil para acceso inmediato.`;
+            }
+
+            lucide.createIcons();
+        }
+
+        function updateSocialColors() {
+            const bg1 = document.getElementById('socialBg1').value;
+            const bg2 = document.getElementById('socialBg2').value;
+            const accent = document.getElementById('socialAccent').value;
+            const text = document.getElementById('socialText').value;
+
+            const canvas = document.getElementById('social-canvas');
+            canvas.style.background = `linear-gradient(135deg, ${bg1} 0%, ${bg2} 100%)`;
+            canvas.style.color = text;
+
+            document.getElementById('social-top-bar').style.backgroundColor = accent;
+            const locPill = document.getElementById('social-loc-pill');
+            locPill.style.borderColor = accent;
+            locPill.style.color = accent;
+
+            document.querySelectorAll('.social-dynamic-accent').forEach(el => {
+                el.style.color = accent;
+            });
+        }
+
+        function applySocialTheme(bg1, bg2, accent, text) {
+            document.getElementById('socialBg1').value = bg1;
+            document.getElementById('socialBg2').value = bg2;
+            document.getElementById('socialAccent').value = accent;
+            document.getElementById('socialText').value = text;
+            updateSocialColors();
+            showToast('Paleta del arte actualizada');
+        }
+
+        function syncManualSocialText() {
+            const h = document.getElementById('editSocialHeadline').value;
+            const s = document.getElementById('editSocialSubcopy').value;
+            document.getElementById('social-headline').textContent = h || 'Conecta con nosotros a un solo escaneo';
+            document.getElementById('social-subcopy').textContent = s || '';
+        }
+
+        function buildSmartFallbackContent(topic, tone, platform, format, linkedinUrl, whatsappUrl) {
+            const cleanTopic = topic.replace(/\s+/g, ' ').trim();
+            const shortFocus = cleanTopic.length > 95 ? cleanTopic.substring(0, 92) + '...' : cleanTopic;
+            const platName = platform === 'instagram' ? 'Instagram' : 'Facebook';
+            const fmtLabel = format === 'post' ? 'Post' : (format === 'story' ? 'Historia' : 'Reel');
+
+            const isSecurity = /seguridad|protecci|ciber|datos|activo|confidencial/i.test(cleanTopic);
+            const isAI = /ia|inteligencia artificial|automatiz|bot/i.test(cleanTopic);
+            const isWebApp = /web|app|m[oó]vil|software|sistema|medida/i.test(cleanTopic);
+
+            let kicker = 'INNOVACIÓN & TECNOLOGÍA';
+            let headline = 'Impulsamos tu empresa con tecnología de vanguardia';
+            let extraTags = '#DesarrolloDeSoftware #TransformacionDigital #SolucionesTech';
+
+            if (isSecurity) {
+                kicker = 'CIBERSEGURIDAD & CONFIANZA';
+                headline = 'Protegemos tus activos digitales desde el desarrollo';
+                extraTags = '#Ciberseguridad #SeguridadInformatica #ProteccionDeDatos #DesarrolloSeguro';
+            } else if (isAI) {
+                kicker = 'INTELIGENCIA ARTIFICIAL';
+                headline = 'Automatiza y escala tu negocio con IA a medida';
+                extraTags = '#InteligenciaArtificial #Automatizacion #IAEmpresarial #Innovacion';
+            } else if (isWebApp) {
+                kicker = 'SOFTWARE & APPS A MEDIDA';
+                headline = 'Creamos soluciones digitales diseñadas para crecer';
+                extraTags = '#DesarrolloWeb #AppsMoviles #SoftwareAMedida #IngenieriaDeSoftware';
+            }
+
+            const subcopy = `En GIGADEVS CORP, C.A. te acompañamos en cada paso. Escanea nuestros QR para conectar por LinkedIn o WhatsApp.`;
+
+            const introEmoji = tone.includes('Corporativo') ? '💼' : '🚀';
+            const ctaText = format === 'story'
+                ? '👆 ¡Toca el enlace o escanea los códigos QR en pantalla para hablar con nuestro equipo ahora mismo!'
+                : '📲 Escanea nuestros códigos QR en la imagen o contáctanos directamente a través de nuestros canales oficiales:';
+
+            const caption = `${introEmoji} En GIGADEVS CORP, C.A. llevamos tus proyectos al siguiente nivel. 💻✨\n\n${shortFocus}\n\nDesde Los Teques, Miranda para toda Venezuela y el mundo, combinamos ingeniería de alto rendimiento, diseño estratégico y compromiso total con cada cliente. 🌍⚡\n\n${ctaText}\n🔵 LinkedIn Corporativo: ${linkedinUrl}\n🟢 WhatsApp Directo: ${whatsappUrl}\n\n💡 ¿Listo para transformar tu idea en realidad? Escríbenos hoy y recibe asesoría personalizada. 🤝\n\n#GigadevsCorp #LosTeques #Miranda #Venezuela ${extraTags} #LinkedInVenezuela #WhatsAppBusiness #TecnologiaVenezuela`;
+
+            const scene1 = `¿Listo para transformar tu negocio con ${isSecurity ? 'ciberseguridad' : isAI ? 'Inteligencia Artificial' : 'tecnología'}?`;
+            const scene2 = `${headline} • GIGADEVS CORP, C.A.`;
+            const scene3 = `Conecta hoy desde Los Teques, Miranda • Escanea o escríbenos`;
+
+            return { kicker, headline, subcopy, caption, scene1, scene2, scene3, platName, fmtLabel };
+        }
+
+        async function generateSocialWithGemini() {
+            const btn = document.getElementById('btn-generate-ai');
+            const originalBtnHTML = btn.innerHTML;
+            const topic = document.getElementById('aiTopic').value.trim() || 'Servicios tecnológicos y conexión directa';
+            const tone = document.getElementById('aiTone').value;
+            const linkedinUrl = document.getElementById('inputLinkedin').value.trim();
+            const whatsappUrl = document.getElementById('inputWhatsapp').value.trim();
+
+            btn.disabled = true;
+            btn.innerHTML = `<svg class="animate-spin h-4 w-4 text-slate-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Generando contenido...</span>`;
+
+            const prompt = `Eres un director creativo y estratega de social media para la empresa tecnológica "GIGADEVS CORP, C.A.", ubicada en Los Teques, Miranda, Venezuela.
+Datos obligatorios de la empresa:
+- Nombre: GIGADEVS CORP, C.A.
+- Ubicación: Los Teques, Miranda, Venezuela
+- LinkedIn: ${linkedinUrl}
+- WhatsApp directo: ${whatsappUrl}
+
+Crea contenido para:
+- Plataforma: ${currentPlatform.toUpperCase()}
+- Formato: ${currentFormat.toUpperCase()} (${currentFormat === 'post' ? 'Post cuadrado' : currentFormat === 'story' ? 'Historia vertical 9:16' : 'Reel vertical 9:16'})
+- Tema solicitado: ${topic}
+- Tono: ${tone}
+
+Genera un objeto JSON con:
+1. "kicker": etiqueta corta superior en mayúsculas (máx 4 palabras).
+2. "headline": titular corto y potente para el diseño gráfico (máx 8 palabras).
+3. "subcopy": texto breve de apoyo dentro del arte gráfico (máx 22 palabras).
+4. "scene1": frase gancho corta para los primeros 3 segundos de un Reel (máx 10 palabras).
+5. "scene2": frase de propuesta de valor para el segundo 3 al 6 del Reel (máx 12 palabras).
+6. "scene3": frase de cierre / llamado a la acción para el segundo 6 al 9 del Reel (máx 10 palabras).
+7. "caption": texto completo listo para publicar, estructurado con emojis, llamado a la acción y sección con 10 a 12 hashtags.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            kicker: { type: "STRING" },
+                            headline: { type: "STRING" },
+                            subcopy: { type: "STRING" },
+                            scene1: { type: "STRING" },
+                            scene2: { type: "STRING" },
+                            scene3: { type: "STRING" },
+                            caption: { type: "STRING" }
+                        },
+                        required: ["kicker", "headline", "subcopy", "scene1", "scene2", "scene3", "caption"]
+                    }
+                }
+            };
+
+            const apiUrl = '/api/gemini';
+
+            const userParts = [{ text: prompt }];
+            if (socialRefImageDataUrl && socialRefImageDataUrl.includes(',')) {
+                const [meta, base64Data] = socialRefImageDataUrl.split(',');
+                const mimeMatch = meta.match(/data:(.*);base64/);
+                userParts.push({
+                    inlineData: {
+                        mimeType: mimeMatch ? mimeMatch[1] : 'image/png',
+                        data: base64Data
+                    }
+                });
+            }
+            payload.contents = [{ role: 'user', parts: userParts }];
+
+            let attempts = 0;
+            const delays = [1000, 2000, 4000];
+            let success = false;
+            let forbidden403 = false;
+
+            while (attempts < 3 && !success && !forbidden403) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'gigadevs-studio' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 403 || response.status === 401) {
+                        forbidden403 = true;
+                        break;
+                    }
+
+                    if (!response.ok) throw new Error('API Error');
+
+                    const result = await response.json();
+                    const rawText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (!rawText) throw new Error('Empty response');
+
+                    const data = JSON.parse(rawText);
+
+                    document.getElementById('social-kicker').textContent = data.kicker.toUpperCase();
+                    document.getElementById('social-headline').textContent = data.headline;
+                    document.getElementById('social-subcopy').textContent = data.subcopy;
+                    document.getElementById('editSocialHeadline').value = data.headline;
+                    document.getElementById('editSocialSubcopy').value = data.subcopy;
+                    document.getElementById('reelScene1').value = data.scene1;
+                    document.getElementById('reelScene2').value = data.scene2;
+                    document.getElementById('reelScene3').value = data.scene3;
+                    document.getElementById('social-caption').value = data.caption;
+
+                    success = true;
+                    showToast(`¡Arte, Guion Reel y Copy generados con Gemini IA!`);
+                } catch (e) {
+                    attempts++;
+                    if (attempts < 3) {
+                        await new Promise(res => setTimeout(res, delays[attempts - 1]));
+                    }
+                }
+            }
+
+            if (!success) {
+                const fallback = buildSmartFallbackContent(topic, tone, currentPlatform, currentFormat, linkedinUrl, whatsappUrl);
+                document.getElementById('social-kicker').textContent = fallback.kicker;
+                document.getElementById('social-headline').textContent = fallback.headline;
+                document.getElementById('social-subcopy').textContent = fallback.subcopy;
+                document.getElementById('editSocialHeadline').value = fallback.headline;
+                document.getElementById('editSocialSubcopy').value = fallback.subcopy;
+                document.getElementById('reelScene1').value = fallback.scene1;
+                document.getElementById('reelScene2').value = fallback.scene2;
+                document.getElementById('reelScene3').value = fallback.scene3;
+                document.getElementById('social-caption').value = fallback.caption;
+
+                showToast(forbidden403
+                    ? 'Contenido y Guion Reel listos (la IA no respondió; intenta de nuevo)'
+                    : '¡Arte, Guion Reel y Copy con hashtags generados!');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = originalBtnHTML;
+            lucide.createIcons();
+        }
+
+        function generateAllQRs() {
+            syncContactLabels();
+            const linkedinUrl = document.getElementById('inputLinkedin').value.trim() || 'https://www.linkedin.com/company/gigadevs-corp';
+            const whatsappUrl = document.getElementById('inputWhatsapp').value.trim() || 'https://wa.me/584242588321';
+
+            ['qr-linkedin', 'qr-whatsapp', 'ig-qr-linkedin', 'ig-qr-whatsapp'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = '';
+            });
+
+            new QRCode(document.getElementById('qr-linkedin'), {
+                text: linkedinUrl,
+                width: 84,
+                height: 84,
+                colorDark: "#091526",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            new QRCode(document.getElementById('qr-whatsapp'), {
+                text: whatsappUrl,
+                width: 112,
+                height: 112,
+                colorDark: "#064e3b",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            new QRCode(document.getElementById('ig-qr-linkedin'), {
+                text: linkedinUrl,
+                width: 48,
+                height: 48,
+                colorDark: "#091526",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+            });
+
+            new QRCode(document.getElementById('ig-qr-whatsapp'), {
+                text: whatsappUrl,
+                width: 48,
+                height: 48,
+                colorDark: "#064e3b",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        }
+
+        async function downloadCardsPDF() {
+            showToast('Generando PDF 85×55 mm listo para imprenta...');
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'letter'
+                });
+
+                const frontEl = document.getElementById('card-front');
+                const backEl = document.getElementById('card-back');
+                const bg1 = document.getElementById('colorBg1').value || '#091526';
+
+                const canvasFront = await html2canvas(frontEl, { scale: 4, useCORS: true, backgroundColor: bg1 });
+                const canvasBack = await html2canvas(backEl, { scale: 4, useCORS: true, backgroundColor: bg1 });
+
+                const cardW = 85;
+                const cardH = 55;
+                const pageW = doc.internal.pageSize.getWidth();
+                const startX = (pageW - cardW) / 2;
+
+                doc.setFontSize(9);
+                doc.setTextColor(100, 116, 139);
+                doc.text('GIGADEVS CORP, C.A. - Tarjeta de Presentación (85 x 55 mm)', pageW / 2, 18, { align: 'center' });
+
+                doc.text('FRENTE (LinkedIn Corporativo)', startX, 27);
+                doc.addImage(canvasFront.toDataURL('image/png'), 'PNG', startX, 29, cardW, cardH);
+                doc.setDrawColor(148, 163, 184);
+                doc.setLineDashPattern([1.5, 1.5], 0);
+                doc.rect(startX, 29, cardW, cardH);
+
+                doc.text('REVERSO (WhatsApp Directo)', startX, 96);
+                doc.addImage(canvasBack.toDataURL('image/png'), 'PNG', startX, 98, cardW, cardH);
+                doc.rect(startX, 98, cardW, cardH);
+
+                doc.save('Gigadevs_Corp_Tarjeta_85x55mm.pdf');
+                showToast('¡PDF listo para imprenta descargado!');
+            } catch (err) {
+                showToast('Error al generar el PDF');
+            }
+        }
+
+        async function downloadCardsPNG() {
+            showToast('Exportando frente y reverso en PNG...');
+            try {
+                const frontEl = document.getElementById('card-front');
+                const backEl = document.getElementById('card-back');
+
+                const canvasFront = await html2canvas(frontEl, { scale: 3, useCORS: true, backgroundColor: null });
+                const linkFront = document.createElement('a');
+                linkFront.download = 'Gigadevs_Tarjeta_Frente_LinkedIn.png';
+                linkFront.href = canvasFront.toDataURL('image/png');
+                linkFront.click();
+
+                setTimeout(async () => {
+                    const canvasBack = await html2canvas(backEl, { scale: 3, useCORS: true, backgroundColor: null });
+                    const linkBack = document.createElement('a');
+                    linkBack.download = 'Gigadevs_Tarjeta_Reverso_WhatsApp.png';
+                    linkBack.href = canvasBack.toDataURL('image/png');
+                    linkBack.click();
+                    showToast('¡Imágenes descargadas!');
+                }, 500);
+            } catch (err) {
+                showToast('Error al exportar imágenes');
+            }
+        }
+
+        async function downloadSocialGraphic() {
+            showToast('Exportando arte gráfico en alta resolución...');
+            try {
+                const postEl = document.getElementById('social-canvas');
+                const canvas = await html2canvas(postEl, { scale: 3, useCORS: true });
+                const link = document.createElement('a');
+                link.download = `Gigadevs_Corp_${currentPlatform}_${currentFormat}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showToast('¡Arte gráfico descargado!');
+            } catch (err) {
+                showToast('Error al descargar imagen');
+            }
+        }
+
+        async function exportReelVideo() {
+            const btn = document.getElementById('btn-export-video');
+            const origHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<svg class="animate-spin h-3.5 w-3.5 text-slate-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Codificando MP4...</span>`;
+            showToast('Generando video MP4 universal (compatible con WhatsApp, Mac y Windows)...');
+
+            try {
+                const W = 540;
+                const H = 960;
+                const offCanvas = document.createElement('canvas');
+                offCanvas.width = W;
+                offCanvas.height = H;
+                const ctx = offCanvas.getContext('2d');
+
+                const bg1 = document.getElementById('socialBg1').value || '#081221';
+                const bg2 = document.getElementById('socialBg2').value || '#0d223d';
+                const accent = document.getElementById('socialAccent').value || '#22d3ee';
+                const textColor = document.getElementById('socialText').value || '#ffffff';
+
+                const scenes = [
+                    { tag: document.getElementById('social-kicker').textContent || 'GIGADEVS CORP, C.A.', text: document.getElementById('reelScene1').value || '¿Buscas llevar tu empresa al siguiente nivel digital?' },
+                    { tag: 'SOLUCIONES A MEDIDA', text: document.getElementById('reelScene2').value || 'Software, Web e IA desde Los Teques, Miranda' },
+                    { tag: 'CONECTA CON NOSOTROS', text: document.getElementById('reelScene3').value || 'Escanea nuestros QR y hablemos hoy mismo' }
+                ];
+
+                const contact = getContactData();
+                const qrLiCanvas = document.querySelector('#ig-qr-linkedin canvas') || document.querySelector('#qr-linkedin canvas');
+                const qrWaCanvas = document.querySelector('#ig-qr-whatsapp canvas') || document.querySelector('#qr-whatsapp canvas');
+
+                function wrapText(context, text, x, y, maxWidth, lineHeight) {
+                    const words = text.split(' ');
+                    let line = '';
+                    const lines = [];
+                    for (let n = 0; n < words.length; n++) {
+                        const testLine = line + words[n] + ' ';
+                        if (context.measureText(testLine).width > maxWidth && n > 0) {
+                            lines.push(line.trim());
+                            line = words[n] + ' ';
+                        } else {
+                            line = testLine;
+                        }
+                    }
+                    lines.push(line.trim());
+                    const startY = y - ((lines.length - 1) * lineHeight) / 2;
+                    lines.forEach((l, idx) => {
+                        context.fillText(l, x, startY + idx * lineHeight);
+                    });
+                }
+
+                // Dibuja el logotipo oficial G 3D Neon en el Canvas del Reel
+                function drawOfficialGigadevsLogo(c, x, y, size) {
+                    c.save();
+                    c.translate(x, y);
+                    const s = size / 120;
+                    c.scale(s, s);
+                    c.shadowColor = '#22d3ee';
+                    c.shadowBlur = 14;
+
+                    c.fillStyle = '#38bdf8';
+                    c.beginPath(); c.moveTo(60, 10); c.lineTo(18, 52); c.lineTo(30, 64); c.lineTo(60, 34); c.closePath(); c.fill();
+
+                    c.fillStyle = '#0284c7';
+                    c.beginPath(); c.moveTo(60, 10); c.lineTo(92, 42); c.lineTo(75, 42); c.lineTo(60, 27); c.closePath(); c.fill();
+
+                    c.fillStyle = '#1d4ed8';
+                    c.beginPath(); c.moveTo(18, 52); c.lineTo(60, 94); c.lineTo(60, 76); c.lineTo(30, 46); c.closePath(); c.fill();
+
+                    c.fillStyle = '#22d3ee';
+                    c.beginPath(); c.moveTo(60, 94); c.lineTo(102, 52); c.lineTo(62, 52); c.lineTo(50, 64); c.lineTo(82, 64); c.lineTo(60, 82); c.closePath(); c.fill();
+                    c.restore();
+                }
+
+                const particles = Array.from({ length: 24 }, (_, idx) => ({
+                    x: (idx * 97) % W,
+                    y: (idx * 173) % H,
+                    r: 1.5 + (idx % 3) * 1.2,
+                    speedY: 0.4 + (idx % 4) * 0.35,
+                    phase: idx * 0.7
+                }));
+
+                const duration = 9000;
+
+                function renderAtElapsed(elapsed) {
+                    const progress = Math.min(elapsed / duration, 1);
+                    const sceneIdx = Math.min(Math.floor(progress * 3), 2);
+                    const sceneProgress = (progress * 3) % 1;
+
+                    const grad = ctx.createLinearGradient(0, 0, W, H);
+                    grad.addColorStop(0, bg1);
+                    grad.addColorStop(1, bg2);
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, 0, W, H);
+
+                    if (socialRefImageObj) {
+                        ctx.save();
+                        const zoom = currentReelAnimStyle === 'kenburns' ? 1.05 + Math.sin(elapsed * 0.0015) * 0.07 : 1.04;
+                        ctx.globalAlpha = 0.28;
+                        const imgRatio = socialRefImageObj.width / socialRefImageObj.height;
+                        const canvasRatio = W / H;
+                        let drawW = W * zoom;
+                        let drawH = H * zoom;
+                        if (imgRatio > canvasRatio) {
+                            drawW = drawH * imgRatio;
+                        } else {
+                            drawH = drawW / imgRatio;
+                        }
+                        ctx.drawImage(socialRefImageObj, (W - drawW) / 2, (H - drawH) / 2, drawW, drawH);
+                        ctx.restore();
+                    }
+
+                    if (currentReelAnimStyle === 'pulsegrid') {
+                        ctx.save();
+                        ctx.strokeStyle = accent;
+                        ctx.globalAlpha = 0.14 + Math.sin(elapsed * 0.004) * 0.07;
+                        ctx.lineWidth = 1;
+                        const offset = (elapsed * 0.03) % 45;
+                        for (let gx = -45 + offset; gx < W; gx += 45) {
+                            ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
+                        }
+                        for (let gy = -45 + offset; gy < H; gy += 45) {
+                            ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
+                        }
+                        ctx.restore();
+                    } else if (currentReelAnimStyle === 'neonwaves') {
+                        ctx.save();
+                        ctx.strokeStyle = accent;
+                        [130, 210, 290].forEach((baseR, idx) => {
+                            const pulseR = baseR + Math.sin(elapsed * 0.003 + idx) * 22;
+                            ctx.globalAlpha = 0.22 - idx * 0.05;
+                            ctx.lineWidth = 2;
+                            ctx.beginPath();
+                            ctx.arc(W / 2, 415, pulseR, 0, Math.PI * 2);
+                            ctx.stroke();
+                        });
+                        ctx.restore();
+                    }
+
+                    ctx.save();
+                    ctx.fillStyle = accent;
+                    particles.forEach(p => {
+                        const py = (p.y - elapsed * 0.05 * p.speedY + H * 10) % H;
+                        const px = p.x + Math.sin(elapsed * 0.002 + p.phase) * 14;
+                        ctx.globalAlpha = 0.25 + Math.sin(elapsed * 0.004 + p.phase) * 0.2;
+                        ctx.beginPath();
+                        ctx.arc(px, py, p.r, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                    ctx.restore();
+
+                    ctx.save();
+                    ctx.globalAlpha = 0.24;
+                    ctx.fillStyle = accent;
+                    ctx.beginPath();
+                    ctx.arc(W * 0.8 + Math.sin(elapsed * 0.0025) * 45, H * 0.22 + Math.cos(elapsed * 0.0025) * 45, 200, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(W * 0.2 - Math.cos(elapsed * 0.0025) * 45, H * 0.82, 220, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+
+                    const segGap = 8;
+                    const segW = (W - 56 - segGap * 2) / 3;
+                    for (let s = 0; s < 3; s++) {
+                        const sx = 28 + s * (segW + segGap);
+                        ctx.fillStyle = 'rgba(255,255,255,0.22)';
+                        ctx.fillRect(sx, 24, segW, 5);
+                        const fillRatio = s < sceneIdx ? 1 : (s === sceneIdx ? sceneProgress : 0);
+                        ctx.fillStyle = accent;
+                        ctx.fillRect(sx, 24, segW * fillRatio, 5);
+                    }
+
+                    // Recuadro y Logo 3D Oficial GIGADEVS
+                    ctx.fillStyle = '#091526';
+                    ctx.beginPath();
+                    ctx.roundRect(48, 64, 48, 48, 12);
+                    ctx.fill();
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = 'rgba(34, 211, 238, 0.45)';
+                    ctx.stroke();
+                    drawOfficialGigadevsLogo(ctx, 52, 68, 40);
+
+                    ctx.fillStyle = textColor;
+                    ctx.font = 'bold 17px sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('GIGADEVS CORP, C.A.', 108, 86);
+                    ctx.fillStyle = accent;
+                    ctx.font = '600 12px sans-serif';
+                    ctx.fillText('Los Teques • Miranda', 108, 105);
+                    if (contact.rif) { ctx.font = '600 11px sans-serif'; ctx.fillText('RIF ' + contact.rif, 108, 122); }
+
+                    const alpha = sceneProgress < 0.15 ? sceneProgress / 0.15 : (sceneProgress > 0.88 ? (1 - sceneProgress) / 0.12 : 1);
+                    const slideY = (1 - Math.min(sceneProgress / 0.2, 1)) * 26;
+                    const textScale = currentReelAnimStyle === 'kenburns' ? 0.96 + Math.min(sceneProgress, 1) * 0.06 : 1;
+
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+                    ctx.translate(W / 2, 410 + slideY);
+                    ctx.scale(textScale, textScale);
+                    ctx.textAlign = 'center';
+
+                    ctx.fillStyle = accent;
+                    ctx.font = 'bold 15px sans-serif';
+                    ctx.fillText(scenes[sceneIdx].tag.toUpperCase(), 0, -75);
+
+                    ctx.fillStyle = textColor;
+                    ctx.font = 'bold 34px sans-serif';
+                    wrapText(ctx, scenes[sceneIdx].text, 0, 10, W - 84, 44);
+                    ctx.restore();
+
+                    if (currentReelAnimStyle === 'cyberscan') {
+                        const scanY = 160 + ((elapsed * 0.18) % 520);
+                        const scanGrad = ctx.createLinearGradient(40, scanY, W - 40, scanY);
+                        scanGrad.addColorStop(0, 'transparent');
+                        scanGrad.addColorStop(0.5, accent);
+                        scanGrad.addColorStop(1, 'transparent');
+                        ctx.save();
+                        ctx.globalAlpha = 0.65;
+                        ctx.fillStyle = scanGrad;
+                        ctx.fillRect(40, scanY, W - 80, 3);
+                        ctx.restore();
+                    }
+
+                    if (showSocialQR && (qrLiCanvas || qrWaCanvas)) {
+                        const showLi = socialQRChoice === 'both' || socialQRChoice === 'linkedin';
+                        const showWa = socialQRChoice === 'both' || socialQRChoice === 'whatsapp';
+
+                        if (showLi && showWa && qrLiCanvas && qrWaCanvas) {
+                            ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                            ctx.beginPath();
+                            ctx.roundRect(36, 715, 224, 165, 20);
+                            ctx.roundRect(280, 715, 224, 165, 20);
+                            ctx.fill();
+
+                            ctx.drawImage(qrLiCanvas, 98, 728, 100, 100);
+                            ctx.fillStyle = '#0a66c2';
+                            ctx.font = 'bold 13px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.fillText('LINKEDIN OFICIAL', 148, 848);
+                            ctx.fillStyle = '#334155';
+                            ctx.font = '11px sans-serif';
+                            ctx.fillText(contact.liHandle, 148, 866);
+
+                            ctx.drawImage(qrWaCanvas, 342, 728, 100, 100);
+                            ctx.fillStyle = '#059669';
+                            ctx.font = 'bold 13px sans-serif';
+                            ctx.fillText('WHATSAPP DIRECTO', 392, 848);
+                            ctx.fillStyle = '#334155';
+                            ctx.font = '11px sans-serif';
+                            ctx.fillText(contact.waTxt, 392, 866);
+                        } else {
+                            const activeQR = showLi ? qrLiCanvas : qrWaCanvas;
+                            const label = showLi ? 'CONECTA EN LINKEDIN' : 'CHATEA POR WHATSAPP';
+                            const sub = showLi ? contact.liShort : contact.waTxt;
+                            const badgeColor = showLi ? '#0a66c2' : '#059669';
+
+                            ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                            ctx.beginPath();
+                            ctx.roundRect(90, 710, W - 180, 175, 22);
+                            ctx.fill();
+
+                            if (activeQR) ctx.drawImage(activeQR, W / 2 - 52, 724, 104, 104);
+                            ctx.fillStyle = badgeColor;
+                            ctx.font = 'bold 14px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.fillText(label, W / 2, 848);
+                            ctx.fillStyle = '#334155';
+                            ctx.font = '12px sans-serif';
+                            ctx.fillText(sub, W / 2, 868);
+                        }
+                    } else {
+                        ctx.fillStyle = 'rgba(255,255,255,0.12)';
+                        ctx.beginPath();
+                        ctx.roundRect(48, 760, W - 96, 95, 20);
+                        ctx.fill();
+                        ctx.fillStyle = textColor;
+                        ctx.font = 'bold 15px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(contact.liShort, W / 2, 798);
+                        ctx.fillStyle = accent;
+                        ctx.fillText('WhatsApp: ' + contact.waTxt, W / 2, 828);
+                    }
+                }
+
+                // 1) Intentar codificacion MP4 H.264 real ultrarrapida via WebCodecs + mp4-muxer
+                let exportedNativeMp4 = false;
+                if (typeof VideoEncoder !== 'undefined' && window.Mp4Muxer) {
+                    try {
+                        const codecsToTry = ['avc1.42001f', 'avc1.42E01F', 'avc1.4d002a'];
+                        let selectedCodec = null;
+                        for (const c of codecsToTry) {
+                            const sup = await VideoEncoder.isConfigSupported({
+                                codec: c,
+                                width: W,
+                                height: H,
+                                bitrate: 2_500_000,
+                                framerate: 30
+                            });
+                            if (sup && sup.supported) {
+                                selectedCodec = c;
+                                break;
+                            }
+                        }
+
+                        if (selectedCodec) {
+                            const muxer = new Mp4Muxer.Muxer({
+                                target: new Mp4Muxer.ArrayBufferTarget(),
+                                video: {
+                                    codec: 'avc',
+                                    width: W,
+                                    height: H
+                                },
+                                fastStart: 'in-memory'
+                            });
+
+                            const videoEncoder = new VideoEncoder({
+                                output: (chunk, meta) => muxer.addVideoChunk(chunk, meta),
+                                error: e => console.error(e)
+                            });
+
+                            videoEncoder.configure({
+                                codec: selectedCodec,
+                                width: W,
+                                height: H,
+                                bitrate: 2_500_000,
+                                framerate: 30
+                            });
+
+                            const fps = 30;
+                            const totalFrames = 9 * fps;
+                            for (let frameIdx = 0; frameIdx < totalFrames; frameIdx++) {
+                                const elapsedMs = (frameIdx / fps) * 1000;
+                                renderAtElapsed(elapsedMs);
+                                const timestampUs = Math.round((frameIdx / fps) * 1_000_000);
+                                const durationUs = Math.round((1 / fps) * 1_000_000);
+                                const vFrame = new VideoFrame(offCanvas, { timestamp: timestampUs, duration: durationUs });
+                                videoEncoder.encode(vFrame, { keyFrame: frameIdx % 30 === 0 });
+                                vFrame.close();
+                                if (frameIdx % 15 === 0) {
+                                    await new Promise(r => setTimeout(r, 0));
+                                }
+                            }
+
+                            await videoEncoder.flush();
+                            muxer.finalize();
+
+                            const { buffer } = muxer.target;
+                            const blob = new Blob([buffer], { type: 'video/mp4' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `Gigadevs_Corp_${currentPlatform}_Reel.mp4`;
+                            a.click();
+                            URL.revokeObjectURL(url);
+                            exportedNativeMp4 = true;
+                            showToast('¡Video Reel .MP4 (H.264 universal) descargado para WhatsApp, Mac y Windows!');
+                        }
+                    } catch (wcErr) {
+                        exportedNativeMp4 = false;
+                    }
+                }
+
+                // 2) Respaldo MediaRecorder si el navegador no tiene WebCodecs H.264
+                if (!exportedNativeMp4) {
+                    const stream = offCanvas.captureStream(30);
+                    const types = ['video/mp4', 'video/webm;codecs=h264', 'video/webm'];
+                    const mimeType = types.find(t => MediaRecorder.isTypeSupported(t)) || 'video/webm';
+                    const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+                    const recorder = new MediaRecorder(stream, { mimeType });
+                    const chunks = [];
+                    recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+
+                    const recordingDone = new Promise(resolve => {
+                        recorder.onstop = () => {
+                            const blob = new Blob(chunks, { type: mimeType });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `Gigadevs_Corp_${currentPlatform}_Reel.${ext}`;
+                            a.click();
+                            URL.revokeObjectURL(url);
+                            resolve();
+                        };
+                    });
+
+                    recorder.start();
+                    const startTime = performance.now();
+                    function loopFallback(now) {
+                        const elapsed = now - startTime;
+                        renderAtElapsed(elapsed);
+                        if (elapsed < duration) {
+                            requestAnimationFrame(loopFallback);
+                        } else {
+                            recorder.stop();
+                        }
+                    }
+                    requestAnimationFrame(loopFallback);
+                    await recordingDone;
+                    showToast(`¡Video Reel descargado (.${ext})!`);
+                }
+            } catch (err) {
+                showToast('Tu navegador no soportó la codificación de video directa');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = origHTML;
+                lucide.createIcons();
+            }
+        }
+
+        function copySocialCaption() {
+            const textarea = document.getElementById('social-caption');
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            showToast('¡Texto y hashtags copiados al portapapeles!');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStudioState();
+            generateAllQRs();
+            syncContactLabels();
+        });
+    </script>
+</body>
+</html>
