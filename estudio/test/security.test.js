@@ -50,7 +50,7 @@ test('URLs no permitidas: esquemas raros, credenciales, localhost, IPs internas 
     'http://db.internal/', 'no-es-url'
   ];
   for (const u of bad) assert.equal(validatePageUrl(u), null, u);
-  assert.ok(validatePageUrl('https://gigadevs-corp.onrender.com/'));
+  assert.ok(validatePageUrl('https://gigadevscorp.com/'));
 });
 
 test('Validacion de Gemini: rechaza herramientas, campos extra y textos enormes', () => {
