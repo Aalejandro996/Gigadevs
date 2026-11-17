@@ -440,7 +440,7 @@ const App = () => {
               <li><a href={quincenaLink('/app', 'footer')} className="hover:text-cyan-400">Entrar a Quincena VE</a></li>
               <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-cyan-400">Crear cuenta gratis</a></li>
               <li><a href={quincenaLink('/app', 'footer-negocio') + '#negocio'} className="hover:text-cyan-400">Quincena VE para tu negocio</a></li>
-              <li><a href="https://erp-web-jaby.onrender.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400">Contax® · facturación y contabilidad</a></li>
+              <li><a href="https://contax.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400">Contax® · facturación y contabilidad</a></li>
               <li><a href="#criteriseg" onClick={(e) => { e.preventDefault(); scrollToSection('criteriseg'); }} className="hover:text-cyan-400">Criteriseg · control y auditoría</a></li>
               <li><a href="#surtia" onClick={(e) => { e.preventDefault(); scrollToSection('surtia'); }} className="hover:text-cyan-400">Surtia™ · ventas por WhatsApp</a></li>
             </ul>
@@ -461,7 +461,7 @@ const App = () => {
           <p>© {new Date().getFullYear()} Gigadevs Corp. Todos los derechos reservados. Contax® es una marca registrada de Gigadevs Corp.</p>
           <p className="mt-2 flex justify-center gap-4 flex-wrap">
             {[['terminos', 'Términos y condiciones'], ['privacidad', 'Política de privacidad'], ['cookies', 'Política de cookies']].map(([k, t]) => (
-              <a key={k} href={`https://erp-web-jaby.onrender.com/legal/${k}`} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 underline">{t}</a>
+              <a key={k} href={`https://contax.gigadevscorp.com/legal/${k}`} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 underline">{t}</a>
             ))}
           </p>
         </div>
