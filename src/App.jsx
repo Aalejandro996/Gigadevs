@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, ChevronRight, MessageCircle, Lock, Mail, Send, Receipt, Package, TrendingUp, BadgeCheck, Clock, KeyRound, Gamepad2, Tractor, Code2, ArrowRight } from 'lucide-react';
+import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, ChevronRight, MessageCircle, Lock, Mail, Send, Receipt, Package, TrendingUp, BadgeCheck, Clock, KeyRound, Gamepad2, Tractor, ArrowRight } from 'lucide-react';
 import { QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
 import { useReveal, useScrollProgress } from './motion.js';
 
@@ -103,11 +103,6 @@ const PROJECTS = [
   {
     icon: Gamepad2, name: 'DomusHack', stack: ['Node.js · Express', 'SQLite', 'IA'],
     text: 'Ventas, servicio técnico, inventario y alquiler de consolas, con un asistente de IA (Claude o Gemini) que sugiere horarios de torneos e ideas de fidelización.',
-  },
-  {
-    icon: Code2, name: 'Portafolio personal', stack: ['HTML', 'CSS', 'JavaScript'],
-    text: 'Sitio de una sola página escrito a mano, sin frameworks: proyectos de auditoría, seguridad y software a la medida.',
-    href: 'https://portafolio-adrian-munoz.onrender.com/', cta: 'Ver sitio',
   },
 ];
 
