@@ -71,7 +71,14 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
         </div>
       </Tile>
 
-      <Tile className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white" d={90}
+      <Tile className="bg-[#0B2530] text-white" d={0}
+        eyebrow={<img src="/marketing/surtia/logo-icono.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
+        title={<>Surt<span className="text-[#FF7A45]">i</span>a™</>} sub={<>Tu asistente de ventas <span className="text-[#16C79A]">por WhatsApp.</span></>}
+        links={<><a href="#surtia" onClick={(e) => { e.preventDefault(); go('surtia'); }} className="chev text-[#16C79A]">Más información</a></>}>
+        <SurtiaChat compact />
+      </Tile>
+
+      <Tile className="md:col-span-2 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white" d={90}
         eyebrow={<div className="w-14 h-14 rounded-2xl bg-indigo-500 text-white flex items-center justify-center shadow-lg"><ClipboardCheck size={30} /></div>}
         title="Criteriseg" sub="Control y auditoría, de la planificación al informe firmado."
         links={<><a href={criterisegDemo} target="_blank" rel="noopener noreferrer" className="chev text-indigo-200">Pedir una demostración</a><a href="#criteriseg" onClick={(e) => { e.preventDefault(); go('criteriseg'); }} className="chev text-white">Más información</a></>}>
@@ -82,6 +89,21 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
         </div>
       </Tile>
 
+    </div>
+  </section>
+);
+
+// Franja con los banners de las marcas (logos nuevos de noviembre de 2026)
+const MARCAS = [['contax', 'Contax: tu empresa en orden, tu fisco al día'], ['surtia', 'Surtia: tu asistente de ventas por WhatsApp'],
+  ['quincena', 'Quincena VE: tu dinero en orden, todos los días']];
+export const Marcas = ({ go }) => (
+  <section className="bg-blue-950 py-8 md:py-10" aria-label="Nuestras marcas">
+    <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+      {MARCAS.map(([id, alt], i) => (
+        <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); go(id); }} className="reveal block rounded-3xl overflow-hidden ring-1 ring-white/10 hover:ring-cyan-400/60 transition" style={{ '--d': `${i * 80}ms` }}>
+          <img src={`/marketing/${id}/banner.webp`} alt={alt} width={1280} height={714} loading="lazy" className="w-full h-auto block" />
+        </a>
+      ))}
     </div>
   </section>
 );
@@ -394,6 +416,10 @@ const CONTAX_NOVEDADES = [
   [MessagesSquare, 'Vende por WhatsApp', 'Un bot atiende a tus clientes: catálogo y pedidos. Si te envían su orden de compra en PDF, la lee y te deja la factura lista.'],
   [BarChart3, 'Libros que cuadran', 'Ventas, compras, inventario y cuentas por cobrar y pagar contra la contabilidad, con un clic para contabilizar lo pendiente.'],
   [ShieldCheck, 'Pruébalo 72 horas', 'Demo gratis de Facturación e Inventario, sin tarjeta. Si te gusta, te cotizamos tu licencia en USDT o bolívares.'],
+  [Receipt, 'Facturas de proveedores', 'Registra facturas y notas de tus proveedores con su cuenta contable, retenciones de IVA e ISLR y el comprobante por correo. Ves el asiento antes de contabilizar.'],
+  [Users, 'Ficha de clientes y proveedores', 'Código, condición de pago, vendedor, cuenta contable y las retenciones que aplican a cada uno, según el Decreto 1.808.'],
+  [ClipboardCheck, 'Reportes y consultas', 'Retenciones de IVA e ISLR en ventas, cuentas por cobrar por cliente o por vendedor con antigüedad, mayor analítico y estados financieros por mes.'],
+  [PenLine, 'Asientos manuales', 'Apertura, conciliación, reclasificación, provisiones o depreciación, con número correlativo y reverso cuando haga falta.'],
 ];
 
 export const ErpSection = ({ demoHref, onCotizar }) => (
@@ -414,7 +440,7 @@ export const ErpSection = ({ demoHref, onCotizar }) => (
           </div>
           <p className="text-xl md:text-3xl font-semibold text-white mb-3 leading-snug">Facturación, contabilidad, compras e inventario según la normativa venezolana. En la web y por WhatsApp.</p>
           <p className="text-gray-300 leading-relaxed mb-5 max-w-2xl">
-            Facturas con número de control según la Providencia SNAT/2011/00071, en bolívares o divisas con la tasa BCV del día e IVA e IGTF calculados.
+            Facturas con el número de control de tu imprenta digital (Providencia SNAT/2024/000102 y, desde el 19 de abril de 2027, SNAT/2026/00093), en bolívares o divisas con la tasa BCV del día e IVA e IGTF calculados.
             Libros de compras y ventas que cuadran con la contabilidad VEN-NIF, órdenes de compra, cuentas por cobrar y pagar, auditoría financiera y un bot
             de WhatsApp que toma pedidos. Cada empresa trabaja aislada y segura, y paga solo por los módulos que usa.
           </p>
