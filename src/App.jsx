@@ -15,16 +15,20 @@ const InstagramIcon = ({ size = 24 }) => (
 );
 const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
 
+// Barra: los cuatro productos van en el menú «Productos»; el resto son secciones de la página. «Cotizar» es el botón principal.
+const PRODUCTOS = [
+  ['quincena', 'Quincena VE', 'Finanzas personales en $ y Bs.', '/quincena-icon.png'],
+  ['contax', 'Contax®', 'Facturación, contabilidad e inventario', '/contax-icon.png'],
+  ['criteriseg', 'Criteriseg', 'Control y auditoría', '/criteriseg-icono.svg'],
+  ['surtia', 'Surtia™', 'Pedidos por WhatsApp con IA', '/marketing/surtia/logo-icono.png'],
+];
 const NAV = [
-  ['productos', 'Productos'],
-  ['quincena', 'Quincena VE'],
-  ['contax', 'Contax'],
-  ['criteriseg', 'Criteriseg'],
-  ['surtia', 'Surtia™'],
-  ['cotizar', 'Cotizar'],
+  ['como-trabajamos', 'Cómo trabajamos'],
+  ['cotizar', 'A la medida'],
   ['preguntas', 'Preguntas'],
   ['contacto', 'Contacto'],
 ];
+const SECCIONES = ['productos', ...PRODUCTOS.map(([id]) => id), ...NAV.map(([id]) => id)];
 
 const SERVICES = [
   {
@@ -163,6 +167,24 @@ const App = () => {
     fetchBCVRate();
   }, []);
 
+  // Sección visible (la que cruza la franja bajo la barra) para resaltarla en el menú.
+  const [activa, setActiva] = useState('');
+  const [abierto, setAbierto] = useState('');   // '' | 'productos' | 'entrar'
+  useEffect(() => {
+    const els = SECCIONES.map((id) => document.getElementById(id)).filter(Boolean);
+    if (!('IntersectionObserver' in window) || !els.length) return undefined;
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) setActiva(e.target.id) }), { rootMargin: '-80px 0px -70% 0px' });
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!abierto) return undefined;
+    const cerrar = (e) => { if (e.type === 'keydown' ? e.key === 'Escape' : !e.target.closest('[data-menu]')) setAbierto('') };
+    document.addEventListener('click', cerrar); document.addEventListener('keydown', cerrar);
+    return () => { document.removeEventListener('click', cerrar); document.removeEventListener('keydown', cerrar) };
+  }, [abierto]);
+  const enProductos = activa === 'productos' || PRODUCTOS.some(([id]) => id === activa);
+
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -170,6 +192,7 @@ const App = () => {
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
     setIsMenuOpen(false);
+    setAbierto('');
   };
 
   const money = (n) => n.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -204,40 +227,83 @@ const App = () => {
       </a>
 
       {/* --- ENCABEZADO --- */}
-      <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-blue-950/80 glass py-2 border-b border-white/10' : 'bg-blue-950 py-3.5'}`}>
-        <div className="container mx-auto px-4 flex justify-between items-center gap-4">
-          <a href="#inicio" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center gap-3" aria-label="Gigadevs Corp, inicio">
-            <Logo size={48} />
-            <span className="text-xl sm:text-2xl font-black tracking-tight text-white whitespace-nowrap">GIGADEVS <span className="text-cyan-400">CORP</span></span>
+      <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-blue-950/85 glass py-2 border-b border-white/10 shadow-lg shadow-blue-950/30' : 'bg-blue-950 py-3'}`}>
+        <div className="container mx-auto px-4 flex items-center gap-4">
+          <a href="#inicio" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center gap-2.5 flex-shrink-0" aria-label="Gigadevs Corp, inicio">
+            <Logo size={scrolled ? 38 : 44} />
+            <span className="text-lg sm:text-xl font-black tracking-tight text-white whitespace-nowrap">GIGADEVS <span className="text-cyan-400">CORP</span></span>
           </a>
 
-          <nav className="hidden xl:flex gap-6 font-medium text-white text-sm whitespace-nowrap" aria-label="Secciones">
+          <nav className="hidden lg:flex items-center gap-1 mx-auto text-sm font-medium text-blue-100 whitespace-nowrap" aria-label="Secciones">
+            <div className="relative" data-menu>
+              <button onClick={() => setAbierto(abierto === 'productos' ? '' : 'productos')} aria-expanded={abierto === 'productos'} aria-haspopup="true"
+                className={`nav-link flex items-center gap-1 ${enProductos ? 'activo' : ''}`}>
+                Productos <ChevronRight size={14} className={`transition-transform ${abierto === 'productos' ? '-rotate-90' : 'rotate-90'}`} />
+              </button>
+              <div className={`absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-200 ${abierto === 'productos' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-1'}`}>
+                <div className="w-[520px] bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 p-3 grid grid-cols-2 gap-1">
+                  {PRODUCTOS.map(([id, nombre, desc, icono]) => (
+                    <button key={id} onClick={() => scrollToSection(id)} className={`flex items-center gap-3 p-3 rounded-xl text-left hover:bg-gray-50 transition-colors ${activa === id ? 'bg-cyan-50' : ''}`}>
+                      <img src={icono} alt="" width={40} height={40} className="w-10 h-10 rounded-xl object-contain bg-white shadow-sm flex-shrink-0" />
+                      <span className="min-w-0"><span className="block font-bold text-gray-900">{nombre}</span><span className="block text-xs text-gray-500 whitespace-normal">{desc}</span></span>
+                    </button>
+                  ))}
+                  <button onClick={() => scrollToSection('productos')} className="col-span-2 mt-1 flex items-center justify-center gap-1 p-2.5 rounded-xl bg-gray-50 text-sm font-semibold text-blue-900 hover:bg-gray-100">
+                    Ver todos los productos <ArrowRight size={14} />
+                  </button>
+                </div>
+              </div>
+            </div>
             {NAV.map(([id, label]) => (
-              <button key={id} onClick={() => scrollToSection(id)} className={`hover:text-cyan-400 transition-colors ${id === 'quincena' ? 'text-emerald-300 font-semibold' : id === 'criteriseg' ? 'text-indigo-300 font-semibold' : ''}`}>{label}</button>
+              <button key={id} onClick={() => scrollToSection(id)} aria-current={activa === id ? 'location' : undefined} className={`nav-link ${activa === id ? 'activo' : ''}`}>{label}</button>
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-3 whitespace-nowrap">
-            <div className="hidden 2xl:flex text-xs text-cyan-400 bg-blue-900/80 px-3 py-1.5 rounded-xl border border-blue-800 font-mono items-center gap-1" title="Tasa oficial del Banco Central de Venezuela">
-              <Lock size={12} className="text-green-400" /> BCV: Bs. {rate}
+          <div className="hidden lg:flex items-center gap-2 whitespace-nowrap ml-auto lg:ml-0">
+            <div className="relative" data-menu>
+              <button onClick={() => setAbierto(abierto === 'entrar' ? '' : 'entrar')} aria-expanded={abierto === 'entrar'} aria-haspopup="true"
+                className="flex items-center gap-1 px-3.5 py-2 rounded-full text-sm font-semibold text-white hover:bg-white/10 transition-colors">
+                <KeyRound size={15} className="text-cyan-300" /> Entrar <ChevronRight size={14} className={`transition-transform ${abierto === 'entrar' ? '-rotate-90' : 'rotate-90'}`} />
+              </button>
+              <div className={`absolute right-0 top-full pt-3 transition-all duration-200 ${abierto === 'entrar' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-1'}`}>
+                <div className="w-64 bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 p-2">
+                  <a href={quincenaLink('/app', 'menu')} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50"><img src="/quincena-icon.png" alt="" width={32} height={32} className="w-8 h-8 rounded-lg" /><span><b className="block text-sm text-gray-900">Quincena VE</b><span className="text-xs text-gray-500">Tu cuenta personal</span></span></a>
+                  <a href="https://contax.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50"><img src="/contax-icon.png" alt="" width={32} height={32} className="w-8 h-8 rounded-lg" /><span><b className="block text-sm text-gray-900">Contax®</b><span className="text-xs text-gray-500">Tu empresa</span></span></a>
+                </div>
+              </div>
             </div>
-            <a href={quincenaLink('/app', 'menu')} className="pill !px-4 !py-2 text-white border border-emerald-400/60 hover:bg-emerald-500/20 text-sm">Entrar a Quincena VE</a>
-            <button onClick={() => scrollToSection('contacto')} className="pill !px-5 !py-2 bg-cyan-500 text-blue-950 hover:bg-cyan-400 text-sm">Cotizar gratis</button>
+            <button onClick={() => scrollToSection('contacto')} className="pill !px-5 !py-2 bg-cyan-500 text-blue-950 hover:bg-cyan-400 text-sm shadow-lg shadow-cyan-500/20">Cotizar gratis</button>
           </div>
 
-          <button className="lg:hidden text-cyan-500 p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={isMenuOpen} aria-controls="menu-movil">
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          <button className="lg:hidden ml-auto text-white p-2 rounded-xl hover:bg-white/10" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={isMenuOpen} aria-controls="menu-movil">
+            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
 
-        <div id="menu-movil" className={`lg:hidden absolute w-full bg-blue-950 shadow-2xl transition-all duration-300 border-b border-blue-900 ${isMenuOpen ? 'max-h-[640px] opacity-100 py-4' : 'max-h-0 opacity-0 overflow-hidden py-0'}`}>
-          <div className="px-6 space-y-1">
-            <div className="text-xs text-cyan-400 bg-blue-900/80 px-3 py-2 rounded-xl border border-blue-800 font-mono text-center mb-2">Tasa BCV de hoy: Bs. {rate}</div>
-            {NAV.map(([id, label]) => (
-              <button key={id} onClick={() => scrollToSection(id)} className={`block w-full text-left py-2.5 font-medium border-b border-blue-900/50 ${id === 'quincena' ? 'text-emerald-300' : id === 'criteriseg' ? 'text-indigo-300' : 'text-white'}`}>{label}</button>
-            ))}
-            <a href={quincenaLink('/app', 'menu-movil')} className="block w-full text-center border border-emerald-400/60 text-white font-bold py-3 rounded-xl mt-4">Entrar a Quincena VE</a>
-            <button onClick={() => scrollToSection('contacto')} className="block w-full text-center bg-cyan-500 text-blue-950 font-bold py-3 rounded-xl mt-2 shadow-lg">Cotizar gratis</button>
+        <div id="menu-movil" className={`lg:hidden absolute w-full bg-blue-950 shadow-2xl transition-all duration-300 border-b border-blue-900 overflow-y-auto ${isMenuOpen ? 'max-h-[85vh] opacity-100 py-4' : 'max-h-0 opacity-0 overflow-hidden py-0'}`}>
+          <div className="px-5 space-y-4">
+            <div>
+              <p className="eyebrow text-cyan-400 text-xs mb-2">Productos</p>
+              <div className="grid grid-cols-2 gap-2">
+                {PRODUCTOS.map(([id, nombre, desc, icono]) => (
+                  <button key={id} onClick={() => scrollToSection(id)} className="flex flex-col items-start gap-2 p-3 rounded-2xl bg-white/5 border border-white/10 text-left active:bg-white/10">
+                    <img src={icono} alt="" width={32} height={32} className="w-8 h-8 rounded-lg object-contain bg-white" />
+                    <span><span className="block text-sm font-bold text-white">{nombre}</span><span className="block text-[11px] leading-tight text-blue-200">{desc}</span></span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="divide-y divide-white/10 border-y border-white/10">
+              {NAV.map(([id, label]) => (
+                <button key={id} onClick={() => scrollToSection(id)} className={`flex w-full items-center justify-between py-3 font-medium ${activa === id ? 'text-cyan-300' : 'text-white'}`}>{label}<ChevronRight size={16} className="text-blue-300" /></button>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <a href={quincenaLink('/app', 'menu-movil')} className="text-center border border-white/20 text-white text-sm font-semibold py-3 rounded-xl">Entrar a Quincena VE</a>
+              <a href="https://contax.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="text-center border border-white/20 text-white text-sm font-semibold py-3 rounded-xl">Entrar a Contax</a>
+            </div>
+            <button onClick={() => scrollToSection('contacto')} className="block w-full text-center bg-cyan-500 text-blue-950 font-bold py-3 rounded-xl shadow-lg">Cotizar gratis</button>
+            <p className="text-xs text-cyan-400/80 font-mono text-center"><Lock size={11} className="inline text-green-400" /> Tasa BCV de hoy: Bs. {rate}</p>
           </div>
         </div>
       </header>
