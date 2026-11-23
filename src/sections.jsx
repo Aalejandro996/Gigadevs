@@ -11,7 +11,7 @@ const QuincenaIcon = ({ size = 56 }) => (
 
 // Surtia™: asistente de ventas por WhatsApp (producto propio). Marca ™ hasta el registro ante el SAPI.
 const SurtiaMark = ({ size = 56 }) => (
-  <img src="/marketing/surtia/logo-icono.svg" width={size} height={size} alt="" className="flex-shrink-0" />
+  <img src="/marketing/surtia/logo-icono.png" width={size} height={size} alt="" className="flex-shrink-0" />
 );
 const SurtiaChat = ({ compact = false }) => (
   <div className={`bg-[#0B2530] text-white rounded-[2rem] p-5 shadow-2xl text-left ${compact ? '' : 'max-w-md mx-auto ring-1 ring-white/10'}`} role="img" aria-label="Ejemplo de una conversación de WhatsApp atendida por Surtia">
@@ -132,7 +132,7 @@ export const QuincenaSection = () => (
         <QuincenaIcon size={72} />
         <p className="eyebrow text-emerald-200 mt-5 mb-3">Producto propio de Gigadevs · Gratis · Web y Android</p>
         <h2 id="t-quincena" className="display text-5xl md:text-7xl">Quincena VE 🇻🇪</h2>
-        <p className="text-xl md:text-3xl font-semibold text-emerald-100 mt-4 leading-snug">Para tu quincena. Y ahora, para tu negocio.</p>
+        <p className="text-xl md:text-3xl font-semibold text-emerald-100 mt-4 leading-snug">Para tu quincena. Tu dinero en orden, todos los días.</p>
       </div>
 
       {/* Personal */}
