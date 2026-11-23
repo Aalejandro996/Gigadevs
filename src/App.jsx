@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, ChevronRight, MessageCircle, Lock, Mail, Send, Receipt, Package, TrendingUp, BadgeCheck, Clock, KeyRound, Gamepad2, Tractor, ArrowRight } from 'lucide-react';
-import { QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
+import { QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, Marcas, quincenaLink } from './sections.jsx';
 import { useReveal, useScrollProgress } from './motion.js';
 
 const WHATSAPP = '584242588321';
@@ -304,6 +304,8 @@ const App = () => {
         />
 
         <Statement />
+
+        <Marcas go={scrollToSection} />
 
         {/* --- QUINCENA: PRODUCTO PROPIO --- */}
         <QuincenaSection />
