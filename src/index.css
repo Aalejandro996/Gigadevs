@@ -57,3 +57,11 @@
   .hero-copy, .hero-device { opacity: 1; transform: none; }
   .tile, .tile .art { transition: none; }
 }
+
+/* Barra de navegación: enlace con subrayado animado; .activo = sección visible */
+.nav-link { position: relative; padding: 0.5rem 0.8rem; border-radius: 9999px; transition: color .2s, background-color .2s; }
+.nav-link:hover { color: #fff; background-color: rgb(255 255 255 / 0.06); }
+.nav-link::after { content: ""; position: absolute; left: 0.8rem; right: 0.8rem; bottom: 0.2rem; height: 2px; border-radius: 2px; background: #22d3ee; transform: scaleX(0); transition: transform .25s ease; }
+.nav-link.activo { color: #fff; }
+.nav-link.activo::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) { .nav-link::after { transition: none; } }
