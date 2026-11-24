@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, ChevronRight, MessageCircle, Lock, Mail, Send, Receipt, Package, TrendingUp, BadgeCheck, Clock, KeyRound, Gamepad2, Tractor, ArrowRight } from 'lucide-react';
-import { QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, Marcas, quincenaLink } from './sections.jsx';
+import { QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
 import { useReveal, useScrollProgress } from './motion.js';
 
 const WHATSAPP = '584242588321';
@@ -18,6 +18,7 @@ const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(te
 // Barra: los cuatro productos van en el menú «Productos»; el resto son secciones de la página. «Cotizar» es el botón principal.
 const PRODUCTOS = [
   ['quincena', 'Quincena VE', 'Finanzas personales en $ y Bs.', '/quincena-icon.png'],
+  ['quincena-negocio', 'Quincena Mi negocio', 'Ventas, fiado y caja en $ y Bs.', '/quincena-negocio-icon.png'],
   ['contax', 'Contax®', 'Facturación, contabilidad e inventario', '/contax-icon.png'],
   ['criteriseg', 'Criteriseg', 'Control y auditoría', '/criteriseg-icono.svg'],
   ['surtia', 'Surtia™', 'Pedidos por WhatsApp con IA', '/marketing/surtia/logo-icono.png'],
@@ -268,6 +269,7 @@ const App = () => {
               <div className={`absolute right-0 top-full pt-3 transition-all duration-200 ${abierto === 'entrar' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-1'}`}>
                 <div className="w-64 bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 p-2">
                   <a href={quincenaLink('/app', 'menu')} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50"><img src="/quincena-icon.png" alt="" width={32} height={32} className="w-8 h-8 rounded-lg" /><span><b className="block text-sm text-gray-900">Quincena VE</b><span className="text-xs text-gray-500">Tu cuenta personal</span></span></a>
+                  <a href={quincenaLink('/app', 'menu-negocio') + '#negocio'} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50"><img src="/quincena-negocio-icon.png" alt="" width={32} height={32} className="w-8 h-8 rounded-lg" /><span><b className="block text-sm text-gray-900">Quincena Mi negocio</b><span className="text-xs text-gray-500">Ventas y caja</span></span></a>
                   <a href="https://contax.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50"><img src="/contax-icon.png" alt="" width={32} height={32} className="w-8 h-8 rounded-lg" /><span><b className="block text-sm text-gray-900">Contax®</b><span className="text-xs text-gray-500">Tu empresa</span></span></a>
                 </div>
               </div>
@@ -371,7 +373,6 @@ const App = () => {
 
         <Statement />
 
-        <Marcas go={scrollToSection} />
 
         {/* --- QUINCENA: PRODUCTO PROPIO --- */}
         <QuincenaSection />
