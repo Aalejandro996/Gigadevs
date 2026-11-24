@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, ChevronRight, MessageCircle, Lock, Mail, Send, Receipt, Package, TrendingUp, BadgeCheck, Clock, KeyRound, Gamepad2, Tractor, ArrowRight } from 'lucide-react';
-import { MisionVision, QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
+import { MisionVision, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
 import { useReveal, useScrollProgress } from './motion.js';
 
 const WHATSAPP = '584242588321';
@@ -23,6 +23,11 @@ const PRODUCTOS = [
   ['criteriseg', 'Criteriseg', 'Control y auditoría', '/criteriseg-icono.svg'],
   ['surtia', 'Surtia™', 'Pedidos por WhatsApp con IA', '/marketing/surtia/logo-icono.png'],
 ];
+// Cada producto tiene su propia página; Criteriseg (sin sitio público) lleva a su tarjeta en esta página
+const DESTINO = {
+  quincena: quincenaLink('/', 'menu'), 'quincena-negocio': quincenaLink('/', 'menu-negocio') + '#negocio',
+  contax: 'https://contax.gigadevscorp.com/', surtia: 'https://surtia.gigadevscorp.com/',
+};
 const NAV = [
   ['mision', 'Quiénes somos'],
   ['como-trabajamos', 'Cómo trabajamos'],
@@ -30,7 +35,7 @@ const NAV = [
   ['preguntas', 'Preguntas'],
   ['contacto', 'Contacto'],
 ];
-const SECCIONES = ['productos', ...PRODUCTOS.map(([id]) => id), ...NAV.map(([id]) => id)];
+const SECCIONES = ['productos', ...NAV.map(([id]) => id)];
 
 const SERVICES = [
   {
@@ -185,8 +190,9 @@ const App = () => {
     document.addEventListener('click', cerrar); document.addEventListener('keydown', cerrar);
     return () => { document.removeEventListener('click', cerrar); document.removeEventListener('keydown', cerrar) };
   }, [abierto]);
-  const enProductos = activa === 'productos' || PRODUCTOS.some(([id]) => id === activa);
+  const enProductos = activa === 'productos';
 
+  const abrirProducto = (id) => { setAbierto(''); if (DESTINO[id]) window.open(DESTINO[id], '_blank', 'noopener'); else scrollToSection('productos'); };
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -245,7 +251,7 @@ const App = () => {
               <div className={`absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-200 ${abierto === 'productos' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-1'}`}>
                 <div className="w-[520px] bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 p-3 grid grid-cols-2 gap-1">
                   {PRODUCTOS.map(([id, nombre, desc, icono]) => (
-                    <button key={id} onClick={() => scrollToSection(id)} className={`flex items-center gap-3 p-3 rounded-xl text-left hover:bg-gray-50 transition-colors ${activa === id ? 'bg-cyan-50' : ''}`}>
+                    <button key={id} onClick={() => abrirProducto(id)} className={`flex items-center gap-3 p-3 rounded-xl text-left hover:bg-gray-50 transition-colors ${activa === id ? 'bg-cyan-50' : ''}`}>
                       <img src={icono} alt="" width={40} height={40} className="w-10 h-10 rounded-xl object-contain bg-white shadow-sm flex-shrink-0" />
                       <span className="min-w-0"><span className="block font-bold text-gray-900">{nombre}</span><span className="block text-xs text-gray-500 whitespace-normal">{desc}</span></span>
                     </button>
@@ -289,7 +295,7 @@ const App = () => {
               <p className="eyebrow text-cyan-400 text-xs mb-2">Productos</p>
               <div className="grid grid-cols-2 gap-2">
                 {PRODUCTOS.map(([id, nombre, desc, icono]) => (
-                  <button key={id} onClick={() => scrollToSection(id)} className="flex flex-col items-start gap-2 p-3 rounded-2xl bg-white/5 border border-white/10 text-left active:bg-white/10">
+                  <button key={id} onClick={() => abrirProducto(id)} className="flex flex-col items-start gap-2 p-3 rounded-2xl bg-white/5 border border-white/10 text-left active:bg-white/10">
                     <img src={icono} alt="" width={32} height={32} className="w-8 h-8 rounded-lg object-contain bg-white" />
                     <span><span className="block text-sm font-bold text-white">{nombre}</span><span className="block text-[11px] leading-tight text-blue-200">{desc}</span></span>
                   </button>
@@ -376,18 +382,6 @@ const App = () => {
 
         <MisionVision />
 
-
-        {/* --- QUINCENA: PRODUCTO PROPIO --- */}
-        <QuincenaSection />
-
-        {/* --- Criteriseg: PRODUCTO PROPIO (sin enlace a ninguna instalación) --- */}
-        <CriterisegSection demoHref={waLink('Hola Gigadevs Corp 👋 Quiero una demostración de Criteriseg, el sistema de control y auditoría.')} onCotizar={() => scrollToSection('contacto')} />
-
-        {/* --- SURTIA: PRODUCTO PROPIO (asistente de ventas por WhatsApp) --- */}
-        <SurtiaSection demoHref={waLink('Hola Gigadevs Corp 👋 Quiero ver Surtia con mi propio catálogo.')} onCotizar={() => scrollToSection('contacto')} />
-
-        {/* --- CONTAX (antes ERP): PRODUCTO PROPIO (privado: solo presentación, sin acceso a la plataforma) --- */}
-        <ErpSection demoHref={waLink('Hola Gigadevs Corp 👋 Quiero probar Contax gratis 72 horas (facturación e inventario).')} onCotizar={() => scrollToSection('contacto')} />
 
         <ComoTrabajamos onCotizar={() => scrollToSection('contacto')} />
 
@@ -508,8 +502,8 @@ const App = () => {
               <li><a href={quincenaLink('/app', 'footer-registro') + '#registro'} className="hover:text-cyan-400">Crear cuenta gratis</a></li>
               <li><a href={quincenaLink('/app', 'footer-negocio') + '#negocio'} className="hover:text-cyan-400">Quincena VE para tu negocio</a></li>
               <li><a href="https://contax.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400">Contax® · facturación y contabilidad</a></li>
-              <li><a href="#criteriseg" onClick={(e) => { e.preventDefault(); scrollToSection('criteriseg'); }} className="hover:text-cyan-400">Criteriseg · control y auditoría</a></li>
-              <li><a href="#surtia" onClick={(e) => { e.preventDefault(); scrollToSection('surtia'); }} className="hover:text-cyan-400">Surtia™ · ventas por WhatsApp</a></li>
+              <li><a href="#productos" onClick={(e) => { e.preventDefault(); scrollToSection('productos'); }} className="hover:text-cyan-400">Criteriseg · control y auditoría</a></li>
+              <li><a href="https://surtia.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400">Surtia™ · ventas por WhatsApp</a></li>
             </ul>
           </div>
           <div>
