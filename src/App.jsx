@@ -331,7 +331,7 @@ const App = () => {
             </div>
 
             <div className="hero-device mt-10 md:mt-12 max-w-4xl mx-auto" aria-hidden="true">
-              <div className="bg-white text-gray-900 rounded-[2rem] p-5 md:p-8 shadow-[0_50px_120px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
+              <div className="lg-panel text-gray-900 rounded-[2rem] p-5 md:p-8">
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-red-400"></span><span className="w-3 h-3 rounded-full bg-yellow-400"></span><span className="w-3 h-3 rounded-full bg-green-400"></span><span className="ml-3 font-bold text-blue-950">Panel de tu negocio</span></div>
                   <span className="text-xs bg-green-100 text-green-700 font-bold px-2 py-1 rounded-full">En línea</span>

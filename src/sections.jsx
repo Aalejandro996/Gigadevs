@@ -24,8 +24,8 @@ const SurtiaChat = ({ compact = false }) => (
 );
 
 // Mosaico de productos al estilo de la portada de apple.com: cada producto con sus colores.
-const Tile = ({ className = '', eyebrow, title, sub, children, links, d = 0, dark = true }) => (
-  <article className={`reveal tile relative overflow-hidden rounded-[2rem] text-center flex flex-col items-center pt-10 md:pt-12 px-6 min-h-[360px] md:min-h-[400px] ${className}`} style={{ '--d': `${d}ms` }}>
+const Tile = ({ className = '', style = {}, eyebrow, title, sub, children, links, d = 0, dark = true }) => (
+  <article className={`reveal tile relative overflow-hidden rounded-[2rem] text-center flex flex-col items-center pt-10 md:pt-12 px-6 min-h-[360px] md:min-h-[400px] ${className}`} style={{ ...style, '--d': `${d}ms` }}>
     {eyebrow}
     <h3 className="display text-4xl md:text-5xl mt-2">{title}</h3>
     <p className={`text-lg md:text-xl mt-3 max-w-md ${dark ? 'opacity-90' : 'opacity-80'}`}>{sub}</p>
@@ -37,53 +37,53 @@ const Tile = ({ className = '', eyebrow, title, sub, children, links, d = 0, dar
 export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
   <section id="productos" className="bg-white p-3 md:p-4" aria-label="Nuestros productos">
     <div className="rail md:grid-cols-2 gap-3 md:gap-4">
-      <Tile className="bg-gradient-to-b from-emerald-700 to-emerald-900 text-white" d={0}
+      <Tile className="tile-brand" style={{ '--glow': '#F5C518' }} d={0}
         eyebrow={<img src="/quincena-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
         title="Quincena VE" sub="Tu quincena, en dólares y en bolívares. Gratis."
-        links={<><a href={quincenaLink('/app', 'tile') + '#registro'} className="chev text-white">Crear cuenta gratis</a><a href="#quincena" onClick={(e) => { e.preventDefault(); go('quincena'); }} className="chev text-emerald-200">Más información</a></>}>
-        <div className="bg-white text-gray-900 rounded-t-[2rem] p-6 text-left shadow-2xl">
-          <div className="text-sm font-semibold text-gray-500">Te queda esta quincena</div>
-          <div className="text-4xl font-black my-1 text-emerald-800">$148,20</div>
-          <div className="h-2.5 rounded-full bg-emerald-100 overflow-hidden mb-2"><div className="h-full w-[62%] bg-emerald-700"></div></div>
-          {[['Alquiler', '$120,00'], ['Carlos te debe · el 15', '$25,00']].map(([k, v]) => <div key={k} className="flex justify-between py-2 border-t border-gray-100 text-sm"><span>{k}</span><strong>{v}</strong></div>)}
+        links={<><a href={quincenaLink('/app', 'tile') + '#registro'} className="chev text-white">Crear cuenta gratis</a><a href="#quincena" onClick={(e) => { e.preventDefault(); go('quincena'); }} className="chev text-[#F5C518]">Más información</a></>}>
+        <div className="lg-panel text-gray-900 rounded-t-[2rem] p-6 text-left">
+          <div className="text-xs font-bold uppercase tracking-widest text-slate-500">Hoy puedes gastar</div>
+          <div className="text-4xl font-black my-1 text-[#0B2347]">$9,85</div>
+          <div className="h-2.5 rounded-full bg-slate-200 overflow-hidden mb-2"><div className="h-full w-[62%] bg-gradient-to-r from-[#2E9A5E] to-[#57C08A]"></div></div>
+          {[['Te queda esta quincena', '$148,20'], ['Alquiler · fijo', '$120,00']].map(([k, v]) => <div key={k} className="flex justify-between py-2 border-t border-gray-100 text-sm"><span>{k}</span><strong>{v}</strong></div>)}
         </div>
       </Tile>
 
-      <Tile className="bg-gradient-to-b from-emerald-50 to-emerald-100 text-emerald-950" dark={false} d={90}
+      <Tile className="tile-brand claro" style={{ '--glow': '#9CC8E0' }} dark={false} d={90}
         eyebrow={<span className="text-xs font-bold uppercase tracking-widest bg-cyan-400 text-cyan-950 px-3 py-1 rounded-full">Nuevo</span>}
         title="Quincena VE para tu negocio" sub="Ventas, fiado y caja en $ y en Bs. Gratis."
-        links={<><a href={quincenaLink('/app', 'tile-negocio') + '#negocio'} className="chev text-emerald-800">Crear la cuenta del negocio</a><a href="#quincena-negocio" onClick={(e) => { e.preventDefault(); go('quincena-negocio'); }} className="chev text-emerald-700">Más información</a></>}>
-        <div className="bg-white text-gray-900 rounded-t-[2rem] p-6 text-left shadow-2xl border border-emerald-200">
-          <div className="flex justify-between items-center"><span className="text-sm font-semibold text-gray-500">Vendiste hoy</span><span className="text-xs font-bold bg-emerald-700 text-white px-2 py-0.5 rounded-full">Hoy</span></div>
-          <div className="text-4xl font-black my-1 text-emerald-800">$128,50</div>
+        links={<><a href={quincenaLink('/app', 'tile-negocio') + '#negocio'} className="chev text-[#2F4A9A]">Crear la cuenta del negocio</a><a href="#quincena-negocio" onClick={(e) => { e.preventDefault(); go('quincena-negocio'); }} className="chev text-[#0B2347]">Más información</a></>}>
+        <div className="lg-panel text-gray-900 rounded-t-[2rem] p-6 text-left">
+          <div className="flex justify-between items-center"><span className="text-sm font-semibold text-gray-500">Vendiste hoy</span><span className="text-xs font-bold bg-[#F5C518] text-[#0B2347] px-2 py-0.5 rounded-full">Hoy</span></div>
+          <div className="text-4xl font-black my-1 text-[#0B2347]">$128,50</div>
           {[['Pago móvil', '$65,00', ''], ['Fiado · María', '$12,00', 'text-orange-600']].map(([k, v, c]) => <div key={k} className="flex justify-between py-2 border-t border-gray-100 text-sm"><span>{k}</span><strong className={c}>{v}</strong></div>)}
         </div>
       </Tile>
 
-      <Tile className="bg-[#191919] text-white" d={0}
+      <Tile className="tile-brand" style={{ '--glow': '#87e64b' }} d={0}
         eyebrow={<img src="/contax-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
         title="Contax" sub={<>Tu empresa en orden. <span className="text-[#87e64b]">Tu fisco al día.</span></>}
         links={<><a href={erpDemo} target="_blank" rel="noopener noreferrer" className="chev text-[#87e64b]">Probar gratis 72 h</a><a href="https://contax.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="chev text-white">Conocer Contax</a></>}>
-        <div className="bg-white text-gray-900 rounded-t-[2rem] p-6 text-left shadow-2xl">
+        <div className="lg-panel text-gray-900 rounded-t-[2rem] p-6 text-left">
           <div className="flex justify-between items-start gap-2"><span className="text-sm font-semibold text-gray-500">Factura A00000128</span><span className="text-[10px] font-bold border-2 border-gray-900 rounded-md px-1.5">Control 00-00000128</span></div>
           <div className="text-3xl font-black my-2">Bs. 4.234,00</div>
           {[['IVA 16 %', 'Bs. 584,00'], ['IGTF 3 % (divisas)', 'Bs. 109,50']].map(([k, v]) => <div key={k} className="flex justify-between py-2 border-t border-gray-100 text-sm"><span>{k}</span><strong>{v}</strong></div>)}
         </div>
       </Tile>
 
-      <Tile className="bg-[#0B2530] text-white" d={0}
+      <Tile className="tile-brand" style={{ '--glow': '#16C79A' }} d={0}
         eyebrow={<img src="/marketing/surtia/logo-icono.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
         title={<>Surt<span className="text-[#FF7A45]">i</span>a™</>} sub={<>Tu asistente de ventas <span className="text-[#16C79A]">por WhatsApp.</span></>}
-        links={<><a href="#surtia" onClick={(e) => { e.preventDefault(); go('surtia'); }} className="chev text-[#16C79A]">Más información</a></>}>
+        links={<><a href="https://surtia.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="chev text-[#16C79A]">Conocer Surtia</a><a href="#surtia" onClick={(e) => { e.preventDefault(); go('surtia'); }} className="chev text-white">Más información</a></>}>
         <SurtiaChat compact />
       </Tile>
 
-      <Tile className="md:col-span-2 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white" d={90}
-        eyebrow={<div className="w-14 h-14 rounded-2xl bg-indigo-500 text-white flex items-center justify-center shadow-lg"><ClipboardCheck size={30} /></div>}
+      <Tile className="md:col-span-2 tile-brand" style={{ '--glow': '#6FA8DC' }} d={90}
+        eyebrow={<img src="/criteriseg-icono.svg" alt="" width={56} height={62} className="drop-shadow-lg" />}
         title="Criteriseg" sub="Control y auditoría, de la planificación al informe firmado."
-        links={<><a href={criterisegDemo} target="_blank" rel="noopener noreferrer" className="chev text-indigo-200">Pedir una demostración</a><a href="#criteriseg" onClick={(e) => { e.preventDefault(); go('criteriseg'); }} className="chev text-white">Más información</a></>}>
-        <div className="bg-white text-gray-900 rounded-t-[2rem] p-6 text-left shadow-2xl">
-          <div className="font-bold text-indigo-950 text-sm">Auditoría financiera · Cuentas por pagar</div>
+        links={<><a href={criterisegDemo} target="_blank" rel="noopener noreferrer" className="chev text-[#9CC8E0]">Pedir una demostración</a><a href="#criteriseg" onClick={(e) => { e.preventDefault(); go('criteriseg'); }} className="chev text-white">Más información</a></>}>
+        <div className="lg-panel text-gray-900 rounded-t-[2rem] p-6 text-left">
+          <div className="font-bold text-[#17365D] text-sm">Auditoría financiera · Cuentas por pagar</div>
           {[['ALTO', 'Pagos sin orden aprobada', 'bg-red-100 text-red-700'], ['MEDIO', 'Auxiliar no conciliado', 'bg-amber-100 text-amber-800']].map(([r, x, c]) => <div key={x} className="flex items-center gap-3 py-2 border-t border-gray-100 mt-1"><span className={`text-[10px] font-black px-2 py-1 rounded-md ${c}`}>{r}</span><span className="text-sm">{x}</span></div>)}
           <div className="flex justify-between text-[11px] font-semibold mt-2 pt-2 border-t border-gray-100">{['Auditor', 'Jefe', 'Gerente'].map((n) => <span key={n} className="text-emerald-700 flex items-center gap-1"><CheckCircle size={13} />{n}</span>)}<span className="text-gray-400 flex items-center gap-1"><PenLine size={13} />Contralor</span></div>
         </div>
@@ -95,13 +95,13 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
 
 // Franja con los banners de las marcas (logos nuevos de noviembre de 2026)
 const MARCAS = [['contax', 'Contax: tu empresa en orden, tu fisco al día'], ['surtia', 'Surtia: tu asistente de ventas por WhatsApp'],
-  ['quincena', 'Quincena VE: tu dinero en orden, todos los días']];
+  ['quincena', 'Quincena VE: tu dinero en orden, todos los días'], ['criteriseg', 'Criteriseg: contraloría y auditoría de seguros']];
 export const Marcas = ({ go }) => (
-  <section className="bg-blue-950 py-8 md:py-10" aria-label="Nuestras marcas">
-    <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+  <section className="tile-brand py-8 md:py-10" style={{ '--glow': '#2F4A9A' }} aria-label="Nuestras marcas">
+    <div className="familia container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {MARCAS.map(([id, alt], i) => (
         <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); go(id); }} className="reveal block rounded-3xl overflow-hidden ring-1 ring-white/10 hover:ring-cyan-400/60 transition" style={{ '--d': `${i * 80}ms` }}>
-          <img src={`/marketing/${id}/banner.webp`} alt={alt} width={1280} height={714} loading="lazy" className="w-full h-auto block" />
+          <img src={`/marketing/${id}/banner.webp`} alt={alt} width={1280} height={714} loading="lazy" className="w-full aspect-[1280/714] object-cover block" />
         </a>
       ))}
     </div>
@@ -147,32 +147,32 @@ const NEGOCIO = [
 const NEGOCIO_PLUS = [[Package, 'Productos con inventario'], [Receipt, 'Recibos para WhatsApp'], [FileSpreadsheet, 'Excel para tu contador'], [Users, 'Vendedores desde su teléfono']];
 
 export const QuincenaSection = () => (
-  <section id="quincena" className="py-10 md:py-14 bg-gradient-to-br from-emerald-700 to-emerald-900 text-white relative overflow-hidden" aria-labelledby="t-quincena">
+  <section id="quincena" style={{ '--glow': '#F5C518' }} className="py-10 md:py-14 tile-brand text-white relative overflow-hidden" aria-labelledby="t-quincena">
     <div className="absolute -top-40 -right-40 w-[520px] h-[520px] bg-white/5 rounded-full"></div>
     <div className="container mx-auto px-4 relative z-10">
       <div className="text-center max-w-4xl mx-auto mb-10 reveal">
         <QuincenaIcon size={72} />
-        <p className="eyebrow text-emerald-200 mt-5 mb-3">Producto propio de Gigadevs · Gratis · Web y Android</p>
+        <p className="eyebrow text-[#F5C518] mt-5 mb-3">Producto propio de Gigadevs · Gratis · Web y Android</p>
         <h2 id="t-quincena" className="display text-5xl md:text-7xl">Quincena VE 🇻🇪</h2>
-        <p className="text-xl md:text-3xl font-semibold text-emerald-100 mt-4 leading-snug">Para tu quincena. Tu dinero en orden, todos los días.</p>
+        <p className="text-xl md:text-3xl font-semibold text-slate-200 mt-4 leading-snug">Para tu quincena. Tu dinero en orden, todos los días.</p>
       </div>
 
       {/* Personal */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         <div className="lg:col-span-7 reveal">
-          <p className="eyebrow text-emerald-200 mb-2">Personal</p>
+          <p className="eyebrow text-[#F5C518] mb-2">Personal</p>
           <h3 className="display text-3xl md:text-5xl mb-4">Controla tu quincena, en dólares y en bolívares.</h3>
-          <p className="text-emerald-50/90 text-lg leading-relaxed mb-6 max-w-2xl">
+          <p className="text-slate-200 text-lg leading-relaxed mb-6 max-w-2xl">
             Para quien cobra cada 15 días o cada semana: gastos en dólares o moneda local con la tasa del día, pagos, deudas y cuánto te queda
             hasta el próximo cobro. En Venezuela, Colombia, Chile, Perú, México y Argentina.
           </p>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2.5 text-emerald-50 mb-7">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2.5 text-slate-100 mb-7">
             {[[Wallet, 'Dólares y moneda local con la tasa del día'], [CalendarCheck, 'Pagos fijos con avisos antes de vencer'], [HandCoins, 'Lleva la cuenta de quién te debe'], [PiggyBank, 'Plan para salir de deudas'], [Smartphone, 'Web y app para Android'], [CheckCircle, 'Sin publicidad: tus datos son solo tuyos']].map(([Icon, x]) => (
-              <li key={x} className="flex items-start gap-2"><Icon size={18} className="text-emerald-200 flex-shrink-0 mt-0.5" /> {x}</li>
+              <li key={x} className="flex items-start gap-2"><Icon size={18} className="text-[#F5C518] flex-shrink-0 mt-0.5" /> {x}</li>
             ))}
           </ul>
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
-            <a href={quincenaLink('/app', 'registro') + '#registro'} className="pill bg-white text-emerald-800 hover:bg-emerald-50 shadow-xl"><UserPlus size={20} /> Crear cuenta gratis</a>
+            <a href={quincenaLink('/app', 'registro') + '#registro'} className="pill bg-[#F5C518] text-[#0B2347] hover:brightness-105 shadow-xl"><UserPlus size={20} /> Crear cuenta gratis</a>
             <a href={quincenaLink('/app', 'entrar')} className="pill border border-white/50 text-white hover:bg-white/10"><LogIn size={20} /> Entrar a Quincena VE</a>
             <a href={quincenaLink('/', 'conocer')} className="chev text-white px-2">Conocer más</a>
           </div>
@@ -180,30 +180,30 @@ export const QuincenaSection = () => (
       </div>
 
       {/* Negocio */}
-      <div id="quincena-negocio" className="mt-20 md:mt-28 bg-white text-emerald-950 rounded-[2.5rem] p-6 md:p-12 shadow-2xl scroll-mt-24">
+      <div id="quincena-negocio" className="mt-20 md:mt-28 bg-white text-[#0B2347] rounded-[2.5rem] p-6 md:p-12 shadow-2xl scroll-mt-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 reveal">
             <span className="text-xs font-bold uppercase tracking-widest bg-cyan-400 text-cyan-950 px-3 py-1 rounded-full">Nuevo · Ya disponible</span>
             <h3 className="display text-3xl md:text-5xl mt-4 mb-4">Quincena VE para tu negocio.</h3>
-            <p className="text-lg text-emerald-900/80 leading-relaxed mb-6">
+            <p className="text-lg text-slate-600 leading-relaxed mb-6">
               Ventas, fiado y caja en $ y en Bs. Para bodegas, comida, belleza, venta por Instagram y cualquier emprendimiento que cobra por pago móvil,
               en efectivo o en dólares. Va aparte de tu quincena personal, en la misma cuenta. <strong>Gratis.</strong>
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
               {NEGOCIO.map(([Icon, x, dd], i) => (
-                <div key={x} className="reveal bg-emerald-50 rounded-2xl p-4" style={{ '--d': `${i * 90}ms` }}>
-                  <Icon size={22} className="text-emerald-700 mb-2" />
+                <div key={x} className="reveal bg-[#EEF3FB] rounded-2xl p-4" style={{ '--d': `${i * 90}ms` }}>
+                  <Icon size={22} className="text-[#2F4A9A] mb-2" />
                   <div className="font-bold mb-1">{x}</div>
-                  <p className="text-sm text-emerald-900/75 leading-relaxed">{dd}</p>
+                  <p className="text-sm text-slate-600 leading-relaxed">{dd}</p>
                 </div>
               ))}
             </div>
-            <p className="text-sm text-emerald-900/80 mb-6"><strong>¿Necesitas más?</strong> Negocio Plus (inventario, recibos, Excel para tu contador y vendedores) se pide por WhatsApp.</p>
+            <p className="text-sm text-slate-600 mb-6"><strong>¿Necesitas más?</strong> Negocio Plus (inventario, recibos, Excel para tu contador y vendedores) se pide por WhatsApp.</p>
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
-              <a href={quincenaLink('/app', 'negocio') + '#negocio'} className="pill bg-emerald-700 text-white hover:bg-emerald-800 shadow-lg"><Store size={20} /> Crear la cuenta de mi negocio</a>
-              <span className="text-sm text-emerald-900/70">¿Ya usas la app? Actívalo en <strong>Más › Mi negocio</strong>.</span>
+              <a href={quincenaLink('/app', 'negocio') + '#negocio'} className="pill bg-[#0B2347] text-white hover:bg-[#163A73] shadow-lg"><Store size={20} /> Crear la cuenta de mi negocio</a>
+              <span className="text-sm text-slate-500">¿Ya usas la app? Actívalo en <strong>Más › Mi negocio</strong>.</span>
             </div>
-            <p className="text-xs text-emerald-900/60 mt-4">Quincena VE lleva tus cuentas; no emite facturas fiscales. Para facturar según el SENIAT, mira Contax.</p>
+            <p className="text-xs text-slate-500 mt-4">Quincena VE lleva tus cuentas; no emite facturas fiscales. Para facturar según el SENIAT, mira Contax.</p>
           </div>
         </div>
       </div>
