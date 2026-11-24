@@ -40,7 +40,7 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
       <Tile className="tile-brand" style={{ '--glow': '#F5C518' }} d={0}
         eyebrow={<img src="/quincena-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
         title="Quincena VE" sub="Tu quincena, en dólares y en bolívares. Gratis."
-        links={<><a href={quincenaLink('/app', 'tile') + '#registro'} className="chev text-white">Crear cuenta gratis</a><a href="#quincena" onClick={(e) => { e.preventDefault(); go('quincena'); }} className="chev text-[#F5C518]">Más información</a></>}>
+        links={<><a href={quincenaLink('/app', 'tile') + '#registro'} className="chev text-white">Crear cuenta gratis</a><a href={quincenaLink('/', 'tile-info')} target="_blank" rel="noopener noreferrer" className="chev text-[#F5C518]">Más información</a></>}>
         <div className="lg-panel text-gray-900 rounded-t-[2rem] p-6 text-left">
           <div className="text-xs font-bold uppercase tracking-widest text-slate-500">Hoy puedes gastar</div>
           <div className="text-4xl font-black my-1 text-[#0B2347]">$9,85</div>
@@ -52,7 +52,7 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
       <Tile className="tile-brand claro" style={{ '--glow': '#9CC8E0' }} dark={false} d={90}
         eyebrow={<div className="flex flex-col items-center gap-2"><img src="/quincena-negocio-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" /><span className="text-xs font-bold uppercase tracking-widest bg-[#F5C518] text-[#0B2347] px-3 py-1 rounded-full">Nuevo</span></div>}
         title="Quincena Mi negocio" sub="Ventas, fiado y caja en $ y en Bs. Gratis."
-        links={<><a href={quincenaLink('/app', 'tile-negocio') + '#negocio'} className="chev text-[#2F4A9A]">Crear la cuenta del negocio</a><a href="#quincena-negocio" onClick={(e) => { e.preventDefault(); go('quincena-negocio'); }} className="chev text-[#0B2347]">Más información</a></>}>
+        links={<><a href={quincenaLink('/app', 'tile-negocio') + '#negocio'} className="chev text-[#2F4A9A]">Crear la cuenta del negocio</a><a href={quincenaLink('/', 'tile-negocio-info') + '#negocio'} target="_blank" rel="noopener noreferrer" className="chev text-[#0B2347]">Más información</a></>}>
         <div className="lg-panel text-gray-900 rounded-t-[2rem] p-6 text-left">
           <div className="flex justify-between items-center"><span className="text-sm font-semibold text-gray-500">Vendiste hoy</span><span className="text-xs font-bold bg-[#F5C518] text-[#0B2347] px-2 py-0.5 rounded-full">Hoy</span></div>
           <div className="text-4xl font-black my-1 text-[#0B2347]">$128,50</div>
@@ -74,14 +74,14 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
       <Tile className="tile-brand" style={{ '--glow': '#16C79A' }} d={0}
         eyebrow={<img src="/marketing/surtia/logo-icono.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" />}
         title={<>Surt<span className="text-[#FF7A45]">i</span>a™</>} sub={<>Tu asistente de ventas <span className="text-[#16C79A]">por WhatsApp.</span></>}
-        links={<><a href="https://surtia.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="chev text-[#16C79A]">Conocer Surtia</a><a href="#surtia" onClick={(e) => { e.preventDefault(); go('surtia'); }} className="chev text-white">Más información</a></>}>
+        links={<><a href="https://surtia.gigadevscorp.com/" target="_blank" rel="noopener noreferrer" className="chev text-[#16C79A]">Conocer Surtia</a></>}>
         <SurtiaChat compact />
       </Tile>
 
       <Tile className="md:col-span-2 tile-brand" style={{ '--glow': '#6FA8DC' }} d={90}
         eyebrow={<img src="/criteriseg-icono.svg" alt="" width={56} height={62} className="drop-shadow-lg" />}
         title="Criteriseg" sub="Control y auditoría, de la planificación al informe firmado."
-        links={<><a href={criterisegDemo} target="_blank" rel="noopener noreferrer" className="chev text-[#9CC8E0]">Pedir una demostración</a><a href="#criteriseg" onClick={(e) => { e.preventDefault(); go('criteriseg'); }} className="chev text-white">Más información</a></>}>
+        links={<><a href={criterisegDemo} target="_blank" rel="noopener noreferrer" className="chev text-[#9CC8E0]">Pedir una demostración</a></>}>
         <div className="lg-panel text-gray-900 rounded-t-[2rem] p-6 text-left">
           <div className="font-bold text-[#17365D] text-sm">Auditoría financiera · Cuentas por pagar</div>
           {[['ALTO', 'Pagos sin orden aprobada', 'bg-red-100 text-red-700'], ['MEDIO', 'Auxiliar no conciliado', 'bg-amber-100 text-amber-800']].map(([r, x, c]) => <div key={x} className="flex items-center gap-3 py-2 border-t border-gray-100 mt-1"><span className={`text-[10px] font-black px-2 py-1 rounded-md ${c}`}>{r}</span><span className="text-sm">{x}</span></div>)}
