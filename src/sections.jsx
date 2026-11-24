@@ -50,8 +50,8 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
       </Tile>
 
       <Tile className="tile-brand claro" style={{ '--glow': '#9CC8E0' }} dark={false} d={90}
-        eyebrow={<span className="text-xs font-bold uppercase tracking-widest bg-cyan-400 text-cyan-950 px-3 py-1 rounded-full">Nuevo</span>}
-        title="Quincena VE para tu negocio" sub="Ventas, fiado y caja en $ y en Bs. Gratis."
+        eyebrow={<div className="flex flex-col items-center gap-2"><img src="/quincena-negocio-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" /><span className="text-xs font-bold uppercase tracking-widest bg-[#F5C518] text-[#0B2347] px-3 py-1 rounded-full">Nuevo</span></div>}
+        title="Quincena Mi negocio" sub="Ventas, fiado y caja en $ y en Bs. Gratis."
         links={<><a href={quincenaLink('/app', 'tile-negocio') + '#negocio'} className="chev text-[#2F4A9A]">Crear la cuenta del negocio</a><a href="#quincena-negocio" onClick={(e) => { e.preventDefault(); go('quincena-negocio'); }} className="chev text-[#0B2347]">Más información</a></>}>
         <div className="lg-panel text-gray-900 rounded-t-[2rem] p-6 text-left">
           <div className="flex justify-between items-center"><span className="text-sm font-semibold text-gray-500">Vendiste hoy</span><span className="text-xs font-bold bg-[#F5C518] text-[#0B2347] px-2 py-0.5 rounded-full">Hoy</span></div>
