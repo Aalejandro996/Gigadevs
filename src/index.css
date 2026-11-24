@@ -95,3 +95,8 @@
   .lg-panel { -webkit-backdrop-filter: none; backdrop-filter: none; background: #fff; }
   .familia a { -webkit-backdrop-filter: none; backdrop-filter: none; background: #13305c; }
 }
+
+/* Tarjetas de producto: al pasar, brillan con el color de su marca */
+.tile-brand.tile:hover { box-shadow: var(--gl-rim-dark), 0 34px 70px -24px color-mix(in srgb, var(--glow) 55%, transparent); }
+.tile-brand.claro.tile:hover { box-shadow: var(--gl-rim), 0 34px 70px -24px color-mix(in srgb, var(--glow) 70%, transparent); }
+.tile-brand.tile::after { content: ""; position: absolute; left: 18%; right: 18%; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: var(--glow); opacity: .85; }

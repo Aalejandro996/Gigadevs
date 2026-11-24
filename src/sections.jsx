@@ -6,7 +6,7 @@ export const QUINCENA_URL = 'https://quincena.gigadevscorp.com';
 export const quincenaLink = (path = '/', campaign = 'web') => `${QUINCENA_URL}${path}${path.includes('?') ? '&' : '?'}utm_source=gigadevs&utm_campaign=${campaign}`;
 
 const QuincenaIcon = ({ size = 56 }) => (
-  <img src="/quincena-icon.png" alt="" width={size} height={size} className="rounded-2xl shadow-lg" />
+  <img src="/quincena-icon.png" alt="" width={size} height={size} className="rounded-2xl shadow-lg mx-auto block" />
 );
 
 // Surtia™: asistente de ventas por WhatsApp (producto propio). Marca ™ hasta el registro ante el SAPI.
@@ -93,23 +93,8 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
   </section>
 );
 
-// Franja con los banners de las marcas (logos nuevos de noviembre de 2026)
-const MARCAS = [['contax', 'Contax: tu empresa en orden, tu fisco al día'], ['surtia', 'Surtia: tu asistente de ventas por WhatsApp'],
-  ['quincena', 'Quincena VE: tu dinero en orden, todos los días'], ['criteriseg', 'Criteriseg: contraloría y auditoría de seguros']];
-export const Marcas = ({ go }) => (
-  <section className="tile-brand py-8 md:py-10" style={{ '--glow': '#2F4A9A' }} aria-label="Nuestras marcas">
-    <div className="familia container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {MARCAS.map(([id, alt], i) => (
-        <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); go(id); }} className="reveal block rounded-3xl overflow-hidden ring-1 ring-white/10 hover:ring-cyan-400/60 transition" style={{ '--d': `${i * 80}ms` }}>
-          <img src={`/marketing/${id}/banner.webp`} alt={alt} width={1280} height={714} loading="lazy" className="w-full aspect-[1280/714] object-cover block" />
-        </a>
-      ))}
-    </div>
-  </section>
-);
-
 // Frase grande que se ilumina palabra por palabra mientras se baja (como en las páginas de producto de Apple).
-const STATEMENT = 'Hacemos software seguro, hecho en Venezuela, para que tu negocio venda más, cobre a tiempo y cumpla con el fisco.';
+const STATEMENT = 'Hacemos software seguro, hecho en Venezuela por profesionales, para que tu negocio controle su inventario, facture sin errores, cobre a tiempo y cumpla con sus clientes.';
 export const Statement = () => {
   const ref = useRef(null);
   useEffect(() => {
@@ -153,7 +138,7 @@ export const QuincenaSection = () => (
       <div className="text-center max-w-4xl mx-auto mb-10 reveal">
         <QuincenaIcon size={72} />
         <p className="eyebrow text-[#F5C518] mt-5 mb-3">Producto propio de Gigadevs · Gratis · Web y Android</p>
-        <h2 id="t-quincena" className="display text-5xl md:text-7xl">Quincena VE 🇻🇪</h2>
+        <h2 id="t-quincena" className="display text-5xl md:text-7xl">Quincena <span className="text-[#F5C518]">VE</span></h2>
         <p className="text-xl md:text-3xl font-semibold text-slate-200 mt-4 leading-snug">Para tu quincena. Tu dinero en orden, todos los días.</p>
       </div>
 
@@ -177,14 +162,28 @@ export const QuincenaSection = () => (
             <a href={quincenaLink('/', 'conocer')} className="chev text-white px-2">Conocer más</a>
           </div>
         </div>
+        <div className="lg:col-span-5 reveal" style={{ '--d': '120ms' }} aria-hidden="true">
+          <div className="lg-panel text-[#0B2347] rounded-[2rem] p-6 max-w-sm mx-auto">
+            <div className="text-xs font-bold uppercase tracking-widest text-slate-500">Hoy puedes gastar</div>
+            <div className="text-5xl font-black my-1">$9,85</div>
+            <div className="h-2.5 rounded-full bg-slate-200 overflow-hidden mb-4"><div className="h-full w-[62%] bg-gradient-to-r from-[#2E9A5E] to-[#57C08A]"></div></div>
+            <div className="grid grid-cols-2 gap-3 mb-3">
+              <div className="bg-white/80 rounded-2xl p-3"><div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Te queda</div><div className="text-xl font-black text-[#2E9A5E]">$148,20</div></div>
+              <div className="bg-white/80 rounded-2xl p-3"><div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Por pagar</div><div className="text-xl font-black text-[#C8192F]">$120,00</div></div>
+            </div>
+            {[['Alquiler', '$120,00', 'Pronto', 'bg-[#FFF3C4] text-[#7A5A00]'], ['Fondo de emergencia', '48 %', 'Ahorro', 'bg-[#E3F1EA] text-[#1D6B44]']].map(([k, v, t, c]) => (
+              <div key={k} className="flex items-center justify-between gap-3 py-2 border-t border-slate-200 text-sm"><span>{k}</span><span className="flex items-center gap-2"><strong>{v}</strong><span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${c}`}>{t}</span></span></div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Negocio */}
       <div id="quincena-negocio" className="mt-20 md:mt-28 bg-white text-[#0B2347] rounded-[2.5rem] p-6 md:p-12 shadow-2xl scroll-mt-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 reveal">
-            <span className="text-xs font-bold uppercase tracking-widest bg-cyan-400 text-cyan-950 px-3 py-1 rounded-full">Nuevo · Ya disponible</span>
-            <h3 className="display text-3xl md:text-5xl mt-4 mb-4">Quincena VE para tu negocio.</h3>
+            <div className="flex items-center gap-3"><img src="/quincena-negocio-icon.png" alt="" width={56} height={56} className="rounded-2xl shadow-lg" /><span className="text-xs font-bold uppercase tracking-widest bg-[#F5C518] text-[#0B2347] px-3 py-1 rounded-full">Nuevo · Ya disponible</span></div>
+            <h3 className="display text-3xl md:text-5xl mt-4 mb-4">Quincena Mi negocio.</h3>
             <p className="text-lg text-slate-600 leading-relaxed mb-6">
               Ventas, fiado y caja en $ y en Bs. Para bodegas, comida, belleza, venta por Instagram y cualquier emprendimiento que cobra por pago móvil,
               en efectivo o en dólares. Va aparte de tu quincena personal, en la misma cuenta. <strong>Gratis.</strong>
@@ -204,6 +203,16 @@ export const QuincenaSection = () => (
               <span className="text-sm text-slate-500">¿Ya usas la app? Actívalo en <strong>Más › Mi negocio</strong>.</span>
             </div>
             <p className="text-xs text-slate-500 mt-4">Quincena VE lleva tus cuentas; no emite facturas fiscales. Para facturar según el SENIAT, mira Contax.</p>
+          </div>
+          <div className="lg:col-span-5 reveal" style={{ '--d': '120ms' }} aria-hidden="true">
+            <div className="rounded-[2rem] p-6 max-w-sm mx-auto text-white shadow-2xl" style={{ background: 'radial-gradient(80% 60% at 50% 0%, rgba(245,197,24,.22), transparent 70%), linear-gradient(180deg,#102c58,#0B2347)' }}>
+              <div className="flex items-center gap-3 mb-4"><img src="/quincena-negocio-icon.png" alt="" width={40} height={40} className="rounded-xl" /><div><div className="text-[11px] font-bold uppercase tracking-widest text-slate-300">Quincena Mi negocio</div><div className="font-bold">Bodega Ana</div></div></div>
+              <div className="text-xs font-bold uppercase tracking-widest text-slate-300">Vendiste hoy</div>
+              <div className="text-5xl font-black my-1 text-[#F5C518]">$128,50</div>
+              {[['Pago móvil', '$65,00', ''], ['Efectivo', '$51,50', ''], ['Fiado · María', '$12,00', 'text-[#FF9A6B]']].map(([k, v, c]) => (
+                <div key={k} className="flex justify-between py-2 border-t border-white/10 text-sm"><span className="text-slate-200">{k}</span><strong className={c}>{v}</strong></div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
