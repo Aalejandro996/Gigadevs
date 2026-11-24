@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ClipboardCheck, Menu, X, CheckCircle, Server, ShieldCheck, Database, Smartphone, Globe, ChevronRight, MessageCircle, Lock, Mail, Send, Receipt, Package, TrendingUp, BadgeCheck, Clock, KeyRound, Gamepad2, Tractor, ArrowRight } from 'lucide-react';
-import { QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
+import { MisionVision, QuincenaSection, CriterisegSection, SurtiaSection, ErpSection, ComoTrabajamos, Faq, ProductTiles, Statement, quincenaLink } from './sections.jsx';
 import { useReveal, useScrollProgress } from './motion.js';
 
 const WHATSAPP = '584242588321';
@@ -24,6 +24,7 @@ const PRODUCTOS = [
   ['surtia', 'Surtia™', 'Pedidos por WhatsApp con IA', '/marketing/surtia/logo-icono.png'],
 ];
 const NAV = [
+  ['mision', 'Quiénes somos'],
   ['como-trabajamos', 'Cómo trabajamos'],
   ['cotizar', 'A la medida'],
   ['preguntas', 'Preguntas'],
@@ -372,6 +373,8 @@ const App = () => {
         />
 
         <Statement />
+
+        <MisionVision />
 
 
         {/* --- QUINCENA: PRODUCTO PROPIO --- */}

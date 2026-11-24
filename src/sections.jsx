@@ -95,6 +95,52 @@ export const ProductTiles = ({ erpDemo, criterisegDemo, go }) => (
 
 // Frase grande que se ilumina palabra por palabra mientras se baja (como en las páginas de producto de Apple).
 const STATEMENT = 'Hacemos software seguro, hecho en Venezuela por profesionales, para que tu negocio controle su inventario, facture sin errores, cobre a tiempo y cumpla con sus clientes.';
+// Misión y visión de Gigadevs Corp (texto del equipo, nov 2026, editado para leerse en la web).
+const PILARES = [
+  [ShieldCheck, 'Seguridad desde el diseño', 'La protección de la información de nuestros clientes empieza en la primera línea de código, no al final.'],
+  [Workflow, 'Procesos y normativa', 'Software a la medida y productos propios que ordenan facturación, inventario, cobranza y control, y cumplen las normas venezolanas.'],
+  [LifeBuoy, 'Un aliado cercano', 'Consultoría especializada y soporte técnico de calidad para convertir los retos tecnológicos en ventajas que perduran.'],
+];
+export const MisionVision = () => (
+  <section id="mision" className="tile-brand py-16 md:py-24" style={{ '--glow': '#2F4A9A' }} aria-labelledby="t-mision">
+    <div className="container mx-auto px-4 max-w-6xl">
+      <p className="eyebrow text-[#9CC8E0] text-center reveal">Quiénes somos</p>
+      <h2 id="t-mision" className="display text-4xl md:text-6xl text-center mt-2 mb-12 reveal">Software seguro, <span className="text-[#F5C518]">hecho para durar.</span></h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <article className="lg-panel text-[#0B2347] rounded-[2rem] p-7 md:p-9 reveal">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#2F4A9A]">Misión</p>
+          <h3 className="display text-2xl md:text-3xl mt-2 mb-4">Impulsar la transformación digital de las empresas con software seguro y a la medida.</h3>
+          <p className="text-slate-600 leading-relaxed">
+            Diseñamos y desarrollamos soluciones robustas que optimizan los procesos críticos de cada organización, crecen con ella y cumplen la
+            normativa con altos estándares de calidad técnica. Protegemos los activos de información de nuestros clientes con prácticas de
+            seguridad integradas desde el inicio del desarrollo, y los acompañamos con innovación constante, consultoría especializada y soporte
+            técnico de excelencia: un aliado estratégico que convierte retos tecnológicos complejos en ventajas competitivas sostenibles.
+          </p>
+        </article>
+        <article className="rounded-[2rem] p-7 md:p-9 reveal border border-white/15" style={{ '--d': '120ms', background: 'linear-gradient(115deg, rgba(255,255,255,.14), rgba(255,255,255,0) 45%), rgba(255,255,255,.05)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.3)' }}>
+          <p className="text-xs font-bold uppercase tracking-widest text-[#F5C518]">Visión 2030</p>
+          <h3 className="display text-2xl md:text-3xl mt-2 mb-4">Ser la empresa de referencia en software seguro y consultoría tecnológica de Venezuela y la región.</h3>
+          <p className="text-slate-200 leading-relaxed">
+            Queremos ser reconocidos por la excelencia, la confiabilidad y la innovación de nuestras plataformas, e impulsar la madurez digital del
+            sector empresarial e industrial. Nos adaptamos primero a las nuevas tecnologías y normativas para estar a la vanguardia de la ingeniería
+            de software, y construimos relaciones de confianza a largo plazo, para que el sello Gigadevs sea sinónimo de garantía, seguridad y
+            liderazgo tecnológico.
+          </p>
+        </article>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+        {PILARES.map(([Icon, t, d], i) => (
+          <div key={t} className="reveal rounded-3xl p-6 border border-white/10" style={{ '--d': `${i * 90}ms`, background: 'rgba(255,255,255,.05)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.18)' }}>
+            <Icon size={26} className="text-[#F5C518] mb-3" />
+            <div className="font-bold text-lg mb-1">{t}</div>
+            <p className="text-sm text-slate-300 leading-relaxed">{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 export const Statement = () => {
   const ref = useRef(null);
   useEffect(() => {
